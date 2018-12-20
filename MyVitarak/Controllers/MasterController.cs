@@ -13,6 +13,8 @@ namespace MyVitarak.Controllers
     public class MasterController : Controller
     {
         // GET: Master
+
+
         public ActionResult Index(int? page)
         {
             StaticPagedList<ProductDetails> itemsAsIPagedList;
@@ -232,6 +234,47 @@ namespace MyVitarak.Controllers
         public ActionResult Home()
         {
             return View();
+        }
+
+        public ActionResult LoadData(int? page, String Name)
+        {
+            StaticPagedList<EmployeeDetails> itemsAsIPagedList;
+            itemsAsIPagedList = GridList(page, Name);
+
+            Session["MasterName"] = "EmployeeMaster";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("Partial_EmployeeGridList", itemsAsIPagedList)
+                    : View("Partial_EmployeeGridList", itemsAsIPagedList);
+        }
+
+        public StaticPagedList<EmployeeDetails> GridList(int? page, String Name)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            var pageIndex = (page ?? 1);
+            const int pageSize = 8;
+            int totalCount = 8;
+            EmployeeDetails Ulist = new EmployeeDetails();
+            if (Name == null) Name = "";
+
+            IEnumerable<EmployeeDetails> result = _db.EmployeeDetails.SqlQuery(@"exec GetEmployeeList
+                   @pPageIndex, @pPageSize,@pName",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize),
+               new SqlParameter("@pName", Name)
+
+               ).ToList<EmployeeDetails>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
+            {
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
+            }
+            var itemsAsIPagedList = new StaticPagedList<EmployeeDetails>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
+
+
+
         }
 
 
