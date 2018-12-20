@@ -1,0 +1,71 @@
+﻿@model  IEnumerable<MyVitarak.Models.ProductDetails>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Product Name <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+            <th scope="col">Squence <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+            <th scope="col">Brand Name <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+            <th scope="col">Cart Size <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+            <th scope="col">Gst % <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <div class="form-check height20Pixel">
+                        <input class="form-check-input" type="checkbox" id="one">
+                        <label class="form-check-label verticalAlignTop" for="one"> &nbsp;Mark</label>
+                    </div>
+                </td>
+                <td><strong>@item.Product</strong></td>
+                <td><strong>@item.ProductBrandID</strong></td>
+                <td><strong>No Brand</strong></td>
+                <td><strong>@item.CrateSize</strong></td>
+                <td><strong>@item.GST</strong></td>
+                <td><a href="@Url.Action("FetchProductForUpdate", "Home",new { @ProductID = item.ProductID})" data-toggle="modal" data-target="#mdlEditProduct"><i class="icon-pencil"></i></a></td>
+
+            </tr>
+
+        }
+
+        <tr>
+            <td>
+                <div class="form-check height20Pixel">
+                    <input class="form-check-input" type="checkbox" id="one">
+                    <label class="form-check-label verticalAlignTop" for="one"> &nbsp;Jacob</label>
+                </div>
+            </td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>_fat</td>
+            <th>1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>_mdo</td>
+            <td>_mdo</td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-check height20Pixel">
+                    <input class="form-check-input" type="checkbox" id="one">
+                    <label class="form-check-label verticalAlignTop" for="one"> &nbsp;Larry</label>
+                </div>
+            </td>
+            <td>Larry the Bird</td>
+            <td>_twitter</td>
+            <th>1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>_mdo</td>
+            <td>_mdo</td>
+            <td>_mdo</td>
+        </tr>
+    </tbody>
+</table>
+

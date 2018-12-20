@@ -1,0 +1,216 @@
+﻿@model MyVitarak.Models.ProductMaster
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+<div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" onclick="abc();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user-plus marginRight15px" aria-hidden="true"></i>Product details</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">Product Name</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(a => a.Product, new { @class = "form-control", placeholder = "Enter Product Name", title = "Area", @id = "Product" })
+                        <p id="Pname" style="color:brown;">Enter Product Name</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customerAddress" class="col-sm-3 control-label">Product Type</label>
+                    <div class="col-sm-9">
+                        <input type="radio" name="milk" id="milk1" value="Milk" checked> Milk &nbsp;
+                        <input type="radio" name="milk" id="milkproduct" value="Milk Product"> Milk Product
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="GST" class="col-sm-3 control-label">GST</label>
+                    <div class="col-sm-9">
+                        <input type="checkbox" id="check"> GST
+                        @Html.TextBoxFor(a => a.GST, new { @class = "form-control", placeholder = "Enter GST", title = "GST", @id = "GST" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customerArea" class="col-sm-3 control-label">CAret Size</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(a => a.CrateSize, new { @class = "form-control", placeholder = "Enter Caret Size", title = "Area", @id = "CrateSize" })
+                        <p id="CaretSizeval" style="color:brown;">Enter Caret Size in numaric</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">Squence</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(a => a.ProductBrandID, new { @class = "form-control", placeholder = "Enter Squnece", title = "Area", @id = "ProductBrandID" })
+                        <p id="Squence" style="color:brown;">Enter Squence in numaric</p>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" id="btnsave" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var str = window.location.href;
+    var lastLetter = str[str.length], i, temp;
+    var con = "";
+
+    for (i = 0; i < str.length; i++) {
+        if (str[i] == '=') {
+            myfun(i);
+            break;
+        }
+    }
+
+    function myfun(temp) {
+
+        temp = temp + 1;
+        for (i = temp; i < [str.length]; i++) {
+
+            con = con + str[i];
+        }
+        parseInt(con);
+
+    }
+
+</script>
+
+<script>
+
+    $('#Pname').hide();
+    $('#CaretSizeval').hide();
+    $('#Squence').hide();
+
+    function abc()
+    {
+        refresh();
+        $('.modal-backdrop').remove();
+    }
+
+    $(document).ready(function () {
+
+        $('#GST').attr("disabled", true);
+
+    });
+
+
+
+    $('#milk1').click(function () {
+        $('#GST').attr("disabled", true);
+        $('#check').attr("checked", false);
+
+    });
+
+    $('#milkproduct').click(function () {
+
+        $('#GST').attr("disabled", false);
+        $('#check').prop("checked", true);
+
+    });
+
+    $('#check').click(function () {
+        var isChecked = $('#check').is(':checked');
+        if (isChecked == true) {
+            $('#GST').attr("disabled", false);
+            $('#milk1').prop("checked", false);
+            $('#milkproduct').prop("checked", true);
+        }
+        else
+        {
+            $('#GST').attr("disabled", true);
+            $('#milk1').prop("checked", true);
+            $('#milkproduct').prop("checked", false);
+        }
+
+    });
+
+
+    $('#btnsave').on('click', function () {
+
+        if ($('#Product').val() == "") {
+            $('#Pname').show();
+            $('#Caretsizeval').hide();
+            $('#Squence').hide();
+
+            return false;
+        }
+        else if (($.isNumeric($('#CrateSize').val())) == false)
+        {
+            $('#CaretSizeval').show();
+            $('#Pname').hide();
+            $('#Squence').hide();
+            return false;
+        }
+        else if (($.isNumeric($('#ProductBrandID').val())) == false) {
+            $('#Squence').show();
+            $('#CaretSizeval').hide();
+            $('#Pname').hide();
+            return false;
+        }
+
+
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Master/AddProduct',
+
+        data:
+        {
+            Product: $("#Product").val(),
+            ProductBrandID: $("#ProductBrandID").val(),
+            StockCount: 0,
+           SalePrice  :null,
+            CrateSize: $("#CrateSize").val(),
+            GST: $("#GST").val(),
+
+        },
+        success: function (da) {
+            alert(da);
+            refresh();
+            $("#mdlAddProduct .close").click()
+            $('.modal-backdrop').remove();
+
+        },
+
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        }
+    });
+    });
+
+
+
+        function refresh()
+    {
+
+        $.ajax({
+            url: "@Url.Action("LoadDataForProduct", "Master")",
+            contentType: "application/json",
+            data: JSON.stringify({ page: con }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#grid1').html(data);
+
+            },
+            error: function (data) {
+
+            },
+            complete: function () {
+
+            }
+
+        });
+    }
+
+</script>
