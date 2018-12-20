@@ -31,8 +31,8 @@ namespace MyVitarak.Controllers
 
             JobDbContext _db = new JobDbContext();
             var pageIndex = (page ?? 1);
-            const int pageSize = 5;
-            int totalCount = 5;
+            const int pageSize = 20;
+            int totalCount = 20;
             ProductDetails Ulist = new ProductDetails();
 
             IEnumerable<ProductDetails> result = _db.ProductDetails.SqlQuery(@"exec GetProductList

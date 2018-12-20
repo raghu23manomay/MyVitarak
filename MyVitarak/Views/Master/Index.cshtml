@@ -2,6 +2,7 @@
 @model  IEnumerable<MyVitarak.Models.ProductDetails>
 @using PagedList;
 @using PagedList.Mvc;
+@using GridMvc.Html
 
 <script src="~/Scripts/jquery-1.12.4.min.js"></script>
 @{
@@ -60,7 +61,7 @@
                 <ul class="pagination margin0"></ul>
             }
         </nav>
-       
+
 
     </div>
     <div id="grid1" class="col-xs-12">
@@ -76,12 +77,12 @@
     $(document).ready(function () {
 
         $('#txtsearch').keypress(function () {
-                               
+
 
                 $.ajax({
                     url: "@Url.Action("LoadDataForProduct", "Master")",
                     contentType: "application/json",
-                    data: JSON.stringify({ page: 1, pname: $('#txtsearch').val() }),
+                    data: JSON.stringify({ page: 1, pname: $('#txtsearch').val().trim() }),
                     dataType: "text",
                     type: "POST",
                     async: true,
@@ -90,14 +91,14 @@
 
                     },
                     error: function (data) {
-                        //$('#pageLoader').hide();
+                       
                     },
                     complete: function () {
-                      //  $('#pageLoader').hide();
+                      
                     }
                 });
 
             });
-       
+
     });
 </script>
