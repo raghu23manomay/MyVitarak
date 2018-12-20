@@ -21,10 +21,6 @@ namespace MyVitarak.Controllers
         {
             Session["MasterName"] = MasterName;
             return View();
-
-            //return Request.IsAjaxRequest()
-            //? (ActionResult)PartialView("importexcel")
-            //: View();
         }
 
         [HttpPost]

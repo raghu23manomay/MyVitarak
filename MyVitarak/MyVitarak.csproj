@@ -166,6 +166,11 @@
     <Content Include="css\plugins\font-awesome\scss\_stacked.scss" />
     <Content Include="css\plugins\font-awesome\scss\_variables.scss" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Excelsheet\Area_Master.xlsx" />
+    <Content Include="Excelsheet\EmployeeMaster.xlsx" />
+    <Content Include="Excelsheet\Product_Master.xlsx" />
+    <Content Include="Excelsheet\Supplier_Master.xlsx" />
+    <Content Include="Excelsheet\VehicalMaster.xlsx" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -209,6 +214,17 @@
     <Content Include="Views\Master\EditVehical.cshtml" />
     <Content Include="Views\Master\IndexForVehicalMaster.cshtml" />
     <Content Include="Views\Master\OpeningBalance.cshtml" />
+    <Content Include="uploads\Area_Master %286%29.xlsx" />
+    <Content Include="uploads\Area_Master.xlsx" />
+    <Content Include="uploads\EmployeeMaster.xlsx" />
+    <Content Include="uploads\Product_Master %283%29.xlsx" />
+    <Content Include="uploads\Product_Master %284%29.xlsx" />
+    <Content Include="uploads\Product_Master.xlsx" />
+    <Content Include="uploads\Supplier_Master %281%29.xlsx" />
+    <Content Include="uploads\Supplier_Master %284%29.xlsx" />
+    <Content Include="uploads\Supplier_Master %285%29.xlsx" />
+    <Content Include="uploads\Supplier_Master.xlsx" />
+    <Content Include="uploads\VehicalMaster.xlsx" />
     <Content Include="Views\Master\importexcel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -235,7 +251,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63906</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63906/</IISUrl>
+          <IISUrl>http://localhost:63905/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

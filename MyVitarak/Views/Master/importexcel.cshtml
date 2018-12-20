@@ -12,123 +12,124 @@
     <title>importexcel</title>
 </head>
 <body>
+    <div class="marginTop140 marginBottom40">
+        <div class="marginTop130">
+            <div class="col-xs-12">
 
-    <div class="modal-dialog">
 
-        <div class="modal-content" style="width: 162%; margin-left: -135px;">
-            <div class="modal-header">
-                <h2>Import Excel</h2>
-                @*<span id="MasterName">@Session["MasterName"]</span>*@
-            </div>
-            <div class="modal-body">
-                @using (Html.BeginForm("importexcel", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmimportLaneRate" }))
-                {
+                <div>
+                    <span id="MasterName">@Session["MasterName"]</span>
+                </div>
+                <div>
+                    @using (Html.BeginForm("importexcel", "Master", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmimportLaneRate" }))
+                    {
 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        Upload file
-                                                         
-                                            
-                                    </div>
-                                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Upload file
+                                        </div>
+                                        <div class="panel-body">
 
-                                        <div class="row ">
+                                            <div class="row ">
 
-                                            <div class="col-md-6">
-                                                <input type="file" id="FileUpload" name="file" class="inputfile inputfile-4 center-block form-control" required data-val="true" data-val-required="please select a file" accept=".xls,.xlsx">
+                                                <div class="col-md-6">
+                                                    <input type="file" id="FileUpload" name="file" class="inputfile inputfile-4 center-block form-control" required data-val="true" data-val-required="please select a file" accept=".xls,.xlsx">
+
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <input type="submit" id="Submit" class="btn btn btn-primary btn-sm m-l-sm" value="UploadFile" title="Click to upload file" />
+
+                                                </div>
 
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                            <div class="col-md-6">
-                                                <input type="submit" id="Submit" class="btn btn-primary btn-sm m-l-sm" value="UploadFile" title="Click to upload file" />
-                                               
+                        try
+                        {
+                            <div class="row">
+                                <div class="col-sm-12 m-b-lg">
+                                    <div class="ibox float-e-margins">
+                                        <div class="table-responsive" id="pnl-rates" style="overflow: auto;height: 340px">
+                                            <table class="table table-bordered" id="RateList">
+                                                <thead class="ibox-title">
+                                                    <tr>
+                                                        @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
+                                                        {
+
+                                                            <th>@col.Caption</th>
+                                                        }
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="Validaion">
+                                                    @foreach (System.Data.DataRow row in Model.dtTable.Rows)
+                                                    {
+                                                        <tr>
+
+                                                            @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
+                                                            {
+                                                                <td contenteditable='true'>
+                                                                    @row[col.ColumnName]
+                                                                </td>
+
+                                                            }
+                                                            @*<td><a data-itemId="0" href="#" class="deleteItem"><i class="icon-delete"></i></a></td>*@
+
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                            <div class="pull-right">
+                                                <a href="~/Excelsheet/Product_Master.xlsx" class=" btn btn-primary btn-sm m-l-sm product" target="_blank">Download Excel</a>
+                                                <a href="~/Excelsheet/Area_Master.xlsx" class=" btn btn-primary btn-sm m-l-sm area" target="_blank">Download Excel</a>
+                                                <a href="~/Excelsheet/Emlpoyee_Master.xlsx" class=" btn btn-primary btn-sm m-l-sm Employee" target="_blank">Download Excel</a>
+                                                <a href="~/Excelsheet/Vehical_Master.xlsx" class=" btn btn-primary btn-sm m-l-sm Vehical" target="_blank">Download Excel</a>
+                                                <a href="~/Excelsheet/Customer_Master.xlsx" class="btn btn-primary btn-sm m-l-sm Customer" target="_blank">Download Excel</a>
+                                                <a href="~/Excelsheet/Supplier_Master.xlsx" class=" btn btn-primary btn-sm m-l-sm Supplier" target="_blank">Download Excel</a>
+                                                <input class="btn btn-primary area" type="submit" id="btnsave" value="Save" title="ClickToSave" onclick="SaveData();" />
+                                                <input class="btn btn-primary product" type="submit" id="btnsaveForProductMaster" value="Save" title="ClickToSave" onclick="SaveDataForProductMaster();" />
+                                                <input class="btn btn-primary Employee" type="button" id="btnsaveForEmployeeMaster" value="Save" title="ClickToSave" onclick="SaveDataForEmployeeMaster();" />
+                                                <input class="btn btn-primary Vehical" type="submit" id="btnsaveForVehicalMaster" value="Save" title="ClickToSave" onclick="SaveDataForVehicalMaster();" />
+                                                <input class="btn btn-primary Supplier" type="submit" id="btnsaveForVehicalMaster" value="Save" title="ClickToSave" onclick="SaveDataForSupplierMaster();" />
+                                                <input class="btn btn-primary Customer" type="submit" id="btnsaveForCustomerMaster" value="Save" title="ClickToSave" onclick="SaveDataForCustomerMaster();" />
+
+
+                                                @*<input type="button" class="btn-danger" id="btncancel" value="Cancel" title="ClickToCancel" />*@
+
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    try
-                    {
-                        <div class="row">
-                            <div class="col-sm-12 m-b-lg">
-                                <div class="ibox float-e-margins">
-                                    <div class="table-responsive" id="pnl-rates" style="overflow: auto;height: 340px">
-                                        <table class="table table-striped" id="RateList">
-                                            <thead class="ibox-title">
-                                                <tr>
-                                                    @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
-                                                    {
-                                                        
-                                                        <th>@col.Caption</th>
-                                                    }
-                                                </tr>
-                                            </thead>
-                                            <tbody id="Validaion">
-                                                @foreach (System.Data.DataRow row in Model.dtTable.Rows)
-                                                {
-                                                <tr>
-
-                                                    @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
-                                                    {
-                                                        <td contenteditable='true'>
-                                                            @row[col.ColumnName]
-                                                        </td>
-
-                                                    }
-                                                    <td><a data-itemId="0" href="#" class="deleteItem"><i class="icon-delete"></i></a></td>
-
-                                                </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        }
+                        catch { }
                     }
-                    catch { }
-                }
 
-            </div>
-            <div class="modal-footer">
-                <a href="~/Excelsheet/Product_Master.xlsx" class="btn btn-primary btn-sm m-l-sm product" target="_blank">Download Excel</a>
-                <a href="~/Excelsheet/Area_Master.xlsx" class="btn btn-primary btn-sm m-l-sm area" target="_blank">Download Excel</a>
-                <a href="~/Excelsheet/Emlpoyee_Master.xlsx" class="btn btn-primary btn-sm m-l-sm Employee" target="_blank">Download Excel</a>
-                <a href="~/Excelsheet/Vehical_Master.xlsx" class="btn btn-primary btn-sm m-l-sm Vehical" target="_blank">Download Excel</a>
-                <a href="~/Excelsheet/Customer_Master.xlsx" class="btn btn-primary btn-sm m-l-sm Customer" target="_blank">Download Excel</a>
-                <input class="btn-primary area" type="submit" id="btnsave" value="Save" title="ClickToSave" onclick="SaveData();" />
-                <input class="btn-primary product" type="submit" id="btnsaveForProductMaster" value="Save" title="ClickToSave" onclick="SaveDataForProductMaster();" />
-                <input class="btn-primary Employee" type="submit" id="btnsaveForEmployeeMaster" value="Save" title="ClickToSave" onclick="SaveDataForEmployeeMaster();" />
-                <input class="btn-primary Vehical" type="submit" id="btnsaveForVehicalMaster" value="Save" title="ClickToSave" onclick="SaveDataForVehicalMaster();" />
-                <input class="btn-primary Supplier" type="submit" id="btnsaveForVehicalMaster" value="Save" title="ClickToSave" onclick="SaveDataForSupplierMaster();" />
-                <input class="btn-primary Customer" type="submit" id="btnsaveForCustomerMaster" value="Save" title="ClickToSave" onclick="SaveDataForCustomerMaster();" />
-
-                <a href="~/Excelsheet/Supplier_Master.xlsx" class="btn btn-primary btn-sm m-l-sm Supplier" target="_blank">Download Excel</a>
-                @*<input type="button" class="btn-danger" id="btncancel" value="Cancel" title="ClickToCancel" />*@
+                </div>
 
             </div>
         </div>
-    </div>
-
+        </div>
 </body>
 </html>
 
 <style>
     .highlight {
-        
         background-color: #fdeef3;
     }
 </style>
 
-    <script>       
+<script>
+
         $(document).on('click load keyup', function () {
             $('tbody tr td').each(function () {
 
@@ -145,7 +146,7 @@
 
             });
         })
-        
+
         if ($("#MasterName").text() == "ProductMaster")
         {
             $(".area").hide();
@@ -196,30 +197,30 @@
             $(".Customer").show();
         }
         function SaveData() {
-               
+
                 var idArr = [];
 
                 $('tbody tr').each(function (k, v) {
                     var trElement = $(this);
                     var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
-                        trElement.find('td:eq(1)').text().trim() 
-                        
+                        trElement.find('td:eq(1)').text().trim()
+
                         idArr.push(tdVals);
                 });
                 var SaveLaneRate = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-                    
+
                     item = {}
                     item["Area"] = arrElement[0];
                     item["CityId"] = 1;
                     SaveLaneRate.push(item);
-                    
+
                 }
-              
+
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
-                    url: "@Url.Action("SaveAreaExcelData", "Home")",
+                    url: "@Url.Action("SaveAreaExcelData", "Master")",
                     method: 'POST',
                     async: 'false',
                     dataType: 'json',
@@ -228,7 +229,7 @@
                     }),
                     success: function (result) {
                         alert(result);
-                       
+
                     },
                     error: function () {
                         alert('Error');
@@ -237,7 +238,7 @@
         }
 
         function SaveDataForProductMaster() {
-               
+
                 var idArr = [];
 
                 $('tbody tr').each(function (k, v) {
@@ -247,8 +248,8 @@
                         trElement.find('td:eq(2)').text().trim() + '~' +
                         trElement.find('td:eq(3)').text().trim() + '~' +
                         trElement.find('td:eq(4)').text().trim()
-                       
-                        
+
+
                         idArr.push(tdVals);
             });
 
@@ -258,7 +259,7 @@
 
                 var trElement = $(this);
                 var pdt = trElement.find('td:eq(0)').text().trim();
-                
+
                 if (($.isNumeric(trElement.find('td:eq(1)').text().trim())) == true && trElement.find('td:eq(1)').text().trim() != null && pdt != "" && ($.isNumeric(trElement.find('td:eq(3)').text().trim())) == true && trElement.find('td:eq(3)').text().trim() != null) {
 
                     $(this).css('background-color', 'white');
@@ -295,24 +296,24 @@
                 var SaveLaneRate = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-                    
+
                     item = {}
                     item["Product"] = arrElement[0];
                     item["ProductBrandID"] = arrElement[1];
                     item["Brandtype"] = 1;
                     item["CrateSize"] = arrElement[3];
                     item["GST"] = arrElement[4];
-                    
+
                     SaveLaneRate.push(item);
-                    
+
             }
 
 
 
-              
+
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
-                    url: "@Url.Action("SaveProductExcelData", "Home")",
+                    url: "@Url.Action("SaveProductExcelData", "Master")",
                     method: 'POST',
                     async: 'false',
                     dataType: 'json',
@@ -321,7 +322,7 @@
                     }),
                     success: function (result) {
                         alert(result);
-                       
+
                     },
                     error: function () {
                         alert('Error');
@@ -330,50 +331,80 @@
             }
 
         function SaveDataForEmployeeMaster() {
-               
-                var idArr = [];
-           
+
+            var idArr = [];
+          
                 $('tbody tr').each(function (k, v) {
                     var trElement = $(this);
                     var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
                         trElement.find('td:eq(1)').text().trim() + '~' +
                         trElement.find('td:eq(2)').text().trim() + '~' +
-                        trElement.find('td:eq(3)').text().trim() + '~' +
-                        trElement.find('td:eq(4)').text().trim()
-                    
-                        
+                        trElement.find('td:eq(3)').text().trim()
+
+
                         idArr.push(tdVals);
             });
-
-            //$('tbody tr td').each(function () {
-
-            //    var a = $(this).text().trim();
-            //    if (a == "") {
-                   
-            //        $(this).css('background', 'red');
-
-            //    }
-                   
-
-            //});
             var SaveEmployeeData = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-                    
+
                     item = {}
                     item["EmployeeName"] = arrElement[0];
                     item["Address"] = arrElement[1];
-                    item["AreaID"] = 1;
+                    item["AreaID"] = 4;
                     item["Mobile"] = arrElement[3];
-                    item["UserdId"] = arrElement[4];
-                    
+                   
                     SaveEmployeeData.push(item);
-                    
+
             }
-            
-             $.ajax({
+
+            $("tbody tr").each(function () {
+                var  regex = /^[a-zA-Z\s]+$/;
+                var  intRegex = /^[0-9]{10}$/;
+               
+
+                var trElement = $(this);
+               
+                if ((trElement.find('td:eq(0)').text().trim()) == null || (!regex.test(trElement.find('td:eq(0)').text().trim()))) {
+                    alert("Invalid Name");
+                    trElement.find('td:eq(0)').focus();
+                   
+                    $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(0)').css('background-color', 'Red');
+
+
+                }
+                else if ((trElement.find('td:eq(1)').text().trim()) == null || (trElement.find('td:eq(1)').text().trim().length <= 50)) {
+                    trElement.find('td:eq(1)').focus();
+                    alert("Address must be atleast 50 characters");
+                    $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(1)').css('background-color', 'yellow');
+
+                   
+
+                }
+
+                else if ((trElement.find('td:eq(2)').text().trim()) == null) {
+                    alert("Fill Area ID");
+                    trElement.find('td:eq(2)').focus();
+                    $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(2)').css('background-color', 'Red');
+                    
+
+                }
+
+                else if ((trElement.find('td:eq(3)').text().trim()) == null || (!intRegex.test(trElement.find('td:eq(3)').text().trim()))) {
+                    alert("Invalid Mobile Number");
+                    trElement.find('td:eq(3)').focus();
+                    $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(3)').css('background-color', 'Red');
+                    alert("Invalid Mobile number");
+
+                }
+                else {
+                     $.ajax({
                     contentType: "application/json; charset=utf-8",
-                    url: "@Url.Action("SaveEmployeeExcelData", "Home")",
+                    url: "@Url.Action("SaveEmployeeExcelData", "Master")",
                     method: 'POST',
                     async: 'false',
                     dataType: 'json',
@@ -382,18 +413,29 @@
                     }),
                     success: function (result) {
                         alert(result);
-                        
-                       
+
+
                     },
                     error: function () {
                         alert('Error');
                     }
                 });
+
+                }
+
+               
+
+
+            });
+
+
+
+            
         }
 
-        
+
         function SaveDataForVehicalMaster() {
-               
+
                 var idArr = [];
 
                 $('tbody tr').each(function (k, v) {
@@ -405,15 +447,15 @@
                         trElement.find('td:eq(4)').text().trim() + '~' +
                         trElement.find('td:eq(5)').text().trim() + '~' +
                         trElement.find('td:eq(6)').text().trim() + '~' +
-                        trElement.find('td:eq(7)').text().trim() 
-                       
-                        
+                        trElement.find('td:eq(7)').text().trim()
+
+
                         idArr.push(tdVals);
                 });
             var SaveVehicalData = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-                    
+
                     item = {}
                     item["Transport"] = arrElement[0];
                     item["Owner"] = arrElement[1];
@@ -424,12 +466,12 @@
                     item["RatePerTrip"] = arrElement[6];
                     item["PrintOrder"] = arrElement[7];
                     SaveVehicalData.push(item);
-                    
+
                 }
-              
+
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
-                    url: "@Url.Action("SaveVehicalExcelData", "Home")",
+                    url: "@Url.Action("SaveVehicalExcelData", "Master")",
                     method: 'POST',
                     async: 'false',
                     dataType: 'json',
@@ -438,8 +480,8 @@
                     }),
                     success: function (result) {
                         alert(result);
-                        
-                       
+
+
                     },
                     error: function () {
                         alert('Error');
@@ -449,7 +491,7 @@
 
 
         function SaveDataForSupplierMaster() {
-               
+
                 var idArr = [];
 
                 $('tbody tr').each(function (k, v) {
@@ -464,7 +506,7 @@
                         trElement.find('td:eq(7)').text().trim() + '~' +
                         trElement.find('td:eq(8)').text().trim()
 
-                   
+
                         idArr.push(tdVals);
             });
 
@@ -473,16 +515,16 @@
                 var trElement = $(this);
                 var tdVals = trElement.find('td:eq(0)').text().trim();
                 var adress = trElement.find('td:eq(1)').text().trim();
-                
+
                 if (($.isNumeric(trElement.find('td:eq(7)').text().trim())) == true && trElement.find('td:eq(7)').text().trim().length == 10 && tdVals != "" && adress != "")
                 {
-                    
+
                     $(this).css('background-color', 'white');
                     trElement.find('td:eq(0)').css('background-color', 'white');
                     trElement.find('td:eq(1)').css('background-color', 'white');
                     trElement.find('td:eq(7)').css('background-color', 'white');
                 }
-                               
+
                 if (tdVals == "") {
 
                     $(this).css('background-color', '#fdeef3');
@@ -494,7 +536,7 @@
                  if (trElement.find('td:eq(1)').text().trim() == "") {
                     $(this).css('background-color', '#fdeef3');
                     trElement.find('td:eq(1)').css('background-color', 'yellow');
-                 
+
 
                 }
                  if (($.isNumeric(trElement.find('td:eq(7)').text().trim())) == false || trElement.find('td:eq(7)').text().trim().length != 10 )
@@ -503,8 +545,8 @@
                     trElement.find('td:eq(7)').css('background-color', 'yellow');
 
                 }
-                    
-                
+
+
             });
 
                 var SaveSupplierData = [];
@@ -521,8 +563,8 @@
                     item["ContactPerson"] = arrElement[6];
                     item["PersonMobileNo"] = arrElement[7]
                     item["IsActive"] = arrElement[8];
-                                                      
-                   
+
+
                     if (item["IsActive"] == 1)
                     {
                         item["IsActive"] = true;
@@ -531,15 +573,15 @@
                     {
                         item["IsActive"] = false;
                     }
-                   
-                  
+
+
                     SaveSupplierData.push(item);
-                    
+
                 }
-              
+
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
-                    url: "@Url.Action("SaveSupplierExcelData", "Home")",
+                    url: "@Url.Action("SaveSupplierExcelData", "Master")",
                     method: 'POST',
                     async: 'false',
                     dataType: 'json',
@@ -549,8 +591,8 @@
                     success: function (result) {
                         alert(result);
                        // $('tbody tr').css('background-color', 'Red');
-                        
-                       
+
+
                     },
                     error: function () {
                         alert('Error');
@@ -570,7 +612,7 @@
         });
 
          function SaveDataForCustomerMaster() {
-               
+
                 var idArr = [];
 
                 $('tbody tr').each(function (k, v) {
@@ -588,14 +630,14 @@
                         trElement.find('td:eq(10)').text().trim() + '~' +
                         trElement.find('td:eq(11)').text().trim() + '~' +
                         trElement.find('td:eq(12)').text().trim()
-                                               
+
                         idArr.push(tdVals);
                 });
-             
+
              var SaveCustomerData = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-                    
+
                     item = {}
                     item["CustomerName"] = arrElement[0];
                     item["Address"] = arrElement[1];
@@ -609,14 +651,14 @@
                     item["isBillRequired"] = arrElement[10];
                     item["isActive"] = arrElement[11];
                     item["DeliveryCharges"] = arrElement[12];
-                    
+
                     SaveCustomerData.push(item);
-                    
+
                 }
-              
+
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
-                    url: "@Url.Action("SaveCustomerExcelData", "Home")",
+                    url: "@Url.Action("SaveCustomerExcelData", "Master")",
                     method: 'POST',
                     async: 'false',
                     dataType: 'json',
@@ -625,7 +667,7 @@
                     }),
                     success: function (result) {
                         alert(result);
-                       
+
                     },
                     error: function () {
                         alert('Error');
@@ -634,4 +676,4 @@
             }
 
 
-    </script>
+</script>
