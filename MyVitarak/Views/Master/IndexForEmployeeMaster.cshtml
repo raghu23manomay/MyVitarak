@@ -53,15 +53,16 @@
             </ul>
         </div>
 
-        <button type="button" class="btn btn-primary dropdown-toggle pull-right marginRight15px" data-toggle="modal" data-target=".bs-example-modal-md"><i class="fa fa-plus" aria-hidden="true"></i> Customers</button>
-
-        <nav class="pull-right marginRight15px">
-            <ul class="pagination margin0">
-                <li><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-            </ul>
+        <a href="@Url.Action("Add_Employee", "Master")" data-toggle="modal" data-target="#mdlEditEmployee"><input type="button" value=" + Employees" class="btn btn-primary dropdown-toggle pull-right marginRight15px"></a>
+        <nav class="pull-right marginRight15px" style="margin-top: -18px;">
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("IndexForEmployeeMaster", "Home", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 4, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "mgrid", OnComplete = "PagedOnComplete" }))
+            @if (Model.Count() == 0)
+            {
+                <ul class="pagination margin0"></ul>
+            }
         </nav>
-        <div class="paginationCount pull-right marginTB7px marginRight15px"><b>1-30</b> of <b>250</b> Customers</div>
+        
+        @*<div class="paginationCount pull-right marginTB7px marginRight15px"><b>1-30</b> of <b>250</b> Customers</div>*@
 
     </div>
     <div id="grid1" class="col-xs-12">
@@ -119,31 +120,5 @@
                 });
 
             });
-    function deleteItem() {
-        if (confirm("Are you sure?")) {
-
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: '/Master/DeleteEmployee',
-
-                data:
-                {
-
-                    EmployeeID: $("#EmployeeID").val(),
-
-                },
-                success: function (da) {
-
-
-
-                },
-
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-                }
-            });
-        }
-        return false;
-    }
+   
 </script>

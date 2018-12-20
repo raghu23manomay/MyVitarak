@@ -16,10 +16,7 @@
             <th scope="col">Address <i class="fa fa-angle-down" aria-hidden="true"></i></th>
             <th scope="col">Area <i class="fa fa-angle-down" aria-hidden="true"></i></th>
             <th scope="col">Mobile <i class="fa fa-angle-down" aria-hidden="true"></i></th>
-            <th>
-
-            </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
@@ -39,8 +36,8 @@
                 <td>@item.Area</td>
                 <td>@item.Mobile</td>
 
-                <td><a href="@Url.Action("EditEmployee", "Master", new { @EmployeeID = @item.EmployeeID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
-                <td id="del" onclick="deleteItem()">Delete</td>
+                @*<td><a href="@Url.Action("EditEmployee", "Master", new { @EmployeeID = @item.EmployeeID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>*@
+                @*<td id="del" onclick="deleteItem()">Delete</td>*@
             </tr>
 
         }
@@ -52,3 +49,32 @@
 <div id="mdlEditEmployee" class="modal fade" style="margin-left: 20%;padding-top: 50px;width: 60%;" data-backdrop="static" data-keyboard="false" role="dialog">
 </div>
 
+<script>
+    function deleteItem() {
+        if (confirm("Are you sure?")) {
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Master/DeleteEmployee',
+
+                data:
+                {
+
+                    EmployeeID: $("#EmployeeID").val(),
+
+                },
+                success: function (da) {
+
+
+
+                },
+
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            });
+        }
+        return false;
+    }
+</script>
