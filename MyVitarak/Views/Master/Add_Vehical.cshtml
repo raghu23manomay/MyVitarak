@@ -1,0 +1,221 @@
+﻿@model VitrakProjectFinal.Models.Vehical
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>Add_Vehical</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+</head>
+<body>
+    <div class="modal-dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user-plus marginRight15px" aria-hidden="true"></i>Vehicle details</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="exampleInputName2" class="col-sm-3 control-label">Transport</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(a => a.Transport, new { @class = "form-control r-0 light s-12", placeholder = "Enter Transport", title = "Transport", @id = "Transport" })
+                                <label style="color:red" id="TransportVal">*</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerAddress" class="col-sm-3 control-label">Owner</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(a => a.Owner, new { @class = "form-control r-0 light s-12", placeholder = "Enter Owner", title = "Owner", @id = "Owner" })
+                                <label style="color:red" id="OwnerVal">*</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customerArea" class="col-sm-3 control-label">Mobile number</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control r-0 light s-12", placeholder = "Enter Mobile", title = "Mobile", @id = "Mobile" })
+                                <label style="color:red" id="MobileVal">*</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerMobNo" class="col-sm-3 control-label">Address</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                                <label style="color:red" id="AddressVal">*</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerArea" class="col-sm-3 control-label">VechicleNo</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(a => a.VechicleNo, new { @class = "form-control r-0 light s-12", placeholder = "Enter VechicleNo", title = "VechicleNo", @id = "VechicleNo" })
+                                <label style="color:red" id="VechicleNoVal">*</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerArea" class="col-sm-3 control-label">Rate</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(a => a.RatePerTrip, new { @class = "form-control r-0 light s-12", placeholder = "Enter Rate", title = "Rate", @id = "RatePerTrip" })
+                                <label style="color:red" id="RateVal">*</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerArea" class="col-sm-3 control-label">Marathi Name</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(a => a.Marathi, new { @class = "form-control r-0 light s-12", placeholder = "Enter Marathi Name", title = "Marathi", @id = "Marathi" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerArea" class="col-sm-3 control-label">PrintOrder</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(a => a.PrintOrder, new { @class = "form-control r-0 light s-12", placeholder = "Enter PrintOrder", title = "PrintOrder", @id = "PrintOrder" })
+                                <label style="color:red" id="PrintOrderVal">*</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnsave" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+
+               
+            </div>
+        </div>
+   
+</body>
+</html>
+<script>
+    function abc() {
+        $('.modal-backdrop').remove();
+    }
+    $(document).ready(function () {
+        $("#TransportVal").hide();
+        $("#OwnerVal").hide();
+        $("#AddressVal").hide();
+        $("#MobileVal").hide();
+        $("#VechicleNoVal").hide();
+        $("#PrintOrderVal").hide();
+        $("#RateVal").hide();
+
+        getArea();
+    });
+    $('#btnsave').on('click', function () {
+
+        var error = 0, regex = /^[a-zA-Z\s]+$/, Transport = $('#Transport').val();
+        var a = $('#Mobile').val(), intRegex = /^[0-9]{10}$/;
+        var vehicleregex = /^[a-zA-z]{2}\s[0-9]{2}\s[a-zA-z]{2}\s[0-9]{4}$/
+
+        if ($('#Transport').val() == '' || (!regex.test(Transport))) {
+            error = 1;
+            alert("Invalid or Required Transport");
+            $('#TransportVal').show();
+        }
+        else if ($('#Owner').val() == '' || (!regex.test($('#Owner').val()))) {
+            error = 1;
+            alert("Invalid or Required Owner");
+            $('#OwnerVal').show();
+            $('#TransportVal').hide();
+        }
+        else if ($('#Address').val() == '' || $('#Address').val().length <= 50) {
+            error = 1;
+            alert("Minimum 50 characters Required Address");
+            $('#AddressVal').show();
+            $('#OwnerVal').hide();
+            $('#TransportVal').hide();
+        }
+
+        else if ($('#Mobile').val() == '' || (!intRegex.test(a))) {
+            error = 1;
+            alert("Invalid or Required mobile number");
+            $('#MobileVal').show();
+            $('#AddressVal').hide();
+            $('#OwnerVal').hide();
+            $('#TransportVal').hide();
+        }
+        else if ($('#VechicleNo').val() == '' || (!vehicleregex.test($('#VechicleNo').val()))) {
+            error = 1;
+
+            alert("Vehicle number should be 'MH 13 BH 1244'");
+            $('#VechicleNoVal').show();
+            $('#MobileVal').hide();
+            $('#AddressVal').hide();
+            $('#OwnerVal').hide();
+            $('#TransportVal').hide();
+        }
+        else if ($('#PrintOrder').val() == '' || (isNaN($('#PrintOrder').val()))) {
+            error = 1;
+            alert("Invalid or Required PrintOrder");
+            $('#PrintOrderVal').show();
+            $('#VechicleNoVal').hide();
+            $('#MobileVal').hide();
+            $('#AddressVal').hide();
+            $('#OwnerVal').hide();
+            $('#TransportVal').hide();
+        }
+        else if ($('#RatePerTrip').val() == '' || (isNaN($('#RatePerTrip').val()))) {
+            error = 1;
+            alert("Invalid or Required Rate");
+            $('#RateVal').show();
+            $('#PrintOrderVal').hide();
+            $('#VechicleNoVal').hide();
+            $('#MobileVal').hide();
+            $('#AddressVal').hide();
+            $('#OwnerVal').hide();
+            $('#TransportVal').hide();
+        }
+
+        else if (error) {
+            return false;
+        }
+
+        else {
+            $('#PrintOrderVal').hide();
+            $('#VechicleNoVal').hide();
+            $('#MobileVal').hide();
+            $('#AddressVal').hide();
+            $('#OwnerVal').hide();
+            $('#TransportVal').hide();
+            $('#RateVal').hide();
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Home/AddVehical',
+
+                data:
+                {
+                    Transport: $("#Transport").val(),
+                    Owner: $("#Owner").val(),
+                    Address: $("#Address").val(),
+                    Mobile: $("#Mobile").val(),
+                    VechicleNo: $("#VechicleNo").val(),
+                    RatePerTrip: $("#RatePerTrip").val(),
+                    Marathi: $("#Marathi").val(),
+                    PrintOrder: $("#PrintOrder").val(),
+
+
+                },
+                success: function (da) {
+
+                    alert(da);
+                    $("#mdlAddRoute .close").click()
+                    $('.modal-backdrop').remove();
+                    location.reload();
+                },
+
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            });
+        }
+    });
+
+</script>

@@ -1,0 +1,108 @@
+﻿@using System.Data
+@model System.Data.DataTable
+@{
+    ViewBag.Title = "CustomerRates";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<div class="marginTop130">
+    <div class="col-xs-12">
+        <div class="btn-toolbar pull-left" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group" role="group" aria-label="First group">
+                <div class="btn btn-default">
+                    <div class="form-check height20Pixel">
+                        <input class="form-check-input" type="checkbox" id="selectAll">
+                        <label class="form-check-label verticalAlignTop" for="selectAll">1</label>
+                    </div>
+                </div>
+                <button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
+                <button type=button class="btn btn-default"><i class="fa fa-envelope" aria-hidden="true"></i> Send email</button>
+                <button type=button class="btn btn-default"><i class="fa fa-tag" aria-hidden="true"></i> Add tags</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More <!--span class="caret"></span--></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <form class="navbar-form pull-left marginTop0">
+            <input type="text" class="form-control" placeholder="Search...">
+        </form>
+
+        <div class="btn-group pull-right">
+
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-window-maximize" aria-hidden="true"></i> <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+
+      
+       
+    </div>
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+
+                <tr>
+                    @foreach (System.Data.DataColumn col in Model.Columns)
+                    {
+
+                        <th><b>@col.Caption</b></th>
+
+
+                    }
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow row in Model.Rows)
+                {
+                    <tr>
+
+                        @foreach (System.Data.DataColumn col in Model.Columns)
+                        {
+                            if (row[col.ColumnName].ToString() == "")
+                            {
+                                <td contenteditable='true'>
+                                    <b> 0.00 </b>
+                                </td>
+                            }
+
+                            else
+                            {
+                                if (row[col.ColumnName] == typeof(Decimal))
+                                {
+                                    <td contenteditable='true'>
+                                        <b> @row[col.ColumnName]</b>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <b> @row[col.ColumnName]</b>
+                                    </td>
+                                }
+
+                            }
+
+
+                        }
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>a

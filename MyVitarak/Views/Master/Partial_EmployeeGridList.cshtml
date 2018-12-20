@@ -1,0 +1,52 @@
+﻿
+@model  IEnumerable<MyVitarak.Models.EmployeeDetails>
+
+@using PagedList;
+@using PagedList.Mvc;
+@using GridMvc.Html
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+
+<div class="col-xs-12">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">First Name<i class="fa fa-angle-down" aria-hidden="true"></i></th>
+                <th scope="col">Address <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+                <th scope="col">Area <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+                <th scope="col">Mobile <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+                <th>
+
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @Html.HiddenFor(model => item.EmployeeID, new { @id = "EmployeeID" })
+
+                    <td>
+                        <div class="form-check height20Pixel">
+                            <input class="form-check-input" type="checkbox" id="one">
+                            <label class="form-check-label verticalAlignTop" for="one"> &nbsp;@item.EmployeeName</label>
+                        </div>
+                    </td>
+
+                    <td>@item.Address</td>
+                    <td>@item.Area</td>
+                    <td>@item.Mobile</td>
+
+                    <td><a href="@Url.Action("EditEmployee", "Master", new { @EmployeeID = @item.EmployeeID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
+                    <td id="del" onclick="deleteItem()">Delete</td>
+                  </tr>
+
+            }
+
+          
+        </tbody>
+    </table>
+</div>
+
