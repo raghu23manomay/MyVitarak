@@ -226,4 +226,26 @@ namespace MyVitarak.Models
 
     }
 
+    public class Route
+    {
+        public DataTable dtTable;
+
+        [Key]
+        public int RouteId { get; set; }
+        public int CityId { get; set; }
+        [Required]
+        public string Area { get; set; }
+
+    }
+
+    public class EditRoute
+    {
+        [Key]
+        public int AreaID { get; set; }
+        public int CityID { get; set; }
+        public string Area { get; set; }
+
+    }
+
+
 }

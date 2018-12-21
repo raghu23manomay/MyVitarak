@@ -168,9 +168,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Excelsheet\Area_Master.xlsx" />
     <Content Include="Excelsheet\EmployeeMaster.xlsx" />
-    <Content Include="Excelsheet\Product_Master.xlsx" />
     <Content Include="Excelsheet\Supplier_Master.xlsx" />
     <Content Include="Excelsheet\VehicalMaster.xlsx" />
+    <Content Include="Excelsheet\Product_Master.xlsx" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -207,6 +207,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Master\IndexForEmployeeMaster.cshtml" />
     <Content Include="Views\Master\Partial_EmployeeGridList.cshtml" />
+    <Content Include="Views\Master\AddVehical.cshtml" />
     <Content Include="Views\Master\Add_Employee.cshtml" />
     <Content Include="Views\Master\Add_Vehical.cshtml" />
     <Content Include="Views\Master\CustomerRates.cshtml" />
@@ -214,17 +215,6 @@
     <Content Include="Views\Master\EditVehical.cshtml" />
     <Content Include="Views\Master\IndexForVehicalMaster.cshtml" />
     <Content Include="Views\Master\OpeningBalance.cshtml" />
-    <Content Include="uploads\Area_Master %286%29.xlsx" />
-    <Content Include="uploads\Area_Master.xlsx" />
-    <Content Include="uploads\EmployeeMaster.xlsx" />
-    <Content Include="uploads\Product_Master %283%29.xlsx" />
-    <Content Include="uploads\Product_Master %284%29.xlsx" />
-    <Content Include="uploads\Product_Master.xlsx" />
-    <Content Include="uploads\Supplier_Master %281%29.xlsx" />
-    <Content Include="uploads\Supplier_Master %284%29.xlsx" />
-    <Content Include="uploads\Supplier_Master %285%29.xlsx" />
-    <Content Include="uploads\Supplier_Master.xlsx" />
-    <Content Include="uploads\VehicalMaster.xlsx" />
     <Content Include="Views\Master\importexcel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -235,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="uploads\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -251,7 +242,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63906</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63905/</IISUrl>
+          <IISUrl>http://localhost:63906/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
