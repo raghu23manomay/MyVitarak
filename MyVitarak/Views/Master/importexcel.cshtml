@@ -21,7 +21,7 @@
                                 <div class="panel-heading">
                                     Upload file
                                     <span class="pull-right" id="MasterName">@Session["MasterName"]</span>
-                                    <p id="showsave"class="hidden">@ViewBag.error</p>
+                                    <p id="showsave" class="hidden">@ViewBag.error</p>
                                 </div>
                                 <div class="panel-body">
 
@@ -62,38 +62,38 @@
                 {
                     <div class="row">
                         <div class="col-sm-12 m-b-lg">
-                           
-                                    <table class="table table-bordered" id="RateList">
-                                        <thead class="ibox-title">
-                                            <tr>
-                                                @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
-                                                {
 
-                                                    <th>@col.Caption</th>
+                            <table class="table table-bordered" id="RateList">
+                                <thead class="ibox-title">
+                                    <tr>
+                                        @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
+                                        {
 
-                                                }
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (System.Data.DataRow row in Model.dtTable.Rows)
+                                            <th>@col.Caption</th>
+
+                                        }
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (System.Data.DataRow row in Model.dtTable.Rows)
+                                    {
+                                        <tr>
+
+                                            @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
                                             {
-                                                <tr>
+                                                <td contenteditable='true'>
+                                                    @row[col.ColumnName]
+                                                </td>
 
-                                                    @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
-                                                    {
-                                                        <td contenteditable='true'>
-                                                            @row[col.ColumnName]
-                                                        </td>
-
-                                                    }
-                                                    <td><a data-itemId="0" href="#" class="deleteItem"><i class="icon-delete"></i>Delete</a></td>
-
-                                                </tr>
                                             }
-                                        </tbody>
-                                    </table>
-                                
+                                            <td><a data-itemId="0" href="#" class="deleteItem"><i class="icon-delete"></i>Delete</a></td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
 
@@ -114,19 +114,14 @@
 </style>
 
 <script>
-
     $(document).ready(function () {
-
         $("#btnsave").hide();
         $("#btnsaveForProductMaster").hide();
         $("#btnsaveForEmployeeMaster").hide();
         $("#btnsaveForVehicalMaster").hide();
         $("#btnsaveForSupplierMaster").hide();
         $("#btnsaveForCustomerMaster").hide();
-
-
         if ($("#showsave").text().trim() == "show") {
-
             if ($("#MasterName").text() == "ProductMaster") {
                 $("#btnsave").hide();
                 $("#btnsaveForProductMaster").show();
@@ -175,11 +170,8 @@
                 $("#btnsaveForSupplierMaster").hide();
                 $("#btnsaveForCustomerMaster").show();
             }
-
         }
     });
-
-    
 
         if ($("#MasterName").text() == "ProductMaster")
         {
@@ -231,27 +223,21 @@
             $(".Customer").show();
         }
         function SaveData() {
-
                 var idArr = [];
-
                 $('tbody tr').each(function (k, v) {
                     var trElement = $(this);
                     var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
                         trElement.find('td:eq(1)').text().trim()
-
                         idArr.push(tdVals);
                 });
                 var SaveLaneRate = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-
                     item = {}
                     item["Area"] = arrElement[0];
                     item["CityId"] = 1;
                     SaveLaneRate.push(item);
-
                 }
-
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
                     url: "@Url.Action("SaveAreaExcelData", "Master")",
@@ -263,18 +249,14 @@
                     }),
                     success: function (result) {
                         alert(result);
-
                     },
                     error: function () {
                         alert('Error');
                     }
                 });
         }
-
         function SaveDataForProductMaster() {
-
                 var idArr = [];
-
                 $('tbody tr').each(function (k, v) {
                     var trElement = $(this);
                     var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
@@ -282,69 +264,41 @@
                         trElement.find('td:eq(2)').text().trim() + '~' +
                         trElement.find('td:eq(3)').text().trim() + '~' +
                         trElement.find('td:eq(4)').text().trim()
-
-
                         idArr.push(tdVals);
             });
-
-
-
             $("tbody tr").each(function () {
-
                 var trElement = $(this);
                 var pdt = trElement.find('td:eq(0)').text().trim();
-
                 if (($.isNumeric(trElement.find('td:eq(1)').text().trim())) == true && trElement.find('td:eq(1)').text().trim() != null && pdt != "" && ($.isNumeric(trElement.find('td:eq(3)').text().trim())) == true && trElement.find('td:eq(3)').text().trim() != null) {
-
                     $(this).css('background-color', 'white');
                     trElement.find('td:eq(0)').css('background-color', 'white');
                     trElement.find('td:eq(1)').css('background-color', 'white');
                     trElement.find('td:eq(3)').css('background-color', 'white');
                 }
-
                 if (pdt == "") {
-
                     $(this).css('background-color', '#fdeef3');
                     trElement.find('td:eq(0)').css('background-color', 'yellow');
-
-
                 }
-
                 if (($.isNumeric(trElement.find('td:eq(1)').text().trim())) == false || trElement.find('td:eq(1)').text().trim() == null) {
                     $(this).css('background-color', '#fdeef3');
                     trElement.find('td:eq(1)').css('background-color', 'yellow');
-
-
                 }
-
                 if (($.isNumeric(trElement.find('td:eq(3)').text().trim())) == false || trElement.find('td:eq(3)').text().trim() == null) {
                     $(this).css('background-color', '#fdeef3');
                     trElement.find('td:eq(3)').css('background-color', 'yellow');
-
                 }
-
-
             });
-
-
                 var SaveLaneRate = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-
                     item = {}
                     item["Product"] = arrElement[0];
                     item["ProductBrandID"] = arrElement[1];
                     item["Brandtype"] = 1;
                     item["CrateSize"] = arrElement[3];
                     item["GST"] = arrElement[4];
-
                     SaveLaneRate.push(item);
-
             }
-
-
-
-
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
                     url: "@Url.Action("SaveProductExcelData", "Master")",
@@ -356,7 +310,6 @@
                     }),
                     success: function (result) {
                         alert(result);
-
                     },
                     error: function () {
                         alert('Error');
@@ -364,37 +317,65 @@
                 });
             }
 
-        function SaveDataForEmployeeMaster() {
 
-                var idArr = [];
-
+    function SaveDataForEmployeeMaster() {
+            var idArr = [];
+          
                 $('tbody tr').each(function (k, v) {
                     var trElement = $(this);
                     var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
                         trElement.find('td:eq(1)').text().trim() + '~' +
                         trElement.find('td:eq(2)').text().trim() + '~' +
-                        trElement.find('td:eq(3)').text().trim() + '~' +
-                        trElement.find('td:eq(4)').text().trim()
-
-
+                        trElement.find('td:eq(3)').text().trim()
                         idArr.push(tdVals);
-                });
+            });
             var SaveEmployeeData = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-
                     item = {}
                     item["EmployeeName"] = arrElement[0];
                     item["Address"] = arrElement[1];
-                    item["AreaID"] = 1;
+                    item["AreaID"] = 4;
                     item["Mobile"] = arrElement[3];
-                    item["UserdId"] = arrElement[4];
-
+                   
                     SaveEmployeeData.push(item);
-
+            }
+            $("tbody tr").each(function () {
+                var  regex = /^[a-zA-Z\s]+$/;
+                var  intRegex = /^[0-9]{10}$/;
+               
+                var trElement = $(this);
+               
+                if ((trElement.find('td:eq(0)').text().trim()) == null || (!regex.test(trElement.find('td:eq(0)').text().trim()))) {
+                    alert("Invalid Name");
+                    trElement.find('td:eq(0)').focus();
+                   
+                    $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(0)').css('background-color', 'Red');
                 }
-
-                $.ajax({
+                else if ((trElement.find('td:eq(1)').text().trim()) == null || (trElement.find('td:eq(1)').text().trim().length <= 50)) {
+                    trElement.find('td:eq(1)').focus();
+                    alert("Address must be atleast 50 characters");
+                    $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(1)').css('background-color', 'yellow');
+                   
+                }
+                else if ((trElement.find('td:eq(2)').text().trim()) == null) {
+                    alert("Fill Area ID");
+                    trElement.find('td:eq(2)').focus();
+                    $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(2)').css('background-color', 'Red');
+                    
+                }
+                else if ((trElement.find('td:eq(3)').text().trim()) == null || (!intRegex.test(trElement.find('td:eq(3)').text().trim()))) {
+                    alert("Invalid Mobile Number");
+                    trElement.find('td:eq(3)').focus();
+                    $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(3)').css('background-color', 'Red');
+                    alert("Invalid Mobile number");
+                }
+                else {
+                     $.ajax({
                     contentType: "application/json; charset=utf-8",
                     url: "@Url.Action("SaveEmployeeExcelData", "Master")",
                     method: 'POST',
@@ -405,19 +386,21 @@
                     }),
                     success: function (result) {
                         alert(result);
-
                     },
                     error: function () {
                         alert('Error');
                     }
                 });
+                }
+               
+            });
+            
         }
 
 
+
         function SaveDataForVehicalMaster() {
-
                 var idArr = [];
-
                 $('tbody tr').each(function (k, v) {
                     var trElement = $(this);
                     var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
@@ -428,14 +411,11 @@
                         trElement.find('td:eq(5)').text().trim() + '~' +
                         trElement.find('td:eq(6)').text().trim() + '~' +
                         trElement.find('td:eq(7)').text().trim()
-
-
                         idArr.push(tdVals);
                 });
             var SaveVehicalData = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-
                     item = {}
                     item["Transport"] = arrElement[0];
                     item["Owner"] = arrElement[1];
@@ -446,9 +426,7 @@
                     item["RatePerTrip"] = arrElement[6];
                     item["PrintOrder"] = arrElement[7];
                     SaveVehicalData.push(item);
-
                 }
-
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
                     url: "@Url.Action("SaveVehicalExcelData", "Master")",
@@ -460,20 +438,14 @@
                     }),
                     success: function (result) {
                         alert(result);
-
-
                     },
                     error: function () {
                         alert('Error');
                     }
                 });
         }
-
-
         function SaveDataForSupplierMaster() {
-
                 var idArr = [];
-
                 $('tbody tr').each(function (k, v) {
                     var trElement = $(this);
                     var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
@@ -485,54 +457,36 @@
                         trElement.find('td:eq(6)').text().trim() + '~' +
                         trElement.find('td:eq(7)').text().trim() + '~' +
                         trElement.find('td:eq(8)').text().trim()
-
-
                         idArr.push(tdVals);
             });
-
             $("tbody tr").each(function () {
-
                 var trElement = $(this);
                 var tdVals = trElement.find('td:eq(0)').text().trim();
                 var adress = trElement.find('td:eq(1)').text().trim();
-
                 if (($.isNumeric(trElement.find('td:eq(7)').text().trim())) == true && trElement.find('td:eq(7)').text().trim().length == 10 && tdVals != "" && adress != "")
                 {
-
                     $(this).css('background-color', 'white');
                     trElement.find('td:eq(0)').css('background-color', 'white');
                     trElement.find('td:eq(1)').css('background-color', 'white');
                     trElement.find('td:eq(7)').css('background-color', 'white');
                 }
-
                 if (tdVals == "") {
-
                     $(this).css('background-color', '#fdeef3');
                     trElement.find('td:eq(0)').css('background-color', 'yellow');
-
-
                 }
-
                  if (trElement.find('td:eq(1)').text().trim() == "") {
                     $(this).css('background-color', '#fdeef3');
                     trElement.find('td:eq(1)').css('background-color', 'yellow');
-
-
                 }
                  if (($.isNumeric(trElement.find('td:eq(7)').text().trim())) == false || trElement.find('td:eq(7)').text().trim().length != 10 )
                 {
                     $(this).css('background-color', '#fdeef3');
                     trElement.find('td:eq(7)').css('background-color', 'yellow');
-
                 }
-
-
             });
-
                 var SaveSupplierData = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-
                        item = {}
                     item["VendorName"] = arrElement[0];
                     item["Address"] = arrElement[1];
@@ -543,8 +497,6 @@
                     item["ContactPerson"] = arrElement[6];
                     item["PersonMobileNo"] = arrElement[7]
                     item["IsActive"] = arrElement[8];
-
-
                     if (item["IsActive"] == 1)
                     {
                         item["IsActive"] = true;
@@ -553,12 +505,8 @@
                     {
                         item["IsActive"] = false;
                     }
-
-
                     SaveSupplierData.push(item);
-
                 }
-
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
                     url: "@Url.Action("SaveSupplierExcelData", "Master")",
@@ -571,16 +519,12 @@
                     success: function (result) {
                         alert(result);
                        // $('tbody tr').css('background-color', 'Red');
-
-
                     },
                     error: function () {
                         alert('Error');
                     }
                 });
         }
-
-
         $(document).on('click', 'a.deleteItem', function (e) {
             e.preventDefault();
             var $self = $(this);
@@ -590,11 +534,8 @@
                 });
             }
         });
-
          function SaveDataForCustomerMaster() {
-
                 var idArr = [];
-
                 $('tbody tr').each(function (k, v) {
                     var trElement = $(this);
                     var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
@@ -610,14 +551,11 @@
                         trElement.find('td:eq(10)').text().trim() + '~' +
                         trElement.find('td:eq(11)').text().trim() + '~' +
                         trElement.find('td:eq(12)').text().trim()
-
                         idArr.push(tdVals);
                 });
-
              var SaveCustomerData = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-
                     item = {}
                     item["CustomerName"] = arrElement[0];
                     item["Address"] = arrElement[1];
@@ -631,11 +569,8 @@
                     item["isBillRequired"] = arrElement[10];
                     item["isActive"] = arrElement[11];
                     item["DeliveryCharges"] = arrElement[12];
-
                     SaveCustomerData.push(item);
-
                 }
-
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
                     url: "@Url.Action("SaveCustomerExcelData", "Master")",
@@ -647,13 +582,10 @@
                     }),
                     success: function (result) {
                         alert(result);
-
                     },
                     error: function () {
                         alert('Error');
                     }
                 });
             }
-
-
 </script>

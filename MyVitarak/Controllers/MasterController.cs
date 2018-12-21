@@ -109,6 +109,7 @@ namespace MyVitarak.Controllers
                 L.dtTable = dt1;
                 
             }
+            ViewBag.error = "show";
             return Request.IsAjaxRequest() ? (ActionResult)PartialView("importexcel", L)
                 : View(L);
         }
