@@ -7,6 +7,9 @@ using MyVitarak.Models;
 using System.Data.SqlClient;
 using PagedList;
 using System.Data;
+using System.Data.OleDb;
+using System.IO;
+using System.Xml;
 
 namespace MyVitarak.Controllers
 {
@@ -180,6 +183,196 @@ namespace MyVitarak.Controllers
                 string message = ex.Message;
                 return Json(message);
 
+            }
+
+        }
+
+        //============================================= import excel ============================================================
+        [HttpGet]
+        public ActionResult importexcel(string MasterName = "")
+        {
+            Session["MasterName"] = MasterName;
+            return View();
+
+        }
+
+
+        [HttpPost]
+        public ActionResult importexcel(HttpPostedFileBase file, Route L)
+        {
+            DataTable dt1 = new DataTable();
+            DataSet ds = new DataSet();
+            if (Request.Files["file"].ContentLength > 0)
+            {
+                string fileExtension = System.IO.Path.GetExtension(Request.Files["file"].FileName);
+
+                if (fileExtension == ".xls" || fileExtension == ".xlsx")
+                {
+                    string fileLocation = Server.MapPath("~/uploads/") + Request.Files["file"].FileName;
+                    if (System.IO.File.Exists(fileLocation))
+                    {
+                        System.IO.File.SetAttributes(fileLocation, FileAttributes.Normal);
+                        //   System.IO.File.Delete(fileLocation);
+                    }
+                    Request.Files["file"].SaveAs(fileLocation);
+
+                    string excelConnectionString = string.Empty;
+                    excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                    fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    //connection String for xls file format.
+                    if (fileExtension == ".xls")
+                    {
+                        excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
+                        fileLocation + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                    }
+                    //connection String for xlsx file format.
+                    else if (fileExtension == ".xlsx")
+                    {
+                        excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                        fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    }
+                    //Create Connection to Excel work book and add oledb namespace
+                    OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
+                    excelConnection.Open();
+                    DataTable dt = new DataTable();
+
+                    dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                    if (dt == null)
+                    {
+                        return null;
+                    }
+
+                    String[] excelSheets = new String[dt.Rows.Count];
+                    int t = 0;
+                    //excel data saves in temp file here.
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        excelSheets[t] = row["TABLE_NAME"].ToString();
+                        t++;
+                    }
+                    if (excelConnection.State == ConnectionState.Open)
+                    {
+                        excelConnection.Close();
+                    }
+                    OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
+
+                    string query = string.Format("Select * from [{0}]", excelSheets[0]);
+                    using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                    {
+                        dataAdapter.Fill(ds);
+                    }
+                    if (excelConnection1.State == ConnectionState.Open)
+                    {
+                        excelConnection1.Close();
+                    }
+                }
+                if (fileExtension.ToString().ToLower().Equals(".xml"))
+                {
+                    string fileLocation = Server.MapPath("~/uploads/") + Request.Files["FileUpload"].FileName;
+                    if (System.IO.File.Exists(fileLocation))
+                    {
+                        System.IO.File.Delete(fileLocation);
+                    }
+                    Request.Files["FileUpload"].SaveAs(fileLocation);
+                    XmlTextReader xmlreader = new XmlTextReader(fileLocation);
+                    ds.ReadXml(xmlreader);
+                    xmlreader.Close();
+                }
+                dt1 = ds.Tables[0] as DataTable;
+                Session.Add("dt1", dt1);
+                L.dtTable = dt1;
+            }
+            ViewBag.error = "show";
+            return Request.IsAjaxRequest() ? (ActionResult)PartialView("importexcel", L)
+                : View(L);
+        }
+
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SaveProductExcelData(List<ProductMaster> SaveLaneRate)
+        {
+            try
+            {
+                JobDbContext _db = new JobDbContext();
+
+                if (SaveLaneRate.Count > 0)
+                {
+                    DataTable dt = new DataTable();
+
+                    dt.Columns.Add("ProductID", typeof(int));
+                    dt.Columns.Add("Product", typeof(string));
+                    dt.Columns.Add("ProductBrandID", typeof(int));
+                    dt.Columns.Add("CreateDate", typeof(DateTime));
+                    dt.Columns.Add("CreatedBy", typeof(int));
+                    dt.Columns.Add("LastUpdatedDate", typeof(DateTime));
+                    dt.Columns.Add("LastUpdatedBy", typeof(int));
+                    dt.Columns.Add("isActive", typeof(int));
+                    dt.Columns.Add("CrateSize", typeof(int));
+                    dt.Columns.Add("GST", typeof(decimal));
+
+                    foreach (var item in SaveLaneRate)
+                    {
+                        DataRow dr = dt.NewRow();
+                        dr["ProductID"] = 1;
+                        dr["Product"] = item.Product;
+                        dr["ProductBrandID"] = item.ProductBrandID;
+                        dr["CreateDate"] = DateTime.Now;
+                        dr["CreatedBy"] = 1;
+                        dr["LastUpdatedDate"] = DateTime.Now;
+                        dr["LastUpdatedBy"] = 1;
+                        dr["isActive"] = 1;
+                        dr["CrateSize"] = item.CrateSize;
+                        dr["GST"] = item.GST;
+
+                        string pbid = item.ProductBrandID.ToString();
+                        Int64 Num = 0;
+                        bool isNum = Int64.TryParse(pbid, out Num);
+
+                        string caret = item.CrateSize.ToString();
+                        Int64 CaretNum = 0;
+                        bool CaretisNum = Int64.TryParse(caret, out CaretNum);
+
+                        if (item.Product == null)
+                        {
+                            return Json("Enter Product Name");
+
+                        }
+                        else if (item.ProductBrandID == 0 || isNum == false)
+                        {
+                            return Json("Enter Sequence Number In Numaric");
+                        }
+                        else if (item.CrateSize == 0 || CaretisNum == false)
+                        {
+                            return Json("Enter Caret Size In Numaric ");
+                        }
+                        else
+                        {
+                            dt.Rows.Add(dr);
+                        }
+                    }
+
+                    SqlParameter tvpParam = new SqlParameter();
+                    tvpParam.ParameterName = "@ProductParameters";
+                    tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
+                    tvpParam.Value = dt;
+                    tvpParam.TypeName = "UT_ProductMaster";
+
+                    var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_ProductMaster @ProductParameters",
+                     tvpParam);
+
+                }
+                // return Request.IsAjaxRequest() ? (ActionResult)PartialView("ImportLaneRate")
+                //: View();
+                return Request.IsAjaxRequest() ? (ActionResult)Json("Excel Imported Sucessfully")
+                : Json("Excel Imported Sucessfully");
+            }
+            catch (Exception e)
+
+            {
+                var messege = e.Message;
+                return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
+               : Json(messege);
             }
 
         }

@@ -23,34 +23,54 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Vitarak</a>
+                <a class="navbar-brand" href="#">Project name</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
-                <!--ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul-->
+                <ul class="nav navbar-nav navbar-right marginRight0px">
+                    <li class="active"><a href="#"><i class="fa fa-plus" aria-hidden="true"></i> New</a></li>
+                    <li><a href="#"><i class="fa fa-bolt" aria-hidden="true"></i> Activity</a></li>
+                    <li>
+                        <a href="#">
+                            <button class="btn btn-danger btn-xs" type="button"><i class="fa fa-bell" aria-hidden="true"></i> <span class="badge">4</span></button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="profileCircle dropdown-toggle paddingLeft5px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="nav-two navbar-dark-grey">
+        <div class="nav-two navbar-blue-light">
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Customer</a></li>
-                    <li><a href="#about"><div><i class="fa fa-users" aria-hidden="true"></i></div>Area /<br />Route</a></li>
-                    <li><a href="#contact"><div><i class="fa fa-users" aria-hidden="true"></i></div>Opening Balances</a></li>
-                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Supplier</a></li>
-                    <li><a href="@Url.Action("Index", "Master")"><div><i class="fa fa-users" aria-hidden="true"></i></div>Product</a></li>
-                    <li><a href="#contact"><div><i class="fa fa-users" aria-hidden="true"></i></div>Vehicle</a></li>
-                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Employee</a></li>
-                    <li><a href="#about"><div><i class="fa fa-users" aria-hidden="true"></i></div>Dashboard</a></li>
-                    <li><a href="#contact"><div><i class="fa fa-users" aria-hidden="true"></i></div>Purchase<br />Rates</a></li>
+                    <li><a href="#" class="active"><div><i class="fa fa-users" aria-hidden="true"></i></div>Customer<br /><br /></a></li>
+                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Area /<br />Route</a></li>
+                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Opening Balances<br /><br /></a></li>
+                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Supplier<br /><br /></a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="@Url.Action("Index", "Master")"><div><i class="fa fa-users" aria-hidden="true"></i></div>Product<br /><br /></a></li>
+                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Vehicle<br /><br /></a></li>
+                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Employee<br /><br /></a></li>
+                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Dashboard<br /><br /></a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Purchase<br />Rates</a></li>
                     <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Customer<br />Rates</a></li>
-                    <li><a href="#about"><div><i class="fa fa-users" aria-hidden="true"></i></div>Purchase</a></li>
-                    <li><a href="#contact"><div><i class="fa fa-users" aria-hidden="true"></i></div>Sales</a></li>
+                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Purchase<br /><br /></a></li>
+                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Sales<br /><br /></a></li>
+                </ul>
+                <ul class="nav navbar-nav">
                     <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Customer<br />Ledger</a></li>
-                    <li><a href="#about"><div><i class="fa fa-users" aria-hidden="true"></i></div>Supplier<br />Ledger</a></li>
-                    <li><a href="#contact"><div><i class="fa fa-users" aria-hidden="true"></i></div>Customer<br />Crates Ledger</a></li>
+                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Supplier<br />Ledger</a></li>
+                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Customer<br />Crates Ledger</a></li>
                 </ul>
             </div>
         </div>
@@ -59,12 +79,19 @@
 
     <div>
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Manomay Softwares Pvt. Ltd.</p>
-        </footer>
+        
     </div>
 
+    @*<footer class="footer">
+        <div class="clearfix">
+            <div class="pull-left">Copyright &copy; 2018.</div>
+            <div class="pull-right">
+                <a href="javascript:;"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                <a href="javascript:;"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                <a href="javascript:;"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </footer>*@
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/js/jquery.js"></script>
