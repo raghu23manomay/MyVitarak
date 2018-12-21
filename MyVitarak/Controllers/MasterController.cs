@@ -423,7 +423,7 @@ namespace MyVitarak.Controllers
 
             JobDbContext _db = new JobDbContext();
             var pageIndex = (page ?? 1);
-            const int pageSize = 8;
+            const int pageSize = 20;
             int totalCount = 8;
             EmployeeDetails Ulist = new EmployeeDetails();
             if (Name == null) Name = "";

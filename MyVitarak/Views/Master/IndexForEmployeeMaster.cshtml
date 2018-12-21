@@ -38,7 +38,7 @@
             </div>
         </div>
         <form class="navbar-form pull-left marginTop0">
-            <input type="text" class="form-control" placeholder="Search...">
+            <input type="text" id="txtName" class="form-control" placeholder="Search...">
         </form>
 
         <div class="btn-group pull-right">
@@ -123,6 +123,27 @@
                     }
                 });
 
-            });
+    });
+
+
+
+
+   
+    function selectAll() {
+        var items = document.getElementsByName('acs');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = true;
+        }
+    }
+
+    function UnSelectAll() {
+        var items = document.getElementsByName('acs');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = false;
+        }
+    }
+
    
 </script>
