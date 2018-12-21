@@ -132,8 +132,8 @@ namespace MyVitarak.Controllers
 
             JobDbContext _db = new JobDbContext();
             var pageIndex = (page ?? 1);
-            const int pageSize = 5;
-            int totalCount = 5;
+            const int pageSize = 20;
+            int totalCount = 20;
             ProductDetails Ulist = new ProductDetails();
 
             IEnumerable<ProductDetails> result = _db.ProductDetails.SqlQuery(@"exec GetProductList
@@ -163,6 +163,101 @@ namespace MyVitarak.Controllers
                     ? (ActionResult)PartialView("_partialGridProductMaster", itemsAsIPagedList)
                     : View("_partialGridProductMaster", itemsAsIPagedList);
         }
+
+
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SaveProductExcelData(List<ProductMaster> SaveLaneRate)
+        {
+            try
+            {
+                JobDbContext _db = new JobDbContext();
+
+                if (SaveLaneRate.Count > 0)
+                {
+                    DataTable dt = new DataTable();
+
+                    dt.Columns.Add("ProductID", typeof(int));
+                    dt.Columns.Add("Product", typeof(string));
+                    dt.Columns.Add("ProductBrandID", typeof(int));
+                    dt.Columns.Add("CreateDate", typeof(DateTime));
+                    dt.Columns.Add("CreatedBy", typeof(int));
+                    dt.Columns.Add("LastUpdatedDate", typeof(DateTime));
+                    dt.Columns.Add("LastUpdatedBy", typeof(int));
+                    dt.Columns.Add("isActive", typeof(int));
+                    dt.Columns.Add("CrateSize", typeof(int));
+                    dt.Columns.Add("GST", typeof(decimal));
+
+                    foreach (var item in SaveLaneRate)
+                    {
+                        DataRow dr = dt.NewRow();
+                        dr["ProductID"] = 1;
+                        dr["Product"] = item.Product;
+                        dr["ProductBrandID"] = item.ProductBrandID;
+                        dr["CreateDate"] = DateTime.Now;
+                        dr["CreatedBy"] = 1;
+                        dr["LastUpdatedDate"] = DateTime.Now;
+                        dr["LastUpdatedBy"] = 1;
+                        dr["isActive"] = 1;
+                        dr["CrateSize"] = item.CrateSize;
+                        dr["GST"] = item.GST;
+
+                        string pbid = item.ProductBrandID.ToString();
+                        Int64 Num = 0;
+                        bool isNum = Int64.TryParse(pbid, out Num);
+
+                        string caret = item.CrateSize.ToString();
+                        Int64 CaretNum = 0;
+                        bool CaretisNum = Int64.TryParse(caret, out CaretNum);
+
+                        if (item.Product == null)
+                        {
+                            return Json("Enter Product Name");
+
+                        }
+                        else if (item.ProductBrandID == 0 || isNum == false)
+                        {
+                            return Json("Enter Sequence Number In Numaric");
+                        }
+                        else if (item.CrateSize == 0 || CaretisNum == false)
+                        {
+                            return Json("Enter Caret Size In Numaric ");
+                        }
+                        else
+                        {
+                            dt.Rows.Add(dr);
+                        }
+                    }
+
+                    SqlParameter tvpParam = new SqlParameter();
+                    tvpParam.ParameterName = "@ProductParameters";
+                    tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
+                    tvpParam.Value = dt;
+                    tvpParam.TypeName = "UT_ProductMaster";
+
+                    var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_ProductMaster @ProductParameters",
+                     tvpParam);
+
+                }
+                // return Request.IsAjaxRequest() ? (ActionResult)PartialView("ImportLaneRate")
+                //: View();
+                return Request.IsAjaxRequest() ? (ActionResult)Json("Excel Imported Sucessfully")
+                : Json("Excel Imported Sucessfully");
+            }
+            catch (Exception e)
+
+            {
+                var messege = e.Message;
+                return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
+               : Json(messege);
+            }
+
+        }
+
+
+
+
 
         [HttpGet]
         public ActionResult Add_Product()
@@ -865,6 +960,278 @@ namespace MyVitarak.Controllers
                : Json(messege);
 
             }
+        }
+
+
+
+        //=================================================  Supplier Master ==================================================
+
+        public ActionResult IndexForSupplierMaster(int? page,string sname = "")
+        {
+            StaticPagedList<SupplierDetails> itemsAsIPagedList;
+            itemsAsIPagedList = SupplierGridList(page,sname);
+
+            Session["MasterName"] = "SupplierMaster";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("IndexForSupplierMaster", itemsAsIPagedList)
+                    : View("IndexForSupplierMaster", itemsAsIPagedList);
+        }
+
+
+        public ActionResult LoadDataForSuppier(int? page, string sname = "")
+        {
+            StaticPagedList<SupplierDetails> itemsAsIPagedList;
+            itemsAsIPagedList = SupplierGridList(page,sname);
+
+            //   Session["MasterName"] = "SupplierMaster";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("_partialGridSupplierMaster", itemsAsIPagedList)
+                    : View("_partialGridSupplierMaster", itemsAsIPagedList);
+        }
+
+
+
+        //================================== Fill Supplier Grid Code ===========================================
+
+        public StaticPagedList<SupplierDetails> SupplierGridList(int? page, string sname = "")
+        {
+
+            JobDbContext _db = new JobDbContext();
+            var pageIndex = (page ?? 1);
+            const int pageSize = 20;
+            int totalCount = 20;
+            SupplierDetails Ulist = new SupplierDetails();
+
+            IEnumerable<SupplierDetails> result = _db.SupplierDetails.SqlQuery(@"exec GetSupplierList
+                   @pPageIndex, @pPageSize,@sname",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize),
+               new SqlParameter("@sname", sname)
+
+               ).ToList<SupplierDetails>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
+            {
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
+            }
+            var itemsAsIPagedList = new StaticPagedList<SupplierDetails>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
+
+        }
+
+        [HttpGet]
+        public ActionResult Add_Supplier()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add_Supplier(SupplierMaster pm)
+        {
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_InsertVendorMast @VendorName,@Address,@AreaID,@CityID,@EmailID,@OfficePhone,@FaxNo,@ContactPerson,@PersonMobileNo,@IsActive,@CreatedBy",
+                    new SqlParameter("@VendorName", pm.VendorName),
+                    new SqlParameter("@Address", pm.Address == null ? (object)DBNull.Value : pm.Address),
+                    new SqlParameter("@AreaID", 1),
+                    new SqlParameter("@CityID", 1),
+                    new SqlParameter("@EmailID", pm.EmailID == null ? (object)DBNull.Value : pm.EmailID),
+                    new SqlParameter("@OfficePhone",pm.OfficeNumber == null ? (object)DBNull.Value : pm.OfficeNumber),
+                    new SqlParameter("@FaxNo", pm.FaxNumber == null ? (object)DBNull.Value : pm.FaxNumber),
+                    new SqlParameter("@ContactPerson", pm.ContactPerson == null ? (object)DBNull.Value : pm.ContactPerson),
+                    new SqlParameter("@PersonMobileNo", pm.PersonMobileNo == null ? (object)DBNull.Value : pm.PersonMobileNo),
+                    new SqlParameter("@IsActive", pm.IsActive),
+                    new SqlParameter("@CreatedBy", 1)
+                    );
+
+                return Json("Data Added Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+            
+        }
+
+
+        //========================================== Edit Supplier ================================================
+
+        public ActionResult EditSupplier()
+        {
+            return View();
+
+        }
+
+        public ActionResult FetchSupplierForUpdate(int? VendorID)
+        {
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.SupplierMaster.SqlQuery(@"exec [UC_FetchDataForUpdate_VendorMaster] @VendorID",
+                    new SqlParameter("@VendorID", VendorID)
+                   ).ToList<SupplierMaster>();
+
+                SupplierMaster rs = new SupplierMaster();
+                rs = res.FirstOrDefault();
+                return View("EditSupplier", rs);
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+        }
+
+
+        public ActionResult DeleteSupplier(int? VendorID)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_DeleteVendorMast @VendorID",
+                    new SqlParameter("@VendorID", VendorID));
+
+                return Json("Data Deleted Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult UpdateSupplier(SupplierMaster rm)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec [UC_UpdateVendorMast] @VendorID,@VendorName,@Address,@EmailID,@OfficePhone,@FaxNo,@ContactPerson,@PersonMobileNo,@IsActive,@LastUpdatedBy",
+                    new SqlParameter("@VendorID", rm.VendorID),
+                    new SqlParameter("@VendorName", rm.VendorName),
+                    new SqlParameter("@Address", rm.Address == null ? (object)DBNull.Value : rm.Address),
+                    new SqlParameter("@EmailID", rm.EmailID == null ? (object)DBNull.Value : rm.EmailID),
+                    new SqlParameter("@OfficePhone", rm.OfficeNumber == null ? (object)DBNull.Value : rm.OfficeNumber),
+                    new SqlParameter("@FaxNo", rm.FaxNumber == null ? (object)DBNull.Value : rm.FaxNumber),
+                    new SqlParameter("@ContactPerson", rm.ContactPerson == null ? (object)DBNull.Value : rm.ContactPerson),
+                    new SqlParameter("@PersonMobileNo", rm.PersonMobileNo == null ? (object)DBNull.Value : rm.PersonMobileNo),
+                    new SqlParameter("@IsActive", rm.IsActive),
+                    new SqlParameter("@LastUpdatedBy", 1));
+
+                return Json("Data Updated Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SaveSupplierExcelData(List<SupplierMaster> SaveSupplierData)
+        {
+            try
+            {
+                JobDbContext _db = new JobDbContext();
+
+                if (SaveSupplierData.Count > 0)
+                {
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("VendorID", typeof(int));
+                    dt.Columns.Add("VendorName", typeof(string));
+                    dt.Columns.Add("Address", typeof(string));
+                    dt.Columns.Add("AreaID", typeof(int));
+                    dt.Columns.Add("CityID", typeof(int));
+                    dt.Columns.Add("EmailID", typeof(string));
+                    dt.Columns.Add("OfficePhone", typeof(string));
+                    dt.Columns.Add("FaxNo", typeof(string));
+                    dt.Columns.Add("ContactPerson", typeof(string));
+                    dt.Columns.Add("PersonMobileNo", typeof(string));
+                    dt.Columns.Add("IsActive", typeof(Boolean));
+                    dt.Columns.Add("CreatedBy", typeof(int));
+                    dt.Columns.Add("CreateDate", typeof(DateTime));
+                    dt.Columns.Add("LastUpdatedDate", typeof(DateTime));
+                    dt.Columns.Add("LastUpdatedBy", typeof(int));
+
+                    foreach (var item in SaveSupplierData)
+                    {
+                        DataRow dr = dt.NewRow();
+                        dr["VendorID"] = 1;
+                        dr["VendorName"] = item.VendorName;
+                        dr["Address"] = item.Address;
+                        dr["AreaID"] = 1;
+                        dr["CityID"] = 1;
+                        dr["EmailID"] = item.EmailID;
+                        dr["OfficePhone"] = item.OfficeNumber;
+                        dr["ContactPerson"] = item.ContactPerson;
+                        dr["PersonMobileNo"] = item.PersonMobileNo;
+                        dr["IsActive"] = item.IsActive;
+                        dr["CreatedBy"] = 1;
+                        dr["CreateDate"] = DateTime.Now;
+                        dr["LastUpdatedDate"] = DateTime.Now;
+                        dr["LastUpdatedBy"] = 1;
+
+                        string temp = item.PersonMobileNo;
+                        Int64 Num = 0;
+                        bool isNum = Int64.TryParse(temp, out Num); //c is your variable
+
+
+                        if (item.VendorName == null)
+                        {
+                            return Json("Vendor Name Is Missing");
+                        }
+                        else if (item.Address == null)
+                        {
+                            return Json("Address Is Missing");
+                        }
+                        else if (item.PersonMobileNo.Length == 10 && isNum == true)
+                        {
+                            dt.Rows.Add(dr);
+                        }
+                        else
+                        {
+                            return Json("Enter 10 Digit Mobile Number");
+                        }
+
+                    }
+
+                    SqlParameter tvpParam = new SqlParameter();
+                    tvpParam.ParameterName = "@SupplierParameters";
+                    tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
+                    tvpParam.Value = dt;
+                    tvpParam.TypeName = "UT_SupplierMaster";
+
+                    var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_SupplierMaster @SupplierParameters",
+                     tvpParam);
+
+                }
+                // return Request.IsAjaxRequest() ? (ActionResult)PartialView("ImportLaneRate")
+                //: View();
+                return Request.IsAjaxRequest() ? (ActionResult)Json("Excel Imported Sucessfully")
+                : Json("Excel Imported Sucessfully");
+            }
+            catch (Exception e)
+
+            {
+                var messege = e.Message;
+                return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
+               : Json(messege);
+            }
+
         }
 
     }

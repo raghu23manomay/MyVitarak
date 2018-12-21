@@ -1,0 +1,245 @@
+﻿@model MyVitarak.Models.SupplierMaster
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+<div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" onclick="abc();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user-plus marginRight15px" aria-hidden="true"></i>Product details</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">Vendor Name</label>
+                    <div class="col-sm-9">
+                        @Html.HiddenFor(a => a.VendorID, new { @class = "form-control r-0 light s-12", placeholder = "", title = "vendorid", @id = "VendorID" })
+                        @Html.TextBoxFor(a => a.VendorName, new { @class = "form-control r-0 light s-12", placeholder = "Enter Vendor Name", title = "vendor name", @id = "VendorName" })
+                        <p id="Vname" style="color:brown">Enter Vendor Name</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">Address</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(a => a.Address, new { @class = "form-control", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                        <p id="VAddress" style="color:brown">Enter Address</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="GST" class="col-sm-3 control-label">Contact Person</label>
+                    <div class="col-sm-9">
+
+                        @Html.TextBoxFor(a => a.ContactPerson, new { @class = "form-control", placeholder = "Enter Contact Person", title = "ContactPerson", @id = "ContactPerson" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customerArea" class="col-sm-3 control-label">Mobile Number</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(a => a.PersonMobileNo, new { @class = "form-control", placeholder = "Enter Person Mobile No", title = "Person Mobile No", @id = "PersonMobileNo" })
+                        <p id="Mobileno" style="color:brown">Enter 10 Digit Mobile Number</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">Office Number</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(a => a.OfficeNumber, new { @class = "form-control", placeholder = "Enter Office Number", title = "OfficeNumber", @id = "OfficeNumber" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">Email Id</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(a => a.EmailID, new { @class = "form-control", placeholder = "Enter Email ID", title = "EmailID", @id = "EmailID" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">Fax Number</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(a => a.FaxNumber, new { @class = "form-control", placeholder = "Enter Fax Number", title = "FaxNumber", @id = "FaxNumber" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">IsActive</label>
+                    <div class="col-sm-9">
+                        @Html.CheckBoxFor(m => m.IsActive, new { @id = "check" })
+                        <span class="checkmark"></span>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btnDelete" class="btn btn-primary pull-left">Delete</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="abc();">Close</button>
+            <button type="button" id="btnUpdate" class="btn btn-primary">Update changes</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var str = window.location.href;
+    var lastLetter = str[str.length], i, temp;
+    var con = "";
+
+    for (i = 0; i < str.length; i++) {
+        if (str[i] == '=') {
+            myfun(i);
+            break;
+        }
+    }
+
+    function myfun(temp) {
+
+        temp = temp + 1;
+        for (i = temp; i < [str.length]; i++) {
+
+            con = con + str[i];
+        }
+        parseInt(con);
+
+    }
+
+</script>
+
+<script>
+
+    $('#Mobileno').hide();
+    $('#Vname').hide();
+    $('#VAddress').hide();
+
+    function abc() {
+        refresh();
+        $('.modal-backdrop').remove();
+    }
+
+    $('#btnUpdate').on('click', function () {
+        var isactive;
+        var isChecked = $('#check').is(':checked');
+        if (isChecked == true) {
+
+            isactive = true;
+        }
+        else
+        {
+            isactive = false;
+        }
+
+        if ($('#VendorName').val() == "") {
+            $('#Vname').show();
+            $('#Mobileno').hide();
+            $('#VAddress').hide();
+            return false;
+        }
+        else if ($('#Address').val() == "") {
+            $('#VAddress').show();
+            $('#Vname').hide();
+            $('#Mobileno').hide();
+            return false;
+        }
+
+        if ($('#PersonMobileNo').val().length == 10 && ($.isNumeric($('#PersonMobileNo').val())) == true) {
+
+        }
+        else {
+            $('#VAddress').hide();
+            $('#Vname').hide();
+            $('#Mobileno').show();
+            return false;
+        }
+
+
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Master/UpdateSupplier',
+
+            data:
+            {
+                VendorID: $("#VendorID").val(),
+                VendorName: $("#VendorName").val(),
+                PersonMobileNo: $("#PersonMobileNo").val(),
+                ContactPerson: $("#ContactPerson").val(),
+                EmailID: $("#EmailID").val(),
+                IsActive: $("#IsActive").val(),
+                OfficeNumber: $("#OfficeNumber").val(),
+                FaxNumber: $("#FaxNumber").val(),
+                Address: $("#Address").val(),
+                IsActive: isactive,
+
+            },
+            success: function (da) {
+
+                alert(da);
+                refresh();
+                $("#mdlEditSupplier .close").click()
+                $('.modal-backdrop').remove();
+
+
+            },
+
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    });
+
+
+
+    $('#btnDelete').on('click', function () {
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Master/DeleteSupplier',
+
+            data:
+            {
+                VendorID: $("#VendorID").val(),
+
+            },
+            success: function (da) {
+
+                alert(da);
+                refresh();
+                $("#mdlEditSupplier .close").click()
+                $('.modal-backdrop').remove();
+
+            },
+
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    });
+
+     function refresh()
+    {
+
+        $.ajax({
+            url: "@Url.Action("LoadDataForSuppier", "Master")",
+            contentType: "application/json",
+            data: JSON.stringify({ page: con }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#grid1').html(data);
+
+            },
+            error: function (data) {
+
+            },
+            complete: function () {
+
+
+
+            }
+
+        });
+    }
+
+
+</script>

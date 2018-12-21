@@ -25,6 +25,8 @@ namespace MyVitarak.Models
         public DbSet<Vehical> Vehical { get; set; }
         public DbSet<VehicalDetails> VehicalDetails { get; set; }
         public DbSet<SupplierDetails> SupplierDetails { get; set; }
+        public DbSet<SupplierMaster> SupplierMaster { get; set; }
+        
 
         public DbSet<Customer> Customer { get; set; }
         public DbSet<CustomerDetails> CustomerDetails { get; set; }
