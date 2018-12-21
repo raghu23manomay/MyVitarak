@@ -7,6 +7,9 @@ using MyVitarak.Models;
 using System.Data.SqlClient;
 using PagedList;
 using System.Data;
+using System.IO;
+using System.Data.OleDb;
+using System.Xml;
 
 namespace MyVitarak.Controllers
 {
@@ -104,6 +107,7 @@ namespace MyVitarak.Controllers
                 dt1 = ds.Tables[0] as DataTable;
                 Session.Add("dt1", dt1);
                 L.dtTable = dt1;
+                
             }
             return Request.IsAjaxRequest() ? (ActionResult)PartialView("importexcel", L)
                 : View(L);
@@ -789,7 +793,7 @@ namespace MyVitarak.Controllers
             }
 
 
-
+        }
 
         public ActionResult OpeningBalance()
         {
