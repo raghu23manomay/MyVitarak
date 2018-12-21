@@ -1,0 +1,51 @@
+﻿@using System.Data
+@model System.Data.DataTable
+
+<table class="table table-bordered">
+    <thead>
+
+        <tr>
+            @foreach (System.Data.DataColumn col in Model.Columns)
+            {
+
+                <th>@col.Caption</th>
+
+
+            }
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (System.Data.DataRow row in Model.Rows)
+        {
+            <tr>
+
+                @foreach (System.Data.DataColumn col in Model.Columns)
+                {
+                    string temp = row[col.ColumnName].ToString();
+                    decimal Num = 0;
+
+                    bool isNum = decimal.TryParse(temp, out Num);
+                    if (isNum == false)
+                    {
+
+                        <td>
+                            @row[col.ColumnName]
+                        </td>
+                    }
+                    else
+                    {
+
+                        <td contenteditable='true'>
+                            @row[col.ColumnName]
+                        </td>
+
+                    }
+
+
+
+                }
+            </tr>
+        }
+    </tbody>
+</table>

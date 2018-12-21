@@ -109,6 +109,7 @@ namespace MyVitarak.Controllers
                 L.dtTable = dt1;
                 
             }
+            ViewBag.error = "show";
             return Request.IsAjaxRequest() ? (ActionResult)PartialView("importexcel", L)
                 : View(L);
         }
@@ -588,6 +589,49 @@ namespace MyVitarak.Controllers
         }
 
 
+
+
+
+        public ActionResult LoadVehicle(int? page, String Name)
+        {
+            StaticPagedList<VehicalDetails> itemsAsIPagedList;
+            itemsAsIPagedList = GridListVehicle(page, Name);
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("Partial_VehicalGridList", itemsAsIPagedList)
+                    : View("Partial_VehicalGridList", itemsAsIPagedList);
+        }
+
+        public StaticPagedList<VehicalDetails> GridListVehicle(int? page, String Name)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            var pageIndex = (page ?? 1);
+            const int pageSize = 8;
+            int totalCount = 8;
+            VehicalDetails Ulist = new VehicalDetails();
+            if (Name == null) Name = "";
+
+            IEnumerable<VehicalDetails> result = _db.VehicalDetails.SqlQuery(@"exec GetVehicalList
+                   @pPageIndex, @pPageSize,@pVehicle",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize),
+               new SqlParameter("@pVehicle", Name)
+
+               ).ToList<VehicalDetails>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
+            {
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
+            }
+            var itemsAsIPagedList = new StaticPagedList<VehicalDetails>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
+
+
+
+        }
+
+
         /************************************************Add Vehical************************************************************/
 
         public ActionResult Add_Vehical()
@@ -832,6 +876,44 @@ namespace MyVitarak.Controllers
             }
 
         }
+        public ActionResult LoadOpeningBalance(String Name)
+        {
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "OpeningBalanceList";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@pName", Name));
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+
+                return View("Partial_OpeningBalance",dt);
+            }
+
+        }
 
 
         [HttpPost]
@@ -865,6 +947,54 @@ namespace MyVitarak.Controllers
 
             }
         }
+        public ActionResult CustomerRates()
+        {
+
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+
+                        cmd.CommandText = "SP_EXECUTESQL123";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        // dataAdapter.Fill(ds);
+                        //using (var reader = cmd.ExecuteReader())
+
+                        cmd.CommandText = "CustomersRate";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+
+
+                return View(dt);
+            }
+
+        }
+
 
     }
 }

@@ -1,0 +1,49 @@
+﻿@model  IEnumerable<MyVitarak.Models.VehicalDetails>
+
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">VechicleNo <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+                <th scope="col">Transport<i class="fa fa-angle-down" aria-hidden="true"></i></th>
+                <th scope="col">Owner<i class="fa fa-angle-down" aria-hidden="true"></i></th>
+                <th scope="col">Mobile <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+                <th scope="col">Rate <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+                <th scope="col">Print Order <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+                <th>
+
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+
+                    <td>
+                        <div class="form-check height20Pixel">
+                            <input class="form-check-input" type="checkbox" id="one">
+                            <label class="form-check-label verticalAlignTop" for="one"> &nbsp;@item.VechicleNo</label>
+                        </div>
+                    </td>
+                    <td>@item.Transport</td>
+                    <td>@item.Owner</td>
+                    <td>@item.Mobile</td>
+                    <td>@item.RatePerTrip</td>
+                    <td>@item.PrintOrder</td>
+                    <td><a href="@Url.Action("EditVehical", "Master", new { @VechicleID = @item.VechicleID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
+                    <td id="del" onclick="deleteItem()">Delete</td>
+
+                    @*<td><a href="@Url.Action("EditEmployee", "Home", new { @EmployeeID = @item.EmployeeID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
+                        <td id="del" onclick="deleteItem()">Delete</td>*@
+                </tr>
+
+            }
+
+           
+        </tbody>
+    </table>
+    <div id="mdlEditEmployee" class="modal fade" style="margin-left: 20%;padding-top: 50px;width: 60%;" data-backdrop="static" data-keyboard="false" role="dialog">
+    </div>

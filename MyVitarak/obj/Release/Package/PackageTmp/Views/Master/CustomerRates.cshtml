@@ -2,10 +2,10 @@
 @model System.Data.DataTable
 @{
     ViewBag.Title = "CustomerRates";
-    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="marginTop130">
+<div class="marginTop140 marginBottom40">
     <div class="col-xs-12">
         <div class="btn-toolbar pull-left" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group" role="group" aria-label="First group">
@@ -46,8 +46,8 @@
             </ul>
         </div>
 
-      
-       
+
+
     </div>
     <div class="col-xs-12">
         <table class="table table-bordered">
@@ -57,7 +57,7 @@
                     @foreach (System.Data.DataColumn col in Model.Columns)
                     {
 
-                        <th><b>@col.Caption</b></th>
+                        <th>@col.Caption</th>
 
 
                     }
@@ -74,7 +74,7 @@
                             if (row[col.ColumnName].ToString() == "")
                             {
                                 <td contenteditable='true'>
-                                    <b> 0.00 </b>
+                                    0.00 
                                 </td>
                             }
 
@@ -83,13 +83,13 @@
                                 if (row[col.ColumnName] == typeof(Decimal))
                                 {
                                     <td contenteditable='true'>
-                                        <b> @row[col.ColumnName]</b>
+                                         @row[col.ColumnName]
                                     </td>
                                 }
                                 else
                                 {
                                     <td>
-                                        <b> @row[col.ColumnName]</b>
+                                        @row[col.ColumnName]
                                     </td>
                                 }
 

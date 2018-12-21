@@ -1,77 +1,69 @@
-﻿@model VitrakProjectFinal.Models.Employee
+﻿@model MyVitarak.Models.Employee
 
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Add_Employee</title>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
 
-</head>
-<body>
-    <div>
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user-plus marginRight15px" aria-hidden="true"></i>Employee details</h4>
-                </div>
+<div>
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user-plus marginRight15px" aria-hidden="true"></i>Employee details</h4>
+            </div>
 
-                <div class="modal-body">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label for="exampleInputName2" class="col-sm-3 control-label">Name</label>
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(a => a.EmployeeName, new { @class = "form-control r-0 light s-12", placeholder = "Enter First Name", title = "EmployeeName", @id = "EmployeeName" })
-                                @*<label style="color:red" id="Employee">*</label>*@
-                            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="exampleInputName2" class="col-sm-3 control-label">Name</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(a => a.EmployeeName, new { @class = "form-control r-0 light s-12", placeholder = "Enter First Name", title = "EmployeeName", @id = "EmployeeName" })
+                            <label style="color:red" id="Employee">*</label>
                         </div>
-                        <div class="form-group">
-                            <label for="customerAddress" class="col-sm-3 control-label">Address</label>
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
-                                @*<label style="color:red" id="AddressVal">*</label>*@
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerAddress" class="col-sm-3 control-label">Address</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                            <label style="color:red" id="AddressVal">*</label>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="customerArea" class="col-sm-3 control-label">Area / Route</label>
-                            <div class="col-sm-9">
-                                @Html.DropDownList("Area", new SelectList((System.Collections.IEnumerable)ViewData["Area"], "Value", "Text"), "Select Area", new { @class = "form-control input-sm", @id = "AreaID", Title = "ModeName" })
-                                @*@Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })*@
-                                @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
-                                @*<label style="color:red" id="AreaVal">*</label>*@
-                            </div>
+                    <div class="form-group">
+                        <label for="customerArea" class="col-sm-3 control-label">Area / Route</label>
+                        <div class="col-sm-9">
+                            @Html.DropDownList("Area", new SelectList((System.Collections.IEnumerable)ViewData["Area"], "Value", "Text"), "Select Area", new { @class = "form-control input-sm", @id = "AreaID", Title = "ModeName" })
+                            @*@Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })*@
+                            @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
+                            <label style="color:red" id="AreaVal">*</label>
                         </div>
-                        <div class="form-group">
-                            <label for="customerMobNo" class="col-sm-3 control-label">Mobile no.</label>
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control r-0 light s-12", placeholder = "Enter Mobile", title = "Mobile", @id = "Mobile" })
-                                </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerMobNo" class="col-sm-3 control-label">Mobile no.</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control r-0 light s-12", placeholder = "Enter Mobile", title = "Mobile", @id = "Mobile" })
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+            </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" id="btnsave"  class="btn btn-primary">Save changes</button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" id="btnsave" class="btn btn-primary">Save changes</button>
             </div>
         </div>
-        </div>
-</body>
-</html>
+    </div>
+</div>
+
 <script>
     function abc() {
         $('.modal-backdrop').remove();
     }
-   
+
     $(document).ready(function () {
         $("#Employee").hide();
         $("#AddressVal").hide();
@@ -123,7 +115,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: '/Home/AddEmployee',
+                url: '/Master/AddEmployee',
 
                 data:
                 {
