@@ -839,8 +839,12 @@ namespace MyVitarak.Controllers
 
         }
 
-        public ActionResult OpeningBalance()
+        public ActionResult OpeningBalance(int? page)
         {
+            var pageIndex = (page ?? 1);
+            const int pageSize = 20;
+           
+
 
             using (JobDbContext context = new JobDbContext())
             {
@@ -856,6 +860,8 @@ namespace MyVitarak.Controllers
                     {
                         cmd.CommandText = "OpeningBalanceList";
                         cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@pPageIndex", pageIndex));
+                        cmd.Parameters.Add(new SqlParameter("@pPageSize", pageSize));
                         using (var reader = cmd.ExecuteReader())
                         {
                             dt.Load(reader);

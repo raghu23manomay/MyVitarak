@@ -207,7 +207,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Master\IndexForEmployeeMaster.cshtml" />
     <Content Include="Views\Master\Partial_EmployeeGridList.cshtml" />
-    <Content Include="Views\Master\AddVehical.cshtml" />
     <Content Include="Views\Master\Add_Employee.cshtml" />
     <Content Include="Views\Master\Add_Vehical.cshtml" />
     <Content Include="Views\Master\CustomerRates.cshtml" />

@@ -1,14 +1,23 @@
 ﻿@using System.Data
 @model System.Data.DataTable
-
+@using PagedList;
+@using PagedList.Mvc;
+@using GridMvc.Html
 <table class="table table-bordered">
     <thead>
 
         <tr>
             @foreach (System.Data.DataColumn col in Model.Columns)
             {
+                if (col.Caption == "TotalRows")
+                {
+                    <th hidden></th>
+                }
+                else
+                {
+                    <th>@col.Caption</th>
+                }
 
-                <th>@col.Caption</th>
 
 
             }
@@ -26,7 +35,11 @@
                     decimal Num = 0;
 
                     bool isNum = decimal.TryParse(temp, out Num);
-                    if (isNum == false)
+                    if(col.Caption=="TotalRows")
+                    {
+                        <td hidden></td>
+                    }
+                   else  if (isNum == false)
                     {
 
                         <td>
