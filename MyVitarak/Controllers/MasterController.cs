@@ -16,104 +16,6 @@ namespace MyVitarak.Controllers
     public class MasterController : Controller
     {
         // GET: Master
-        [HttpGet]
-        public ActionResult importexcel(string MasterName = "")
-        {
-            Session["MasterName"] = MasterName;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult importexcel(HttpPostedFileBase file, Route L)
-        {
-            DataTable dt1 = new DataTable();
-            DataSet ds = new DataSet();
-            if (Request.Files["file"].ContentLength > 0)
-            {
-                string fileExtension = System.IO.Path.GetExtension(Request.Files["file"].FileName);
-
-                if (fileExtension == ".xls" || fileExtension == ".xlsx")
-                {
-                    string fileLocation = Server.MapPath("~/uploads/") + Request.Files["file"].FileName;
-                    if (System.IO.File.Exists(fileLocation))
-                    {
-                        System.IO.File.SetAttributes(fileLocation, FileAttributes.Normal);
-                        //   System.IO.File.Delete(fileLocation);
-                    }
-                    Request.Files["file"].SaveAs(fileLocation);
-
-                    string excelConnectionString = string.Empty;
-                    excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
-                    fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-                    //connection String for xls file format.
-                    if (fileExtension == ".xls")
-                    {
-                        excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
-                        fileLocation + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-                    }
-                    //connection String for xlsx file format.
-                    else if (fileExtension == ".xlsx")
-                    {
-                        excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
-                        fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-                    }
-                    //Create Connection to Excel work book and add oledb namespace
-                    OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
-                    excelConnection.Open();
-                    DataTable dt = new DataTable();
-
-                    dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                    if (dt == null)
-                    {
-                        return null;
-                    }
-
-                    String[] excelSheets = new String[dt.Rows.Count];
-                    int t = 0;
-                    //excel data saves in temp file here.
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        excelSheets[t] = row["TABLE_NAME"].ToString();
-                        t++;
-                    }
-                    if (excelConnection.State == ConnectionState.Open)
-                    {
-                        excelConnection.Close();
-                    }
-                    OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
-
-                    string query = string.Format("Select * from [{0}]", excelSheets[0]);
-                    using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
-                    {
-                        dataAdapter.Fill(ds);
-                    }
-                    if (excelConnection1.State == ConnectionState.Open)
-                    {
-                        excelConnection1.Close();
-                    }
-                }
-                if (fileExtension.ToString().ToLower().Equals(".xml"))
-                {
-                    string fileLocation = Server.MapPath("~/uploads/") + Request.Files["FileUpload"].FileName;
-                    if (System.IO.File.Exists(fileLocation))
-                    {
-                        System.IO.File.Delete(fileLocation);
-                    }
-                    Request.Files["FileUpload"].SaveAs(fileLocation);
-                    XmlTextReader xmlreader = new XmlTextReader(fileLocation);
-                    ds.ReadXml(xmlreader);
-                    xmlreader.Close();
-                }
-                dt1 = ds.Tables[0] as DataTable;
-                Session.Add("dt1", dt1);
-                L.dtTable = dt1;
-                
-            }
-            ViewBag.error = "show";
-            return Request.IsAjaxRequest() ? (ActionResult)PartialView("importexcel", L)
-                : View(L);
-        }
-
         public ActionResult Index(int? page)
         {
             StaticPagedList<ProductDetails> itemsAsIPagedList;
@@ -500,6 +402,12 @@ namespace MyVitarak.Controllers
             {
                 string message = ex.Message;
                 return Json(message);
+        public JsonResult GetArea()
+        {
+            JobDbContext _db = new JobDbContext();
+            var lstItem = binddropdown("Area", 0).Select(i => new { i.Value, i.Text }).ToList();
+            return Json(lstItem, JsonRequestBehavior.AllowGet);
+        }
 
             }
 
@@ -549,75 +457,92 @@ namespace MyVitarak.Controllers
         [ValidateInput(false)]
         public ActionResult SaveEmployeeExcelData(List<Employee> SaveEmployeeData)
         {
-            try
-            {
-                JobDbContext _db = new JobDbContext();
+            JobDbContext _db = new JobDbContext();
+            var lstItem = binddropdown("Employee", 0).Select(i => new { i.Value, i.Text }).ToList();
+            return Json(lstItem, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetVehicle()
+        {
+            JobDbContext _db = new JobDbContext();
+            var lstItem = binddropdown("Vehicle", 0).Select(i => new { i.Value, i.Text }).ToList();
+            return Json(lstItem, JsonRequestBehavior.AllowGet);
+        }
 
-                if (SaveEmployeeData.Count > 0)
+                if (fileExtension == ".xls" || fileExtension == ".xlsx")
                 {
+                    string fileLocation = Server.MapPath("~/uploads/") + Request.Files["file"].FileName;
+                    if (System.IO.File.Exists(fileLocation))
+                    {
+                        System.IO.File.SetAttributes(fileLocation, FileAttributes.Normal);
+                        //   System.IO.File.Delete(fileLocation);
+                    }
+                    Request.Files["file"].SaveAs(fileLocation);
+
+                    string excelConnectionString = string.Empty;
+                    excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                    fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    //connection String for xls file format.
+                    if (fileExtension == ".xls")
+                    {
+                        excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
+                        fileLocation + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                    }
+                    //connection String for xlsx file format.
+                    else if (fileExtension == ".xlsx")
+                    {
+                        excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                        fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    }
+                    //Create Connection to Excel work book and add oledb namespace
+                    OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
+                    excelConnection.Open();
                     DataTable dt = new DataTable();
 
-                    dt.Columns.Add("EmployeeID", typeof(int));
-                    dt.Columns.Add("EmployeeName", typeof(string));
-                    dt.Columns.Add("Address", typeof(string));
-                    dt.Columns.Add("AreaID", typeof(int));
-                    dt.Columns.Add("Mobile", typeof(string));
-                    dt.Columns.Add("UserId", typeof(int));
-
-                    foreach (var item in SaveEmployeeData)
+                    dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                    if (dt == null)
                     {
-                        DataRow dr = dt.NewRow();
-                        dr["EmployeeID"] = 1;
-                        dr["EmployeeName"] = item.EmployeeName;
-                        dr["Address"] = item.Address;
-                        dr["AreaID"] = 2;
-                        dr["Mobile"] = item.Mobile;
-                        dr["UserId"] = 1;
-
-                        if (item.EmployeeName == null)
-                        {
-                            return Json("Employee Name Missing");
-                        }
-                        if (item.Address == null)
-                        {
-                            return Json("Address missing");
-                        }
-                        if (item.AreaID == 0)
-                        {
-                            return Json("Area Id Missing");
-                        }
-                        if (item.Mobile == null)
-                        {
-                            return Json("Mobile number Missing");
-                        }
-
-                        if (item.EmployeeName != null)
-                        {
-                            dt.Rows.Add(dr);
-                        }
+                        return null;
                     }
 
-                    SqlParameter tvpParam = new SqlParameter();
-                    tvpParam.ParameterName = "@EmployeeParameters";
-                    tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
-                    tvpParam.Value = dt;
-                    tvpParam.TypeName = "UT_EmployeeMasters";
+                    String[] excelSheets = new String[dt.Rows.Count];
+                    int t = 0;
+                    //excel data saves in temp file here.
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        excelSheets[t] = row["TABLE_NAME"].ToString();
+                        t++;
+                    }
+                    if (excelConnection.State == ConnectionState.Open)
+                    {
+                        excelConnection.Close();
+                    }
+                    OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
 
-                    var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_EmployeeMaster @EmployeeParameters",
-                     tvpParam);
-
+                    string query = string.Format("Select * from [{0}]", excelSheets[0]);
+                    using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                    {
+                        dataAdapter.Fill(ds);
+                    }
+                    if (excelConnection1.State == ConnectionState.Open)
+                    {
+                        excelConnection1.Close();
+                    }
                 }
-                // return Request.IsAjaxRequest() ? (ActionResult)PartialView("ImportLaneRate")
-                //: View();
-                return Request.IsAjaxRequest() ? (ActionResult)Json("Excel Imported Sucessfully")
-                : Json("Excel Imported Sucessfully");
-            }
-            catch (Exception e)
-
-            {
-                var messege = e.Message;
-                return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
-               : Json(messege);
+                if (fileExtension.ToString().ToLower().Equals(".xml"))
+                {
+                    string fileLocation = Server.MapPath("~/uploads/") + Request.Files["FileUpload"].FileName;
+                    if (System.IO.File.Exists(fileLocation))
+                    {
+                        System.IO.File.Delete(fileLocation);
+                    }
+                    Request.Files["FileUpload"].SaveAs(fileLocation);
+                    XmlTextReader xmlreader = new XmlTextReader(fileLocation);
+                    ds.ReadXml(xmlreader);
+                    xmlreader.Close();
+                }
+                dt1 = ds.Tables[0] as DataTable;
+                Session.Add("dt1", dt1);
+                L.dtTable = dt1;
             }
 
         }
@@ -639,7 +564,8 @@ namespace MyVitarak.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateEmployee(Employee up)
+        [ValidateInput(false)]
+        public ActionResult SaveProductExcelData(List<ProductMaster> SaveLaneRate)
         {
             JobDbContext _db = new JobDbContext();
 
@@ -672,136 +598,70 @@ namespace MyVitarak.Controllers
                 var res = _db.Database.ExecuteSqlCommand(@"exec UC_DeleteEmployeeMast @EmployeeID",
                     new SqlParameter("@EmployeeID", EmployeeID));
 
-                return Json("Data Deleted Sucessfully");
-            }
-            catch (Exception ex)
-            {
-                string message = ex.Message;
-                return Json(message);
-
-            }
-
-        }
-
-
-        /************************************************Add Vehical************************************************************/
-
-        public ActionResult Add_Vehical()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddVehical(Vehical pm)
-        {
-            JobDbContext _db = new JobDbContext();
-            try
-            {
-
-                var res = _db.Database.ExecuteSqlCommand(@"exec UC_VehicleMast_Insert @Transport,@Owner,@Address,@Mobile,@VechicleNo,@RatePerTrip,@Marathi,@PrintOrder",
-                    new SqlParameter("@Transport", pm.Transport),
-                    new SqlParameter("@Owner", pm.Owner),
-                    new SqlParameter("@Address", pm.Address),
-                    new SqlParameter("@Mobile", pm.Mobile),
-                    new SqlParameter("@VechicleNo", pm.VechicleNo),
-                    new SqlParameter("@RatePerTrip", pm.RatePerTrip),
-                    new SqlParameter("@Marathi", pm.Marathi),
-                    new SqlParameter("@PrintOrder", pm.PrintOrder)
-                    );
-
-                return Json("Data Added Sucessfully");
-            }
-            catch (Exception ex)
-            {
-                string message = ex.Message;
-                return Json(message);
-
-            }
-        }
-
-        public ActionResult IndexForVehicalMaster(int? page)
-        {
-            StaticPagedList<VehicalDetails> itemsAsIPagedList;
-            itemsAsIPagedList = VehicalGridList(page);
-
-            Session["MasterName"] = "VehicalMaster";
-            return Request.IsAjaxRequest()
-                    ? (ActionResult)PartialView("IndexForVehicalMaster", itemsAsIPagedList)
-                    : View("IndexForVehicalMaster", itemsAsIPagedList);
-        }
-
-        public StaticPagedList<VehicalDetails> VehicalGridList(int? page)
-        {
-
-            JobDbContext _db = new JobDbContext();
-            var pageIndex = (page ?? 1);
-            const int pageSize = 8;
-            int totalCount = 8;
-            VehicalDetails Ulist = new VehicalDetails();
-
-            IEnumerable<VehicalDetails> result = _db.VehicalDetails.SqlQuery(@"exec GetVehicalList
-                   @pPageIndex, @pPageSize",
-               new SqlParameter("@pPageIndex", pageIndex),
-               new SqlParameter("@pPageSize", pageSize)
-
-               ).ToList<VehicalDetails>();
-
-            totalCount = 0;
-            if (result.Count() > 0)
-            {
-                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
-            }
-            var itemsAsIPagedList = new StaticPagedList<VehicalDetails>(result, pageIndex, pageSize, totalCount);
-            return itemsAsIPagedList;
-
-
-
-        }
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult SaveVehicalExcelData(List<Vehical> SaveVehicalData)
-        {
-            try
-            {
-                JobDbContext _db = new JobDbContext();
-
-                if (SaveVehicalData.Count > 0)
+                if (SaveLaneRate.Count > 0)
                 {
                     DataTable dt = new DataTable();
-                    dt.Columns.Add("VechicleID", typeof(int));
-                    dt.Columns.Add("Transport", typeof(string));
-                    dt.Columns.Add("Owner", typeof(string));
-                    dt.Columns.Add("Address", typeof(string));
-                    dt.Columns.Add("Mobile", typeof(string));
-                    dt.Columns.Add("VechicleNo", typeof(string));
-                    dt.Columns.Add("RatePerTrip", typeof(decimal));
-                    dt.Columns.Add("Marathi", typeof(string));
-                    dt.Columns.Add("PrintOrder", typeof(int));
-                    foreach (var item in SaveVehicalData)
+
+                    dt.Columns.Add("ProductID", typeof(int));
+                    dt.Columns.Add("Product", typeof(string));
+                    dt.Columns.Add("ProductBrandID", typeof(int));
+                    dt.Columns.Add("CreateDate", typeof(DateTime));
+                    dt.Columns.Add("CreatedBy", typeof(int));
+                    dt.Columns.Add("LastUpdatedDate", typeof(DateTime));
+                    dt.Columns.Add("LastUpdatedBy", typeof(int));
+                    dt.Columns.Add("isActive", typeof(int));
+                    dt.Columns.Add("CrateSize", typeof(int));
+                    dt.Columns.Add("GST", typeof(decimal));
+
+                    foreach (var item in SaveLaneRate)
                     {
                         DataRow dr = dt.NewRow();
-                        dr["VechicleID"] = 1;
-                        dr["Transport"] = item.Transport;
-                        dr["Owner"] = item.Owner;
-                        dr["Address"] = item.Address;
-                        dr["Mobile"] = item.Mobile;
-                        dr["VechicleNo"] = item.VechicleNo;
-                        dr["RatePerTrip"] = item.RatePerTrip;
-                        dr["Marathi"] = item.Marathi;
-                        dr["PrintOrder"] = item.PrintOrder;
-                        if (item.Transport != null)
+                        dr["ProductID"] = 1;
+                        dr["Product"] = item.Product;
+                        dr["ProductBrandID"] = item.ProductBrandID;
+                        dr["CreateDate"] = DateTime.Now;
+                        dr["CreatedBy"] = 1;
+                        dr["LastUpdatedDate"] = DateTime.Now;
+                        dr["LastUpdatedBy"] = 1;
+                        dr["isActive"] = 1;
+                        dr["CrateSize"] = item.CrateSize;
+                        dr["GST"] = item.GST;
+
+                        string pbid = item.ProductBrandID.ToString();
+                        Int64 Num = 0;
+                        bool isNum = Int64.TryParse(pbid, out Num);
+
+                        string caret = item.CrateSize.ToString();
+                        Int64 CaretNum = 0;
+                        bool CaretisNum = Int64.TryParse(caret, out CaretNum);
+
+                        if (item.Product == null)
                         {
-                            dt.Rows.Add(dr);
+                            return Json("Enter Product Name");
+
                         }
+                        else if (item.ProductBrandID == 0 || isNum == false)
+                        {
+                            return Json("Enter Sequence Number In Numaric");
+                        }
+                        else if (item.CrateSize == 0 || CaretisNum == false)
+                        {
+                            return Json("Enter Caret Size In Numaric ");
+                        }
+                        else
+                        {
+                            return Json("Enter 10 Digit Mobile Number");
+                        }
+
                     }
 
                     SqlParameter tvpParam = new SqlParameter();
-                    tvpParam.ParameterName = "@VehicalParameters";
+                    tvpParam.ParameterName = "@ProductParameters";
                     tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
                     tvpParam.Value = dt;
-                    tvpParam.TypeName = "UT_VehicalMaster";
+                    tvpParam.TypeName = "UT_ProductMaster";
 
-                    var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_VehicalMaster @VehicalParameters",
+                    var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_ProductMaster @ProductParameters",
                      tvpParam);
 
                 }
@@ -959,280 +819,6 @@ namespace MyVitarak.Controllers
                 return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
                : Json(messege);
 
-            }
         }
-
-
-
-        //=================================================  Supplier Master ==================================================
-
-        public ActionResult IndexForSupplierMaster(int? page,string sname = "")
-        {
-            StaticPagedList<SupplierDetails> itemsAsIPagedList;
-            itemsAsIPagedList = SupplierGridList(page,sname);
-
-            Session["MasterName"] = "SupplierMaster";
-            return Request.IsAjaxRequest()
-                    ? (ActionResult)PartialView("IndexForSupplierMaster", itemsAsIPagedList)
-                    : View("IndexForSupplierMaster", itemsAsIPagedList);
-        }
-
-
-        public ActionResult LoadDataForSuppier(int? page, string sname = "")
-        {
-            StaticPagedList<SupplierDetails> itemsAsIPagedList;
-            itemsAsIPagedList = SupplierGridList(page,sname);
-
-            //   Session["MasterName"] = "SupplierMaster";
-            return Request.IsAjaxRequest()
-                    ? (ActionResult)PartialView("_partialGridSupplierMaster", itemsAsIPagedList)
-                    : View("_partialGridSupplierMaster", itemsAsIPagedList);
-        }
-
-
-
-        //================================== Fill Supplier Grid Code ===========================================
-
-        public StaticPagedList<SupplierDetails> SupplierGridList(int? page, string sname = "")
-        {
-
-            JobDbContext _db = new JobDbContext();
-            var pageIndex = (page ?? 1);
-            const int pageSize = 20;
-            int totalCount = 20;
-            SupplierDetails Ulist = new SupplierDetails();
-
-            IEnumerable<SupplierDetails> result = _db.SupplierDetails.SqlQuery(@"exec GetSupplierList
-                   @pPageIndex, @pPageSize,@sname",
-               new SqlParameter("@pPageIndex", pageIndex),
-               new SqlParameter("@pPageSize", pageSize),
-               new SqlParameter("@sname", sname)
-
-               ).ToList<SupplierDetails>();
-
-            totalCount = 0;
-            if (result.Count() > 0)
-            {
-                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
-            }
-            var itemsAsIPagedList = new StaticPagedList<SupplierDetails>(result, pageIndex, pageSize, totalCount);
-            return itemsAsIPagedList;
-
-        }
-
-        [HttpGet]
-        public ActionResult Add_Supplier()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Add_Supplier(SupplierMaster pm)
-        {
-            JobDbContext _db = new JobDbContext();
-            try
-            {
-
-                var res = _db.Database.ExecuteSqlCommand(@"exec UC_InsertVendorMast @VendorName,@Address,@AreaID,@CityID,@EmailID,@OfficePhone,@FaxNo,@ContactPerson,@PersonMobileNo,@IsActive,@CreatedBy",
-                    new SqlParameter("@VendorName", pm.VendorName),
-                    new SqlParameter("@Address", pm.Address == null ? (object)DBNull.Value : pm.Address),
-                    new SqlParameter("@AreaID", 1),
-                    new SqlParameter("@CityID", 1),
-                    new SqlParameter("@EmailID", pm.EmailID == null ? (object)DBNull.Value : pm.EmailID),
-                    new SqlParameter("@OfficePhone",pm.OfficeNumber == null ? (object)DBNull.Value : pm.OfficeNumber),
-                    new SqlParameter("@FaxNo", pm.FaxNumber == null ? (object)DBNull.Value : pm.FaxNumber),
-                    new SqlParameter("@ContactPerson", pm.ContactPerson == null ? (object)DBNull.Value : pm.ContactPerson),
-                    new SqlParameter("@PersonMobileNo", pm.PersonMobileNo == null ? (object)DBNull.Value : pm.PersonMobileNo),
-                    new SqlParameter("@IsActive", pm.IsActive),
-                    new SqlParameter("@CreatedBy", 1)
-                    );
-
-                return Json("Data Added Sucessfully");
-            }
-            catch (Exception ex)
-            {
-                string message = ex.Message;
-                return Json(message);
-
-            }
-            
-        }
-
-
-        //========================================== Edit Supplier ================================================
-
-        public ActionResult EditSupplier()
-        {
-            return View();
-
-        }
-
-        public ActionResult FetchSupplierForUpdate(int? VendorID)
-        {
-            JobDbContext _db = new JobDbContext();
-            try
-            {
-                var res = _db.SupplierMaster.SqlQuery(@"exec [UC_FetchDataForUpdate_VendorMaster] @VendorID",
-                    new SqlParameter("@VendorID", VendorID)
-                   ).ToList<SupplierMaster>();
-
-                SupplierMaster rs = new SupplierMaster();
-                rs = res.FirstOrDefault();
-                return View("EditSupplier", rs);
-            }
-            catch (Exception ex)
-            {
-                string message = ex.Message;
-                return Json(message);
-
-            }
-        }
-
-
-        public ActionResult DeleteSupplier(int? VendorID)
-        {
-
-            JobDbContext _db = new JobDbContext();
-            try
-            {
-                var res = _db.Database.ExecuteSqlCommand(@"exec UC_DeleteVendorMast @VendorID",
-                    new SqlParameter("@VendorID", VendorID));
-
-                return Json("Data Deleted Sucessfully");
-            }
-            catch (Exception ex)
-            {
-                string message = ex.Message;
-                return Json(message);
-
-            }
-
-        }
-
-        [HttpPost]
-        public ActionResult UpdateSupplier(SupplierMaster rm)
-        {
-
-            JobDbContext _db = new JobDbContext();
-            try
-            {
-                var res = _db.Database.ExecuteSqlCommand(@"exec [UC_UpdateVendorMast] @VendorID,@VendorName,@Address,@EmailID,@OfficePhone,@FaxNo,@ContactPerson,@PersonMobileNo,@IsActive,@LastUpdatedBy",
-                    new SqlParameter("@VendorID", rm.VendorID),
-                    new SqlParameter("@VendorName", rm.VendorName),
-                    new SqlParameter("@Address", rm.Address == null ? (object)DBNull.Value : rm.Address),
-                    new SqlParameter("@EmailID", rm.EmailID == null ? (object)DBNull.Value : rm.EmailID),
-                    new SqlParameter("@OfficePhone", rm.OfficeNumber == null ? (object)DBNull.Value : rm.OfficeNumber),
-                    new SqlParameter("@FaxNo", rm.FaxNumber == null ? (object)DBNull.Value : rm.FaxNumber),
-                    new SqlParameter("@ContactPerson", rm.ContactPerson == null ? (object)DBNull.Value : rm.ContactPerson),
-                    new SqlParameter("@PersonMobileNo", rm.PersonMobileNo == null ? (object)DBNull.Value : rm.PersonMobileNo),
-                    new SqlParameter("@IsActive", rm.IsActive),
-                    new SqlParameter("@LastUpdatedBy", 1));
-
-                return Json("Data Updated Sucessfully");
-            }
-            catch (Exception ex)
-            {
-                string message = ex.Message;
-                return Json(message);
-
-            }
-
-        }
-
-
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult SaveSupplierExcelData(List<SupplierMaster> SaveSupplierData)
-        {
-            try
-            {
-                JobDbContext _db = new JobDbContext();
-
-                if (SaveSupplierData.Count > 0)
-                {
-                    DataTable dt = new DataTable();
-                    dt.Columns.Add("VendorID", typeof(int));
-                    dt.Columns.Add("VendorName", typeof(string));
-                    dt.Columns.Add("Address", typeof(string));
-                    dt.Columns.Add("AreaID", typeof(int));
-                    dt.Columns.Add("CityID", typeof(int));
-                    dt.Columns.Add("EmailID", typeof(string));
-                    dt.Columns.Add("OfficePhone", typeof(string));
-                    dt.Columns.Add("FaxNo", typeof(string));
-                    dt.Columns.Add("ContactPerson", typeof(string));
-                    dt.Columns.Add("PersonMobileNo", typeof(string));
-                    dt.Columns.Add("IsActive", typeof(Boolean));
-                    dt.Columns.Add("CreatedBy", typeof(int));
-                    dt.Columns.Add("CreateDate", typeof(DateTime));
-                    dt.Columns.Add("LastUpdatedDate", typeof(DateTime));
-                    dt.Columns.Add("LastUpdatedBy", typeof(int));
-
-                    foreach (var item in SaveSupplierData)
-                    {
-                        DataRow dr = dt.NewRow();
-                        dr["VendorID"] = 1;
-                        dr["VendorName"] = item.VendorName;
-                        dr["Address"] = item.Address;
-                        dr["AreaID"] = 1;
-                        dr["CityID"] = 1;
-                        dr["EmailID"] = item.EmailID;
-                        dr["OfficePhone"] = item.OfficeNumber;
-                        dr["ContactPerson"] = item.ContactPerson;
-                        dr["PersonMobileNo"] = item.PersonMobileNo;
-                        dr["IsActive"] = item.IsActive;
-                        dr["CreatedBy"] = 1;
-                        dr["CreateDate"] = DateTime.Now;
-                        dr["LastUpdatedDate"] = DateTime.Now;
-                        dr["LastUpdatedBy"] = 1;
-
-                        string temp = item.PersonMobileNo;
-                        Int64 Num = 0;
-                        bool isNum = Int64.TryParse(temp, out Num); //c is your variable
-
-
-                        if (item.VendorName == null)
-                        {
-                            return Json("Vendor Name Is Missing");
-                        }
-                        else if (item.Address == null)
-                        {
-                            return Json("Address Is Missing");
-                        }
-                        else if (item.PersonMobileNo.Length == 10 && isNum == true)
-                        {
-                            dt.Rows.Add(dr);
-                        }
-                        else
-                        {
-                            return Json("Enter 10 Digit Mobile Number");
-                        }
-
-                    }
-
-                    SqlParameter tvpParam = new SqlParameter();
-                    tvpParam.ParameterName = "@SupplierParameters";
-                    tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
-                    tvpParam.Value = dt;
-                    tvpParam.TypeName = "UT_SupplierMaster";
-
-                    var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_SupplierMaster @SupplierParameters",
-                     tvpParam);
-
-                }
-                // return Request.IsAjaxRequest() ? (ActionResult)PartialView("ImportLaneRate")
-                //: View();
-                return Request.IsAjaxRequest() ? (ActionResult)Json("Excel Imported Sucessfully")
-                : Json("Excel Imported Sucessfully");
-            }
-            catch (Exception e)
-
-            {
-                var messege = e.Message;
-                return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
-               : Json(messege);
-            }
-
-        }
-
     }
 }
