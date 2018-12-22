@@ -224,6 +224,8 @@
     <Content Include="Views\Master\_partialGridAreaMaster.cshtml" />
     <Content Include="Views\Master\AddArea_Route.cshtml" />
     <Content Include="Views\Master\EditArea_Route.cshtml" />
+    <Content Include="Views\Master\OpeningBalanceIndex.cshtml" />
+    <Content Include="Views\Master\Partial_OpeningBalanceList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -233,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="CustomerRateXLSheet\" />
     <Folder Include="uploads\" />
   </ItemGroup>
   <PropertyGroup>

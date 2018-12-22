@@ -10,6 +10,7 @@ using System.Data;
 using System.IO;
 using System.Data.OleDb;
 using System.Xml;
+using System.Web.UI;
 
 namespace MyVitarak.Controllers
 {
@@ -545,6 +546,183 @@ namespace MyVitarak.Controllers
 
 
         /*******************************************EditEmployee*****************************************************/
+        public ActionResult LoadVehicle(int? page, String Name)
+        {
+            StaticPagedList<VehicalDetails> itemsAsIPagedList;
+            itemsAsIPagedList = GridListVehicle(page, Name);
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("Partial_VehicalGridList", itemsAsIPagedList)
+                    : View("Partial_VehicalGridList", itemsAsIPagedList);
+        }
+
+        public StaticPagedList<VehicalDetails> GridListVehicle(int? page, String Name)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            var pageIndex = (page ?? 1);
+            const int pageSize = 8;
+            int totalCount = 8;
+            VehicalDetails Ulist = new VehicalDetails();
+            if (Name == null) Name = "";
+
+            IEnumerable<VehicalDetails> result = _db.VehicalDetails.SqlQuery(@"exec GetVehicalList
+                   @pPageIndex, @pPageSize,@pVehicle",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize),
+               new SqlParameter("@pVehicle", Name)
+
+               ).ToList<VehicalDetails>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
+            {
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
+            }
+            var itemsAsIPagedList = new StaticPagedList<VehicalDetails>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
+
+
+
+        }
+
+
+        /************************************************Add Vehical************************************************************/
+
+        public ActionResult Add_Vehical()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddVehical(Vehical pm)
+        {
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_VehicleMast_Insert @Transport,@Owner,@Address,@Mobile,@VechicleNo,@RatePerTrip,@Marathi,@PrintOrder",
+                    new SqlParameter("@Transport", pm.Transport),
+                    new SqlParameter("@Owner", pm.Owner),
+                    new SqlParameter("@Address", pm.Address),
+                    new SqlParameter("@Mobile", pm.Mobile),
+                    new SqlParameter("@VechicleNo", pm.VechicleNo),
+                    new SqlParameter("@RatePerTrip", pm.RatePerTrip),
+                    new SqlParameter("@Marathi", pm.Marathi),
+                    new SqlParameter("@PrintOrder", pm.PrintOrder)
+                    );
+
+                return Json("Data Added Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+        }
+
+        public ActionResult IndexForVehicalMaster(int? page)
+        {
+            StaticPagedList<VehicalDetails> itemsAsIPagedList;
+            itemsAsIPagedList = VehicalGridList(page);
+
+            Session["MasterName"] = "VehicalMaster";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("IndexForVehicalMaster", itemsAsIPagedList)
+                    : View("IndexForVehicalMaster", itemsAsIPagedList);
+        }
+
+        public StaticPagedList<VehicalDetails> VehicalGridList(int? page)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            var pageIndex = (page ?? 1);
+            const int pageSize = 8;
+            int totalCount = 8;
+            VehicalDetails Ulist = new VehicalDetails();
+
+            IEnumerable<VehicalDetails> result = _db.VehicalDetails.SqlQuery(@"exec GetVehicalList
+                   @pPageIndex, @pPageSize",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize)
+
+               ).ToList<VehicalDetails>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
+            {
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
+            }
+            var itemsAsIPagedList = new StaticPagedList<VehicalDetails>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
+
+
+
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SaveVehicalExcelData(List<Vehical> SaveVehicalData)
+        {
+            try
+            {
+                JobDbContext _db = new JobDbContext();
+
+                if (SaveVehicalData.Count > 0)
+                {
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("VechicleID", typeof(int));
+                    dt.Columns.Add("Transport", typeof(string));
+                    dt.Columns.Add("Owner", typeof(string));
+                    dt.Columns.Add("Address", typeof(string));
+                    dt.Columns.Add("Mobile", typeof(string));
+                    dt.Columns.Add("VechicleNo", typeof(string));
+                    dt.Columns.Add("RatePerTrip", typeof(decimal));
+                    dt.Columns.Add("Marathi", typeof(string));
+                    dt.Columns.Add("PrintOrder", typeof(int));
+                    foreach (var item in SaveVehicalData)
+                    {
+                        DataRow dr = dt.NewRow();
+                        dr["VechicleID"] = 1;
+                        dr["Transport"] = item.Transport;
+                        dr["Owner"] = item.Owner;
+                        dr["Address"] = item.Address;
+                        dr["Mobile"] = item.Mobile;
+                        dr["VechicleNo"] = item.VechicleNo;
+                        dr["RatePerTrip"] = item.RatePerTrip;
+                        dr["Marathi"] = item.Marathi;
+                        dr["PrintOrder"] = item.PrintOrder;
+                        if (item.Transport != null)
+                        {
+                            dt.Rows.Add(dr);
+                        }
+                    }
+
+                    SqlParameter tvpParam = new SqlParameter();
+                    tvpParam.ParameterName = "@VehicalParameters";
+                    tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
+                    tvpParam.Value = dt;
+                    tvpParam.TypeName = "UT_VehicalMaster";
+
+                    var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_VehicalMaster @VehicalParameters",
+                     tvpParam);
+
+                }
+                // return Request.IsAjaxRequest() ? (ActionResult)PartialView("ImportLaneRate")
+                //: View();
+                return Request.IsAjaxRequest() ? (ActionResult)Json("Excel Imported Sucessfully")
+                : Json("Excel Imported Sucessfully");
+            }
+            catch (Exception e)
+
+            {
+                var messege = e.Message;
+                return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
+               : Json(messege);
+            }
+
+        }
+
+        /*******************************************EditEmployee*****************************************************/
 
         public ActionResult EditVehical(int VechicleID)
         {
@@ -600,7 +778,7 @@ namespace MyVitarak.Controllers
             JobDbContext _db = new JobDbContext();
             try
             {
-                var res = _db.Database.ExecuteSqlCommand(@"exec UC_CustomerMast_DeleteByPK @VechicleID",
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_DeleteVehicleMast_ByPk @VechicleID",
                     new SqlParameter("@VechicleID", VechicleID));
 
                 return Json("Data Deleted Sucessfully");
@@ -613,6 +791,120 @@ namespace MyVitarak.Controllers
             }
 
 
+        }
+
+        public ActionResult OpeningBalanceIndex(int? page)
+        {
+            StaticPagedList<OpeningBalanceDeatils> itemsAsIPagedList;
+            itemsAsIPagedList = OpeningBalanceList(page);
+
+            Session["MasterName"] = "OpeningBalance";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("OpeningBalanceIndex", itemsAsIPagedList)
+                    : View("OpeningBalanceIndex", itemsAsIPagedList);
+        }
+
+        //================================== Fill Product Grid Code ===========================================
+
+        public StaticPagedList<OpeningBalanceDeatils> OpeningBalanceList(int? page, string pname = "")
+        {
+
+            JobDbContext _db = new JobDbContext();
+            var pageIndex = (page ?? 1);
+            const int pageSize = 20;
+            int totalCount = 5;
+            OpeningBalanceDeatils Ulist = new OpeningBalanceDeatils();
+
+            IEnumerable<OpeningBalanceDeatils> result = _db.OpeningBalanceDeatils.SqlQuery(@"exec OpeningBalanceList
+                   @pPageIndex, @pPageSize,@pname",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize),
+               new SqlParameter("@pname", pname)
+
+               ).ToList<OpeningBalanceDeatils>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
+            {
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
+            }
+            var itemsAsIPagedList = new StaticPagedList<OpeningBalanceDeatils>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
+
+        }
+
+
+
+        public ActionResult LoadOpeningBalance(int? page, String Name)
+        {
+            StaticPagedList<OpeningBalanceDeatils> itemsAsIPagedList;
+            itemsAsIPagedList = GridOpeningBalanceList(page, Name);
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("Partial_OpeningBalanceList", itemsAsIPagedList)
+                    : View("Partial_OpeningBalanceList", itemsAsIPagedList);
+        }
+
+        public StaticPagedList<OpeningBalanceDeatils> GridOpeningBalanceList(int? page, String Name)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            var pageIndex = (page ?? 1);
+            const int pageSize = 20;
+            int totalCount = 8;
+            OpeningBalanceDeatils Ulist = new OpeningBalanceDeatils();
+            if (Name == null) Name = "";
+
+            IEnumerable<OpeningBalanceDeatils> result = _db.OpeningBalanceDeatils.SqlQuery(@"exec OpeningBalanceList
+                   @pPageIndex, @pPageSize,@pName",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize),
+               new SqlParameter("@pName", Name)
+
+               ).ToList<OpeningBalanceDeatils>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
+            {
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
+            }
+            var itemsAsIPagedList = new StaticPagedList<OpeningBalanceDeatils>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
+
+
+
+        }
+
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SaveOpeningBalance(List<OpeningBalance> SaveLaneRate)
+        {
+            try
+            {
+                JobDbContext _db = new JobDbContext();
+
+                if (SaveLaneRate.Count > 0)
+                {
+                    foreach (var item in SaveLaneRate)
+                    {
+                        _db.Database.ExecuteSqlCommand(@"exec uspUpdateOpeniningBalance @PreviousBalance,@CustomerId",
+                              new SqlParameter("@PreviousBalance", item.PreviousBalance), new SqlParameter("@CustomerId", item.CustomerID));
+
+                    }
+
+                }
+                return Json("Opening Balance Added Sucessfully");
+            }
+            catch (Exception e)
+
+
+
+            {
+                var messege = e.Message;
+                return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
+               : Json(messege);
+
+            }
         }
 
         public ActionResult OpeningBalance()
@@ -654,39 +946,7 @@ namespace MyVitarak.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult SaveOpeningBalance(List<OpeningBalance> SaveLaneRate)
-        {
-            try
-            {
-                JobDbContext _db = new JobDbContext();
-
-                if (SaveLaneRate.Count > 0)
-                {
-                    foreach (var item in SaveLaneRate)
-                    {
-                        _db.Database.ExecuteSqlCommand(@"exec uspUpdateOpeniningBalance @PreviousBalance,@CustomerId",
-                              new SqlParameter("@PreviousBalance", item.PreviousBalance), new SqlParameter("@CustomerId", item.CustomerID));
-
-                    }
-
-                }
-                return Json("Opening Balance Added Sucessfully");
-            }
-            catch (Exception e)
-
-
-
-            {
-                var messege = e.Message;
-                return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
-               : Json(messege);
-
-            }
-        }
-
-
+       
 
         //=================================================  Supplier Master ==================================================
 
@@ -1273,6 +1533,76 @@ namespace MyVitarak.Controllers
 
             }
 
+
+        }
+
+        [HttpGet]
+        [ActionName("Download")]
+        public void Download()
+        {
+            DataTable emps = TempData["Data"] as DataTable;
+            var grid = new System.Web.UI.WebControls.GridView();
+            grid.DataSource = emps;
+            grid.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            grid.RenderControl(htw);
+            string filePath = Server.MapPath("~/CustomerRateXLSheet/" + 1 + "/generated/");
+
+            bool isExists = System.IO.Directory.Exists(filePath);
+            if (!isExists) { System.IO.Directory.CreateDirectory(filePath); }
+
+            string fileName = "CustomerRate" + ".xls";
+            // Write the rendered content to a file.
+            string renderedGridView = sw.ToString();
+            System.IO.File.WriteAllText(filePath + fileName, renderedGridView);
+
+        }
+        public ActionResult CustomerRates()
+        {
+
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+
+                        
+                        cmd.CommandText = "CustomersRate";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+
+                TempData["Data"] = dt;
+                Download();
+                return View(dt);
+            }
 
         }
 

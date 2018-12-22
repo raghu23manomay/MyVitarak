@@ -34,7 +34,8 @@ namespace MyVitarak.Models
         public DbSet<CustomerList> CustomerList { get; set; }
         public DbSet<EmployeeList> EmployeeList { get; set; }
         public DbSet<OpeningBalance> OpeningBalance { get; set; }
-
+        public DbSet<OpeningBalanceDeatils> OpeningBalanceDeatils { get; set; }
+        
 
     }
 }

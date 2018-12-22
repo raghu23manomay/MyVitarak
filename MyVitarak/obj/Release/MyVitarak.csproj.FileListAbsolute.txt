@@ -207,8 +207,6 @@ M:\myvitarak\MyVitarak\bin\System.Web.Razor.dll
 M:\myvitarak\MyVitarak\bin\System.Web.Webpages.Deployment.dll
 M:\myvitarak\MyVitarak\bin\System.Web.Webpages.dll
 M:\myvitarak\MyVitarak\bin\System.Web.Webpages.Razor.dll
-M:\myvitarak\MyVitarak\bin\EntityFramework.SqlServer.xml
-M:\myvitarak\MyVitarak\bin\PagedList.Mvc.xml
 M:\myvitarak\MyVitarak\bin\System.Web.Razor.xml
 M:\myvitarak\MyVitarak\bin\System.Web.Webpages.xml
 M:\myvitarak\MyVitarak\bin\System.Web.Webpages.Deployment.xml
