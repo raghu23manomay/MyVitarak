@@ -207,6 +207,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Master\IndexForEmployeeMaster.cshtml" />
     <Content Include="Views\Master\Partial_EmployeeGridList.cshtml" />
+    <Content Include="Views\Master\AddVehical.cshtml" />
     <Content Include="Views\Master\Add_Employee.cshtml" />
     <Content Include="Views\Master\Add_Vehical.cshtml" />
     <Content Include="Views\Master\CustomerRates.cshtml" />
@@ -215,10 +216,14 @@
     <Content Include="Views\Master\IndexForVehicalMaster.cshtml" />
     <Content Include="Views\Master\OpeningBalance.cshtml" />
     <Content Include="Views\Master\importexcel.cshtml" />
-    <Content Include="Views\Master\Partial_VehicalGridList.cshtml" />
-    <Content Include="Views\Master\Partial_OpeningBalance.cshtml" />
-    <Content Include="Views\Master\OpeningBalanceIndex.cshtml" />
-    <Content Include="Views\Master\Partial_OpeningBalanceList.cshtml" />
+    <Content Include="Views\Master\IndexForSupplierMaster.cshtml" />
+    <Content Include="Views\Master\_partialGridSupplierMaster.cshtml" />
+    <Content Include="Views\Master\Add_Supplier.cshtml" />
+    <Content Include="Views\Master\EditSupplier.cshtml" />
+    <Content Include="Views\Master\IndexForAreaMaster.cshtml" />
+    <Content Include="Views\Master\_partialGridAreaMaster.cshtml" />
+    <Content Include="Views\Master\AddArea_Route.cshtml" />
+    <Content Include="Views\Master\EditArea_Route.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

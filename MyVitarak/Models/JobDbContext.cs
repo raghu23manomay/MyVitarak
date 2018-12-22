@@ -26,15 +26,15 @@ namespace MyVitarak.Models
         public DbSet<VehicalDetails> VehicalDetails { get; set; }
         public DbSet<SupplierDetails> SupplierDetails { get; set; }
         public DbSet<SupplierMaster> SupplierMaster { get; set; }
-        
+        public DbSet<EditRoute> EditRoute { get; set; }
 
+        
         public DbSet<Customer> Customer { get; set; }
         public DbSet<CustomerDetails> CustomerDetails { get; set; }
         public DbSet<CustomerList> CustomerList { get; set; }
         public DbSet<EmployeeList> EmployeeList { get; set; }
         public DbSet<OpeningBalance> OpeningBalance { get; set; }
-        public DbSet<OpeningBalanceDeatils> OpeningBalanceDeatils { get; set; }
-        
+
 
     }
 }

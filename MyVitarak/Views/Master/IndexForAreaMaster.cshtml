@@ -1,12 +1,12 @@
 ﻿
-@model  IEnumerable<MyVitarak.Models.ProductDetails>
+@model  IEnumerable<MyVitarak.Models.RouteDetails>
 @using PagedList;
 @using PagedList.Mvc;
 @using GridMvc.Html
 
 <script src="~/Scripts/jquery-1.12.4.min.js"></script>
 @{
-    ViewBag.Title = "IndexForProductMaster";
+    ViewBag.Title = "IndexAreaMaster";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -49,14 +49,14 @@
                 <li><a href="#">Separated link</a></li>
             </ul>
         </div>
-        <a class="btn btn-primary pull-right marginRight15px" href="@Url.Action("importexcel", "Master",new {@Mastername = "ProductMaster"})"><i class="fa fa-download" aria-hidden="true"> </i> Import</a>
-        <button type="button" class="btn btn-primary dropdown-toggle pull-right marginRight15px" href="@Url.Action("Add_Product", "Master")" data-toggle="modal" data-target="#mdlAddProduct"><i class="fa fa-plus" aria-hidden="true"></i> Products</button>
+        <a class="btn btn-primary pull-right marginRight15px" href="@Url.Action("importexcel", "Master",new {@Mastername = "AreaMaster"})"><i class="fa fa-download" aria-hidden="true"> </i> Import</a>
+        <button type="button" class="btn btn-primary dropdown-toggle pull-right marginRight15px" href="@Url.Action("AddArea_Route", "Master")" data-toggle="modal" data-target="#mdlAddArea"><i class="fa fa-plus" aria-hidden="true"></i> Areas</button>
 
 
 
 
         <nav class="paginationCount pull-right marginTB7px marginRight15px" style="margin-top:-20px;">
-            @Html.PagedListPager((IPagedList)Model, page => Url.Action("index", "Master", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 2, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "mgrid", OnComplete = "PagedOnComplete" }))
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("IndexForAreaMaster", "Master", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 2, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "mgrid", OnComplete = "PagedOnComplete" }))
             @if (Model.Count() == 0)
             {
                 <ul class="pagination margin0"></ul>
@@ -66,12 +66,12 @@
 
     </div>
     <div id="grid1" class="col-xs-12">
-        @Html.Partial("_partialGridProductMaster")
+        @Html.Partial("_partialGridAreaMaster")
     </div>
 </div>
-<div class="modal fade bs-example-modal-md" id="mdlAddProduct" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal fade bs-example-modal-md" id="mdlAddArea" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 </div>
-<div class="modal fade bs-example-modal-md" id="mdlEditProduct" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal fade bs-example-modal-md" id="mdlEditArea" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 </div>
 
 <script>
@@ -79,12 +79,14 @@
         $("#selectAll").click(function () {
             $('input:checkbox').not(this).prop('checked', this.checked);
         });
+
         $('#txtsearch').keyup(function () {
-                        
+
+
                 $.ajax({
-                    url: "@Url.Action("LoadDataForProduct", "Master")",
+                    url: "@Url.Action("LoadDataForArea", "Master")",
                     contentType: "application/json",
-                    data: JSON.stringify({ page: 1, pname: $('#txtsearch').val().trim() }),
+                    data: JSON.stringify({ page: 1, aname: $('#txtsearch').val().trim() }),
                     dataType: "text",
                     type: "POST",
                     async: true,
@@ -93,10 +95,10 @@
 
                     },
                     error: function (data) {
-                       
+
                     },
                     complete: function () {
-                      
+
                     }
                 });
 

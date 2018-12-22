@@ -1,0 +1,170 @@
+﻿@model MyVitarak.Models.EditRoute
+@{
+    /**/
+
+    Layout = null;
+}
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+<div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" onclick="abc();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user-plus marginRight15px" aria-hidden="true"></i>Area Details</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">City:</label>
+                    <div class="col-sm-9">
+                        <select id="DropdownCity" class="form-control r-0 light s-12">
+                            <option value="1">Pune</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">Area</label>
+                    <div class="col-sm-9">
+                        @Html.HiddenFor(a => a.AreaID, new { @class = "", placeholder = "AID", title = "AreaId", @id = "AreaId" })
+                        @Html.TextBoxFor(a => a.Area, new { @class = "form-control", placeholder = "Enter Area", title = "Area", @id = "Area" })
+                        <p style="color:brown" id="AreaName">Enter Area Name</p>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btnDelete" class="btn btn-primary pull-left">Delete</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" id="btnUpdate" class="btn btn-primary">Update changes</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    var str = window.location.href;
+    var lastLetter = str[str.length], i, temp;
+    var con = "";
+
+    for (i = 0; i < str.length; i++) {
+        if (str[i] == '=') {
+            myfun(i);
+            break;
+        }
+    }
+
+    function myfun(temp) {
+
+        temp = temp + 1;
+        for (i = temp; i < [str.length]; i++) {
+
+            con = con + str[i];
+        }
+        parseInt(con);
+
+    }
+
+
+</script>
+
+<script>
+
+    $('#AreaName').hide();
+
+    function abc()
+    {
+        refresh();
+        $('.modal-backdrop').remove();
+    }
+
+    $('#btnUpdate').on('click', function () {
+
+        if ($('#Area').val() == "") {
+            $('#AreaName').show();
+            return false;
+        }
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Master/UpdateArea_Route',
+
+        data:
+        {
+            City: 1,
+            Area: $("#Area").val(),
+            AreaId: $("#AreaId").val(),
+
+        },
+        success: function (da) {
+
+            alert(da);
+            refresh();
+            $("#mdlEditArea .close").click()
+            $('.modal-backdrop').remove();
+
+        },
+
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        }
+    });
+    });
+
+    $('#btnDelete').on('click', function () {
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Master/DeleteArea_Route',
+
+            data:
+            {
+              AreaId: $("#AreaId").val(),
+            },
+            success: function (da) {
+
+                alert(da);
+                refresh();
+                $("#mdlEditArea .close").click()
+                $('.modal-backdrop').remove();
+
+
+            },
+
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    });
+
+
+    function refresh()
+    {
+
+        $.ajax({
+            url: "@Url.Action("LoadDataForArea","Master")",
+            contentType: "application/json",
+            data: JSON.stringify({ page: con }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#grid1').html(data);
+
+            },
+            error: function (data) {
+
+            },
+            complete: function () {
+
+
+
+            }
+
+        });
+    }
+
+</script>
