@@ -824,7 +824,7 @@ namespace MyVitarak.Controllers
             JobDbContext _db = new JobDbContext();
             try
             {
-                var res = _db.Database.ExecuteSqlCommand(@"exec UC_CustomerMast_DeleteByPK @VechicleID",
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_DeleteVehicleMast_ByPk @VechicleID",
                     new SqlParameter("@VechicleID", VechicleID));
 
                 return Json("Data Deleted Sucessfully");
@@ -839,85 +839,84 @@ namespace MyVitarak.Controllers
 
         }
 
-        public ActionResult OpeningBalance(int? page)
+        public ActionResult OpeningBalanceIndex(int? page)
         {
+            StaticPagedList<OpeningBalanceDeatils> itemsAsIPagedList;
+            itemsAsIPagedList = OpeningBalanceList(page);
+
+            Session["MasterName"] = "OpeningBalance";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("OpeningBalanceIndex", itemsAsIPagedList)
+                    : View("OpeningBalanceIndex", itemsAsIPagedList);
+        }
+
+        //================================== Fill Product Grid Code ===========================================
+
+        public StaticPagedList<OpeningBalanceDeatils> OpeningBalanceList(int? page, string pname = "")
+        {
+
+            JobDbContext _db = new JobDbContext();
             var pageIndex = (page ?? 1);
             const int pageSize = 20;
-           
+            int totalCount = 5;
+            OpeningBalanceDeatils Ulist = new OpeningBalanceDeatils();
 
+            IEnumerable<OpeningBalanceDeatils> result = _db.OpeningBalanceDeatils.SqlQuery(@"exec OpeningBalanceList
+                   @pPageIndex, @pPageSize,@pname",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize),
+               new SqlParameter("@pname", pname)
 
-            using (JobDbContext context = new JobDbContext())
+               ).ToList<OpeningBalanceDeatils>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
             {
-                DataTable dt = new DataTable();
-                DataSet ds = new DataSet();
-
-                var conn = context.Database.Connection;
-                var connectionState = conn.State;
-                try
-                {
-                    if (connectionState != ConnectionState.Open) conn.Open();
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        cmd.CommandText = "OpeningBalanceList";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@pPageIndex", pageIndex));
-                        cmd.Parameters.Add(new SqlParameter("@pPageSize", pageSize));
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            dt.Load(reader);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // error handling
-                    var messege = ex.Message;
-                }
-                finally
-                {
-                    if (connectionState != ConnectionState.Closed) conn.Close();
-                }
-
-                return View(dt);
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
             }
+            var itemsAsIPagedList = new StaticPagedList<OpeningBalanceDeatils>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
 
         }
-        public ActionResult LoadOpeningBalance(String Name)
+
+
+
+        public ActionResult LoadOpeningBalance(int? page, String Name)
+        {
+            StaticPagedList<OpeningBalanceDeatils> itemsAsIPagedList;
+            itemsAsIPagedList = GridOpeningBalanceList(page, Name);
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("Partial_OpeningBalanceList", itemsAsIPagedList)
+                    : View("Partial_OpeningBalanceList", itemsAsIPagedList);
+        }
+
+        public StaticPagedList<OpeningBalanceDeatils> GridOpeningBalanceList(int? page, String Name)
         {
 
-            using (JobDbContext context = new JobDbContext())
+            JobDbContext _db = new JobDbContext();
+            var pageIndex = (page ?? 1);
+            const int pageSize = 20;
+            int totalCount = 8;
+            OpeningBalanceDeatils Ulist = new OpeningBalanceDeatils();
+            if (Name == null) Name = "";
+
+            IEnumerable<OpeningBalanceDeatils> result = _db.OpeningBalanceDeatils.SqlQuery(@"exec OpeningBalanceList
+                   @pPageIndex, @pPageSize,@pName",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize),
+               new SqlParameter("@pName", Name)
+
+               ).ToList<OpeningBalanceDeatils>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
             {
-                DataTable dt = new DataTable();
-                DataSet ds = new DataSet();
-
-                var conn = context.Database.Connection;
-                var connectionState = conn.State;
-                try
-                {
-                    if (connectionState != ConnectionState.Open) conn.Open();
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        cmd.CommandText = "OpeningBalanceList";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@pName", Name));
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            dt.Load(reader);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // error handling
-                    var messege = ex.Message;
-                }
-                finally
-                {
-                    if (connectionState != ConnectionState.Closed) conn.Close();
-                }
-
-                return View("Partial_OpeningBalance",dt);
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
             }
+            var itemsAsIPagedList = new StaticPagedList<OpeningBalanceDeatils>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
+
+
 
         }
 

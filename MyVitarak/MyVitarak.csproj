@@ -217,6 +217,8 @@
     <Content Include="Views\Master\importexcel.cshtml" />
     <Content Include="Views\Master\Partial_VehicalGridList.cshtml" />
     <Content Include="Views\Master\Partial_OpeningBalance.cshtml" />
+    <Content Include="Views\Master\OpeningBalanceIndex.cshtml" />
+    <Content Include="Views\Master\Partial_OpeningBalanceList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

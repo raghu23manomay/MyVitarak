@@ -18,7 +18,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user-plus marginRight15px" aria-hidden="true"></i>Update @Model.VechicleNo details</h4>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user-plus marginRight15px" aria-hidden="true"></i>Update @Model.Owner details</h4>
                 </div>
 
                 <div class="modal-body">
@@ -83,7 +83,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="Delete" class="btn btn-primary pull-left" onclick="deleteItem();" data-dismiss="modal">Delete</button>
+
+                    <button type="button" id="Close" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" id="btnsave" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
@@ -95,6 +97,37 @@
 </body>
 </html>
 <script>
+    function deleteItem() {
+        if (confirm("Are you sure?")) {
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Master/DeleteVehicle',
+
+                data:
+                {
+
+                    VechicleID: $("#VechicleID").val(),
+
+                },
+                success: function (da) {
+                    location.reload();
+
+
+
+                },
+
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            });
+        }
+        return false;
+    }
+    $('#Close').on('click', function () {
+        location.reload();
+    });
     function abc() {
         $('.modal-backdrop').remove();
     }

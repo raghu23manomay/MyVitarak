@@ -235,6 +235,14 @@ namespace MyVitarak.Models
         public string Area { get; set; }
 
     }
-
+    public class OpeningBalanceDeatils
+    {
+        [Key]
+        public int Sr_No { get; set; }
+        public string CustomerName { get; set; }
+        public string Area { get; set; }
+        public int TotalRows { get; set; }
+        public Decimal BalanceAmount { get; set; }
+    }
 
 }
