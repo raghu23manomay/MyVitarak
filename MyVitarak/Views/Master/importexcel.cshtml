@@ -119,6 +119,7 @@
         $("#btnsaveForVehicalMaster").hide();
         $("#btnsaveForSupplierMaster").hide();
         $("#btnsaveForCustomerMaster").hide();
+
         if ($("#showsave").text().trim() == "show") {
             if ($("#MasterName").text() == "ProductMaster") {
                 $("#btnsave").hide();
@@ -220,14 +221,33 @@
             $(".Supplier").hide();
             $(".Customer").show();
         }
-        function SaveData() {
+    function SaveData() {
+
                 var idArr = [];
                 $('tbody tr').each(function (k, v) {
                     var trElement = $(this);
                     var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
                         trElement.find('td:eq(1)').text().trim()
                         idArr.push(tdVals);
-                });
+        });
+
+        $("tbody tr").each(function () {
+            var trElement = $(this);
+            var ar = trElement.find('td:eq(0)').text().trim();
+            if (ar != "")
+            {
+                $(this).css('background-color', 'white');
+                trElement.find('td:eq(0)').css('background-color', 'white');
+               
+            }
+            if (ar == "") {
+                $(this).css('background-color', '#fdeef3');
+                trElement.find('td:eq(0)').css('background-color', 'yellow');
+            }
+           
+        });
+
+
                 var SaveLaneRate = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
@@ -252,7 +272,8 @@
                         alert('Error');
                     }
                 });
-        }
+    }
+
         function SaveDataForProductMaster() {
                 var idArr = [];
                 $('tbody tr').each(function (k, v) {

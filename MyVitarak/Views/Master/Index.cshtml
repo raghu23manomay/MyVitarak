@@ -76,10 +76,11 @@
 
 <script>
     $(document).ready(function () {
-
+        $("#selectAll").click(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
         $('#txtsearch').keyup(function () {
-
-
+                        
                 $.ajax({
                     url: "@Url.Action("LoadDataForProduct", "Master")",
                     contentType: "application/json",

@@ -220,6 +220,10 @@
     <Content Include="Views\Master\_partialGridSupplierMaster.cshtml" />
     <Content Include="Views\Master\Add_Supplier.cshtml" />
     <Content Include="Views\Master\EditSupplier.cshtml" />
+    <Content Include="Views\Master\IndexForAreaMaster.cshtml" />
+    <Content Include="Views\Master\_partialGridAreaMaster.cshtml" />
+    <Content Include="Views\Master\AddArea_Route.cshtml" />
+    <Content Include="Views\Master\EditArea_Route.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
