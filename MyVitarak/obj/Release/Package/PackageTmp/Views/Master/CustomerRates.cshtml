@@ -4,7 +4,15 @@
     ViewBag.Title = "CustomerRates";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<style>
+    .Mytable {
+        width: 130%;
+        max-width: 130%;
+        margin-bottom: 20px;
+    }
+</style>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
 <div class="marginTop140 marginBottom40">
     <div class="col-xs-12">
         <div class="btn-toolbar pull-left" role="toolbar" aria-label="Toolbar with button groups">
@@ -15,11 +23,11 @@
                         <label class="form-check-label verticalAlignTop" for="selectAll">1</label>
                     </div>
                 </div>
-                <button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
+                @*<button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
                 <button type=button class="btn btn-default"><i class="fa fa-envelope" aria-hidden="true"></i> Send email</button>
                 <button type=button class="btn btn-default"><i class="fa fa-tag" aria-hidden="true"></i> Add tags</button>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More <!--span class="caret"></span--></button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More span class="caret"></span</button>
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -27,14 +35,14 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Separated link</a></li>
                     </ul>
-                </div>
+                </div>*@
             </div>
         </div>
         <form class="navbar-form pull-left marginTop0">
             <input type="text" class="form-control" placeholder="Search...">
         </form>
 
-        <div class="btn-group pull-right">
+        @*<div class="btn-group pull-right">
 
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-window-maximize" aria-hidden="true"></i> <span class="caret"></span></button>
             <ul class="dropdown-menu">
@@ -44,20 +52,28 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Separated link</a></li>
             </ul>
-        </div>
-
+        </div>*@
+        <a class="btn btn-primary pull-right marginRight15px" href="~/CustomerRateXLSheet/1/generated/CustomerRate.xls"><i class="fa fa-file-excel-o" aria-hidden="true"> </i> Export</a>
 
 
     </div>
     <div class="col-xs-12">
-        <table class="table table-bordered">
+        <table class="table table-bordered Mytable">
             <thead>
 
                 <tr>
                     @foreach (System.Data.DataColumn col in Model.Columns)
                     {
+                        if (col.Caption == "CustomerName")
+                        {
+                            <th>@col.Caption</th>
+                        }
+                        else
+                        {
+                            <th>@col.Caption</th>
+                        }
 
-                        <th>@col.Caption</th>
+
 
 
                     }
@@ -71,29 +87,37 @@
 
                         @foreach (System.Data.DataColumn col in Model.Columns)
                         {
-                            if (row[col.ColumnName].ToString() == "")
+                            if (col.Caption == "CustomerName")
+                            {
+                                <td style="width:180px">
+                                    <div class="form-check height20Pixel" >
+                                        <input class="form-check-input" type="checkbox" id="one">
+                                        <label class="form-check-label verticalAlignTop" for="one"> &nbsp; @row[col.ColumnName]</label>
+                                    </div>
+                                </td>
+
+                            }
+                            else if (row[col.ColumnName].ToString() == "")
                             {
                                 <td contenteditable='true'>
-                                    0.00 
+                                    0.00
                                 </td>
                             }
 
+                            else if (row[col.ColumnName] == typeof(Decimal))
+                            {
+                                <td contenteditable='true'>
+                                    @row[col.ColumnName]
+                                </td>
+                            }
                             else
                             {
-                                if (row[col.ColumnName] == typeof(Decimal))
-                                {
-                                    <td contenteditable='true'>
-                                         @row[col.ColumnName]
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        @row[col.ColumnName]
-                                    </td>
-                                }
-
+                                <td>
+                                    @row[col.ColumnName]
+                                </td>
                             }
+
+
 
 
                         }
@@ -105,4 +129,11 @@
             </tbody>
         </table>
     </div>
-</div>a
+</div>
+<script>
+
+    $("#selectAll").change(function () {
+
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+</script>

@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <label for="customerMobNo" class="col-sm-3 control-label">Address</label>
                             <div class="col-sm-9">
-                                @Html.TextBoxFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                                @Html.TextAreaFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
                                 <label style="color:red" id="AddressVal">*</label>
                             </div>
                         </div>
@@ -188,7 +188,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: '/Home/AddVehical',
+                url: '/Master/AddVehical',
 
                 data:
                 {

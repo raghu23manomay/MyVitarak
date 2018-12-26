@@ -10,469 +10,538 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/EntityFramework.dll">
-      <publishTime>12/20/2018 13:55:53</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="bin/GridMvc.dll">
-      <publishTime>12/20/2018 13:55:53</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
-      <publishTime>12/20/2018 13:55:55</publishTime>
+      <publishTime>12/20/2018 13:55:56</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/MyVitarak.dll">
-      <publishTime>12/21/2018 14:34:25</publishTime>
+      <publishTime>12/26/2018 13:44:55</publishTime>
     </File>
     <File Include="bin/MyVitarak.pdb">
-      <publishTime>12/21/2018 14:34:25</publishTime>
+      <publishTime>12/26/2018 13:44:55</publishTime>
     </File>
     <File Include="bin/PagedList.dll">
-      <publishTime>12/20/2018 13:55:53</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="bin/PagedList.Mvc.dll">
-      <publishTime>12/20/2018 13:55:53</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe.config">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/csc.rsp">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/csi.exe">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/csi.exe.config">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/csi.rsp">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.Managed.Core.targets">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.AppContext.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Collections.Immutable.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Console.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Diagnostics.FileVersionInfo.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Diagnostics.StackTrace.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.Compression.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.FileSystem.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.FileSystem.Primitives.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.Pipes.AccessControl.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.Pipes.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Reflection.Metadata.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.AccessControl.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Claims.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.Algorithms.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.Encoding.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.Primitives.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.X509Certificates.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Principal.Windows.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Text.Encoding.CodePages.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.ValueTuple.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.ReaderWriter.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.XmlDocument.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.XPath.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.XPath.XDocument.dll">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/vbc.exe">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/vbc.exe.config">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/vbc.rsp">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/VBCSCompiler.exe">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/roslyn/VBCSCompiler.exe.config">
-      <publishTime>12/20/2018 13:55:56</publishTime>
+      <publishTime>12/20/2018 13:55:58</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
-      <publishTime>12/20/2018 13:55:55</publishTime>
+      <publishTime>12/20/2018 13:55:56</publishTime>
     </File>
     <File Include="bin/System.Web.Mvc.dll">
-      <publishTime>12/20/2018 13:55:55</publishTime>
+      <publishTime>12/20/2018 13:55:56</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
-      <publishTime>12/20/2018 13:55:55</publishTime>
+      <publishTime>12/20/2018 13:55:56</publishTime>
     </File>
     <File Include="bin/System.Web.Webpages.Deployment.dll">
-      <publishTime>12/20/2018 13:55:55</publishTime>
+      <publishTime>12/20/2018 13:55:56</publishTime>
     </File>
     <File Include="bin/System.Web.Webpages.dll">
-      <publishTime>12/20/2018 13:55:55</publishTime>
+      <publishTime>12/20/2018 13:55:56</publishTime>
     </File>
     <File Include="bin/System.Web.Webpages.Razor.dll">
-      <publishTime>12/20/2018 13:55:55</publishTime>
+      <publishTime>12/20/2018 13:55:56</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
+    </File>
+    <File Include="Controllers/ActionController.cs">
+      <publishTime>12/24/2018 14:31:36</publishTime>
     </File>
     <File Include="css/bootstrap.min.css">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/css/font-awesome.css">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/css/font-awesome.min.css">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/fonts/fontawesome-webfont.eot">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/fonts/fontawesome-webfont.svg">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/fonts/fontawesome-webfont.ttf">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/fonts/fontawesome-webfont.woff">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/fonts/fontawesome-webfont.woff2">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/fonts/FontAwesome.otf">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/HELP-US-OUT.txt">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/animated.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/bordered-pulled.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/core.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/fixed-width.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/font-awesome.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/icons.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/larger.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/list.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/mixins.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/path.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/rotated-flipped.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/screen-reader.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/stacked.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/less/variables.less">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/font-awesome.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_animated.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_bordered-pulled.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_core.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_fixed-width.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_icons.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_larger.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_list.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_mixins.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_path.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_rotated-flipped.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_screen-reader.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_stacked.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/plugins/font-awesome/scss/_variables.scss">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="css/style.css">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="Excelsheet/Area_Master.xlsx">
-      <publishTime>12/20/2018 14:53:04</publishTime>
+      <publishTime>12/20/2018 14:53:06</publishTime>
+    </File>
+    <File Include="Excelsheet/Customer_Master.xlsx">
+      <publishTime>12/25/2018 16:03:01</publishTime>
     </File>
     <File Include="Excelsheet/EmployeeMaster.xlsx">
-      <publishTime>12/21/2018 12:07:45</publishTime>
+      <publishTime>12/21/2018 12:07:46</publishTime>
     </File>
     <File Include="Excelsheet/Product_Master.xlsx">
-      <publishTime>12/21/2018 12:07:48</publishTime>
+      <publishTime>12/21/2018 12:07:50</publishTime>
     </File>
     <File Include="Excelsheet/Supplier_Master.xlsx">
-      <publishTime>12/20/2018 14:53:04</publishTime>
+      <publishTime>12/20/2018 14:53:06</publishTime>
     </File>
     <File Include="Excelsheet/VehicalMaster.xlsx">
-      <publishTime>12/20/2018 14:53:04</publishTime>
+      <publishTime>12/20/2018 14:53:06</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.svg">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.ttf">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.woff">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.woff2">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="images/1.Basic_uploader.png">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="images/2.File_parsed.png">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="images/3.File_one_error__candidate_is_clicked.png">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="images/b___2-1-1.png">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="images/candidates_4-1-3.png">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="images/candidates_4-1-6_bulk_disqualify.png">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="images/CustomerAdd.png">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="images/DashboardActual.png">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="images/dashboard_1-1-1_.png">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
+    </File>
+    <File Include="images/Favicon.png">
+      <publishTime>12/25/2018 13:34:40</publishTime>
+    </File>
+    <File Include="images/logo.png">
+      <publishTime>12/25/2018 13:34:40</publishTime>
     </File>
     <File Include="images/Popup.png">
-      <publishTime>12/20/2018 17:56:04</publishTime>
+      <publishTime>12/20/2018 17:56:06</publishTime>
     </File>
     <File Include="js/bootstrap.min.js">
-      <publishTime>12/20/2018 17:56:01</publishTime>
+      <publishTime>12/20/2018 17:56:02</publishTime>
     </File>
     <File Include="js/jquery-ui.min.js">
-      <publishTime>12/20/2018 17:56:01</publishTime>
+      <publishTime>12/20/2018 17:56:02</publishTime>
     </File>
     <File Include="js/jquery.js">
-      <publishTime>12/20/2018 17:56:01</publishTime>
+      <publishTime>12/20/2018 17:56:02</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.js">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.min.js">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.min.map">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="Scripts/jquery-1.12.4.min.js">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.6.2.js">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
+    </File>
+    <File Include="Views/Action/Purchase.cshtml">
+      <publishTime>12/25/2018 14:00:03</publishTime>
+    </File>
+    <File Include="Views/Action/PurchaseRates.cshtml">
+      <publishTime>12/25/2018 13:58:52</publishTime>
+    </File>
+    <File Include="Views/Action/_partialPurchaseGrid.cshtml">
+      <publishTime>12/24/2018 13:53:16</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="Views/Home/_partialGridProductMaster.cshtml">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
+    </File>
+    <File Include="Views/Master/AddArea_Route.cshtml">
+      <publishTime>12/24/2018 16:08:14</publishTime>
     </File>
     <File Include="Views/Master/AddVehical.cshtml">
       <publishTime>12/20/2018 12:44:28</publishTime>
     </File>
+    <File Include="Views/Master/Add_Customer.cshtml">
+      <publishTime>12/25/2018 17:32:23</publishTime>
+    </File>
     <File Include="Views/Master/Add_Employee.cshtml">
-      <publishTime>12/21/2018 14:19:57</publishTime>
+      <publishTime>12/24/2018 15:53:38</publishTime>
     </File>
     <File Include="Views/Master/Add_Product.cshtml">
-      <publishTime>12/21/2018 12:05:27</publishTime>
+      <publishTime>12/24/2018 14:05:12</publishTime>
+    </File>
+    <File Include="Views/Master/Add_Supplier.cshtml">
+      <publishTime>12/24/2018 14:05:12</publishTime>
     </File>
     <File Include="Views/Master/Add_Vehical.cshtml">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/21/2018 16:04:22</publishTime>
     </File>
     <File Include="Views/Master/CustomerRates.cshtml">
-      <publishTime>12/21/2018 13:38:28</publishTime>
+      <publishTime>12/25/2018 14:38:17</publishTime>
+    </File>
+    <File Include="Views/Master/EditArea_Route.cshtml">
+      <publishTime>12/24/2018 16:37:42</publishTime>
+    </File>
+    <File Include="Views/Master/EditCustomer.cshtml">
+      <publishTime>12/25/2018 17:36:18</publishTime>
     </File>
     <File Include="Views/Master/EditEmployee.cshtml">
-      <publishTime>12/21/2018 14:00:26</publishTime>
+      <publishTime>12/24/2018 15:54:28</publishTime>
     </File>
     <File Include="Views/Master/EditProduct.cshtml">
-      <publishTime>12/21/2018 12:05:27</publishTime>
+      <publishTime>12/24/2018 14:05:12</publishTime>
+    </File>
+    <File Include="Views/Master/EditSupplier.cshtml">
+      <publishTime>12/24/2018 14:05:12</publishTime>
     </File>
     <File Include="Views/Master/EditVehical.cshtml">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/22/2018 13:27:20</publishTime>
     </File>
     <File Include="Views/Master/importexcel.cshtml">
-      <publishTime>12/21/2018 13:27:55</publishTime>
+      <publishTime>12/25/2018 14:45:47</publishTime>
     </File>
     <File Include="Views/Master/Index.cshtml">
-      <publishTime>12/21/2018 12:05:27</publishTime>
+      <publishTime>12/25/2018 13:55:14</publishTime>
+    </File>
+    <File Include="Views/Master/IndexForAreaMaster.cshtml">
+      <publishTime>12/25/2018 13:56:57</publishTime>
+    </File>
+    <File Include="Views/Master/IndexForCustomerMaster.cshtml">
+      <publishTime>12/25/2018 14:13:08</publishTime>
     </File>
     <File Include="Views/Master/IndexForEmployeeMaster.cshtml">
-      <publishTime>12/21/2018 13:36:24</publishTime>
+      <publishTime>12/25/2018 14:13:23</publishTime>
+    </File>
+    <File Include="Views/Master/IndexForSupplierMaster.cshtml">
+      <publishTime>12/25/2018 13:56:36</publishTime>
     </File>
     <File Include="Views/Master/IndexForVehicalMaster.cshtml">
-      <publishTime>12/21/2018 14:23:42</publishTime>
+      <publishTime>12/25/2018 14:33:54</publishTime>
     </File>
     <File Include="Views/Master/OpeningBalance.cshtml">
-      <publishTime>12/21/2018 12:45:35</publishTime>
+      <publishTime>12/21/2018 18:37:32</publishTime>
+    </File>
+    <File Include="Views/Master/OpeningBalanceIndex.cshtml">
+      <publishTime>12/25/2018 14:09:00</publishTime>
+    </File>
+    <File Include="Views/Master/Partial_CustomerGridList.cshtml">
+      <publishTime>12/25/2018 14:33:53</publishTime>
     </File>
     <File Include="Views/Master/Partial_EmployeeGridList.cshtml">
-      <publishTime>12/21/2018 13:16:16</publishTime>
+      <publishTime>12/25/2018 14:33:53</publishTime>
+    </File>
+    <File Include="Views/Master/Partial_LoadSalesOrder.cshtml">
+      <publishTime>12/26/2018 13:11:25</publishTime>
+    </File>
+    <File Include="Views/Master/Partial_OpeningBalanceList.cshtml">
+      <publishTime>12/22/2018 14:36:22</publishTime>
+    </File>
+    <File Include="Views/Master/Sales.cshtml">
+      <publishTime>12/26/2018 13:30:29</publishTime>
+    </File>
+    <File Include="Views/Master/_partialGridAreaMaster.cshtml">
+      <publishTime>12/24/2018 15:53:52</publishTime>
     </File>
     <File Include="Views/Master/_partialGridProductMaster.cshtml">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/24/2018 14:05:12</publishTime>
+    </File>
+    <File Include="Views/Master/_partialGridSupplierMaster.cshtml">
+      <publishTime>12/24/2018 14:05:12</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/21/2018 12:53:27</publishTime>
+      <publishTime>12/25/2018 18:07:37</publishTime>
     </File>
     <File Include="Views/web.config">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
-      <publishTime>12/20/2018 13:55:52</publishTime>
+      <publishTime>12/20/2018 13:55:54</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/21/2018 14:30:38</publishTime>
+      <publishTime>12/25/2018 16:02:10</publishTime>
     </File>
   </ItemGroup>
 </Project>

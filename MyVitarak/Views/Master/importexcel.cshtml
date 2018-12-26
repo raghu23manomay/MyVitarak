@@ -614,43 +614,113 @@
                 });
             }
         });
-         function SaveDataForCustomerMaster() {
-                var idArr = [];
-                $('tbody tr').each(function (k, v) {
-                    var trElement = $(this);
-                    var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
-                        trElement.find('td:eq(1)').text().trim() + '~' +
-                        trElement.find('td:eq(2)').text().trim() + '~' +
-                        trElement.find('td:eq(3)').text().trim() + '~' +
-                        trElement.find('td:eq(4)').text().trim() + '~' +
-                        trElement.find('td:eq(5)').text().trim() + '~' +
-                        trElement.find('td:eq(6)').text().trim() + '~' +
-                        trElement.find('td:eq(7)').text().trim() + '~' +
-                        trElement.find('td:eq(8)').text().trim() + '~' +
-                        trElement.find('td:eq(9)').text().trim() + '~' +
-                        trElement.find('td:eq(10)').text().trim() + '~' +
-                        trElement.find('td:eq(11)').text().trim() + '~' +
-                        trElement.find('td:eq(12)').text().trim()
-                        idArr.push(tdVals);
-                });
-             var SaveCustomerData = [];
-                for (var i = 0; i < idArr.length; i++) {
-                    var arrElement = idArr[i].split("~");
-                    item = {}
-                    item["CustomerName"] = arrElement[0];
-                    item["Address"] = arrElement[1];
-                    item["Mobile"] = 1;
-                    item["AreaID"] = arrElement[4];
-                    item["SalesPersonID"] = arrElement[5];
-                    item["VehicleID"] = arrElement[6];
-                    item["CustomerTypeId"] = arrElement[7];
-                    item["CustomerNameEnglish"] = arrElement[8];
-                    item["LastUpdatedDate"] = arrElement[9];
-                    item["isBillRequired"] = arrElement[10];
-                    item["isActive"] = arrElement[11];
-                    item["DeliveryCharges"] = arrElement[12];
-                    SaveCustomerData.push(item);
-                }
+        function SaveDataForCustomerMaster() {
+        var idArr = [];
+        $('tbody tr').each(function (k, v) {
+            var trElement = $(this);
+            var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
+                trElement.find('td:eq(1)').text().trim() + '~' +
+                trElement.find('td:eq(2)').text().trim() + '~' +
+                trElement.find('td:eq(3)').text().trim() + '~' +
+                trElement.find('td:eq(4)').text().trim() + '~' +
+                trElement.find('td:eq(5)').text().trim() + '~' +
+                trElement.find('td:eq(6)').text().trim() + '~' +
+                trElement.find('td:eq(7)').text().trim() + '~' +
+                trElement.find('td:eq(8)').text().trim() + '~' +
+                trElement.find('td:eq(9)').text().trim() + '~' +
+                trElement.find('td:eq(10)').text().trim() + '~' +
+                trElement.find('td:eq(11)').text().trim() 
+            idArr.push(tdVals);
+        });
+        var SaveCustomerData = [];
+        for (var i = 0; i < idArr.length; i++) {
+            var arrElement = idArr[i].split("~");
+            item = {}
+            item["CustomerName"] = arrElement[0];
+            item["Address"] = arrElement[1];
+            item["Mobile"] = arrElement[2];
+            item["AreaID"] = arrElement[3];
+            item["SalesPersonID"] = arrElement[4];
+            item["VehicleID"] = arrElement[4];
+            item["CustomerTypeId"] = arrElement[6];
+            item["CustomerNameEnglish"] = arrElement[7];
+            item["LastUpdatedDate"] = arrElement[8];
+            item["isBillRequired"] = arrElement[9];
+            item["isActive"] = arrElement[10];
+            item["DeliveryCharges"] = arrElement[11];
+            SaveCustomerData.push(item);
+
+        }
+
+        $("tbody tr").each(function () {
+            var regex = /^[a-zA-Z\s]+$/;
+            var intRegex = /^[0-9]{10}$/;
+            var vehicleregex = /^[a-zA-z]{2}\s[0-9]{2}\s[a-zA-z]{2}\s[0-9]{4}$/
+
+            var trElement = $(this);
+
+            if ((trElement.find('td:eq(0)').text().trim()) == null || (!regex.test(trElement.find('td:eq(0)').text().trim()))) {
+                alert("Invalid Name");
+                trElement.find('td:eq(0)').focus();
+
+                $(this).css('background-color', '#fdeef3');
+                trElement.find('td:eq(0)').css('background-color', 'yellow');
+            }
+            else if ((trElement.find('td:eq(1)').text().trim()) == null || (trElement.find('td:eq(1)').text().trim().length <= 50)) {
+                trElement.find('td:eq(1)').focus();
+                alert("Address must be atleast 50 characters");
+                $(this).css('background-color', '#fdeef3');
+                trElement.find('td:eq(1)').css('background-color', 'yellow');
+
+            }
+
+            else if ((trElement.find('td:eq(2)').text().trim()) == null || (!intRegex.test(trElement.find('td:eq(2)').text().trim()))) {
+                alert("Invalid Mobile Number");
+                trElement.find('td:eq(2)').focus();
+                $(this).css('background-color', '#fdeef3');
+                trElement.find('td:eq(2)').css('background-color', 'yellow');
+
+            }
+          
+            else if ((trElement.find('td:eq(3)').text().trim()) == null) {
+                alert("Fill Area ID");
+                trElement.find('td:eq(3)').focus();
+                $(this).css('background-color', '#fdeef3');
+                trElement.find('td:eq(3)').css('background-color', 'yellow');
+
+            }
+            else if ((trElement.find('td:eq(4)').text().trim()) == null) {
+                alert("Fill SalesPerson ID");
+                trElement.find('td:eq(4)').focus();
+                $(this).css('background-color', '#fdeef3');
+                trElement.find('td:eq(4)').css('background-color', 'yellow');
+
+            }
+            else if ((trElement.find('td:eq(5)').text().trim()) == null) {
+                alert("Fill Vehicle ID");
+                trElement.find('td:eq(5)').focus();
+                $(this).css('background-color', '#fdeef3');
+                trElement.find('td:eq(5)').css('background-color', 'yellow');
+
+
+            }
+            else if ((trElement.find('td:eq(6)').text().trim()) == null) {
+                alert("Fill CustomerType ID");
+                trElement.find('td:eq(6)').focus();
+                $(this).css('background-color', '#fdeef3');
+                trElement.find('td:eq(6)').css('background-color', 'yellow');
+
+
+            }
+            else if ((trElement.find('td:eq(12)').text().trim()) == null) {
+                alert("Fill Area ID");
+                trElement.find('td:eq(12)').focus();
+                $(this).css('background-color', '#fdeef3');
+                trElement.find('td:eq(12)').css('background-color', 'yellow');
+
+            }
+
+            else {
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
                     url: "@Url.Action("SaveCustomerExcelData", "Master")",
@@ -668,4 +738,7 @@
                     }
                 });
             }
+        });
+    }
+
 </script>

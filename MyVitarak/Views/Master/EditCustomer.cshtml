@@ -1,0 +1,260 @@
+﻿@model MyVitarak.Models.CustomerList
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+
+<div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user-plus marginRight15px" aria-hidden="true"></i>Update @Model.CustomerName details</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">Name</label>
+                    <div class="col-sm-9">
+                        @Html.HiddenFor(model => model.CustomerID, new { @id = "CustomerID" })
+                        @Html.TextBoxFor(a => a.CustomerName, new { @class = "form-control r-0 light s-12", placeholder = "Enter CustomerName", title = "CustomerName", @id = "CustomerName" })
+                        <label style="color:red" id="CustomerNameVal">*</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customerAddress" class="col-sm-3 control-label">Address</label>
+                    <div class="col-sm-9">
+
+                        @Html.TextAreaFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customerMobNo" class="col-sm-3 control-label">Mobile no.</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control r-0 light s-12", placeholder = "Enter Mobile", title = "Mobile", @id = "Mobile" })
+                        <label style="color:red" id="MobileVal">*</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customerArea" class="col-sm-3 control-label">Area / Route</label>
+                    <div class="col-sm-9">
+                        @Html.DropDownList("model.AreaID", new SelectList((System.Collections.IEnumerable)ViewData["Area"], "Value", "Text", Model.AreaID), "Select Area", new { @class = "form-control input-sm", @id = "AreaID", Title = "ModeName" })
+                        @*@Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })*@
+                        <label style="color:red" id="AreaVal">*</label>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">Collection person</label>
+                    <div class="col-sm-9">
+                        @Html.DropDownList("model.SalesPersonID", new SelectList((System.Collections.IEnumerable)ViewData["Employee"], "Value", "Text", Model.SalesPersonID), "Select Employee", new { @class = "form-control input-sm", @id = "SalesPersonID", Title = "Employee Name" })
+                        <label style="color:red" id="EmployeeVal">*</label>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2" class="col-sm-3 control-label">Vehicle</label>
+                    <div class="col-sm-9">
+                        @Html.DropDownList("model.VechicleID", new SelectList((System.Collections.IEnumerable)ViewData["Vehicle"], "Value", "Text", Model.VechicleID), "Select Vehicle", new { @class = "form-control input-sm", @id = "VechicleID", Title = "Vehicle Number" })
+                        <label style="color:red" id="VehicleVal">*</label>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-4">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="inlineCheckbox1"> Delivery charges
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" id="DeliveryCharges" class="form-control" placeholder="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-4">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="inlineCheckbox2"> Bill printing required
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="inlineCheckbox3"> Active
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="Delete" class="btn btn-primary pull-left" onclick="deleteItem();" data-dismiss="modal">Delete</button>
+
+            <button type="button" id="Close" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" id="btnsave" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+</div>
+<script>
+    $('#Close').on('click', function () {
+        location.reload();
+    });
+    function deleteItem() {
+        if (confirm("Are you sure?")) {
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Master/DeleteCustomer',
+
+                data:
+                {
+
+                    CustomerID: $("#CustomerID").val(),
+
+                },
+                success: function (da) {
+
+                    location.reload();
+
+                },
+
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            });
+        }
+        return false;
+    }
+
+    $(document).ready(function () {
+        $("#inlineCheckbox1").click(function () {
+            $('#DeliveryCharges').attr("disabled", $(this).is(":checked"));
+        });
+    });
+
+    function abc() {
+        $('.modal-backdrop').remove();
+    }
+    $(document).ready(function () {
+        $("#CustomerNameVal").hide();
+        $("#AddressVal").hide();
+        $("#AreaVal").hide();
+        $("#MobileVal").hide();
+        $("#VehicleVal").hide();
+        $("#EmployeeVal").hide();
+    });
+    $('#btnsave').on('click', function () {
+        var error = 0, regex = /^[a-zA-Z\s]+$/;
+        var a = $('#Mobile').val(), intRegex = /^[0-9]{10}$/;
+        if ($("#CustomerName").val() == "" || (!regex.test($("#CustomerName").val()))) {
+            error = 1;
+            $("#CustomerNameVal").show();
+            $("#AddressVal").hide();
+            $("#AreaVal").hide();
+            $("#MobileVal").hide();
+            $("#VehicleVal").hide();
+            $("#EmployeeVal").hide();
+        }
+
+        else if ($('#Address').val() == '' || $('#Address').val().length <= 50) {
+            error = 1;
+            alert("Minimum 50 characters Required Address");
+            $("#CustomerNameVal").hide();
+            $("#AddressVal").show();
+            $("#AreaVal").hide();
+            $("#MobileVal").hide();
+            $("#VehicleVal").hide();
+            $("#EmployeeVal").hide();
+        }
+
+        else if ($("#Area").val() == "") {
+
+            error = 1;
+            $("#CustomerNameVal").hide();
+            $("#AddressVal").hide();
+            $("#AreaVal").show();
+            $("#MobileVal").hide();
+            $("#VehicleVal").hide();
+            $("#EmployeeVal").hide();
+        }
+
+
+        else if ($('#Mobile').val() == '' || (!intRegex.test(a))) {
+
+            error = 1;
+            $("#CustomerNameVal").hide();
+            $("#AddressVal").hide();
+            $("#AreaVal").hide();
+            $("#MobileVal").show();
+            $("#VehicleVal").hide();
+            $("#EmployeeVal").hide();
+        }
+
+        else if ($("#Employee").val() == "") {
+
+
+            error = 1;
+            $("#CustomerNameVal").hide();
+            $("#AddressVal").hide();
+            $("#AreaVal").hide();
+            $("#MobileVal").hide();
+            $("#VehicleVal").hide();
+            $("#EmployeeVal").show();
+        }
+        else if ($("#Vehicle").val() == "") {
+
+            error = 1;
+            $("#CustomerNameVal").hide();
+            $("#AddressVal").hide();
+            $("#AreaVal").hide();
+            $("#MobileVal").hide();
+            $("#VehicleVal").show();
+            $("#EmployeeVal").hide();
+        }
+
+        else if (error) {
+            return false;
+        }
+
+        else {
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Master/UpdateCustomer',
+
+                data:
+                {
+                    CustomerID: $("#CustomerID").val(),
+                    CustomerName: $("#CustomerName").val(),
+                    Address: $("#Address").val(),
+                    AreaID: $("#AreaID").val(),
+                    Mobile: $("#Mobile").val(),
+                    SalesPersonID: $("#SalesPersonID").val(),
+                    VechicleID: $("#VechicleID").val(),
+                    isActive: 1,
+                    BillRequired: 1,
+                    DeliveryCharges: $("#DeliveryCharges").val(),
+
+
+                },
+                success: function (da) {
+
+                    alert(da);
+                    $("#mdlAddRoute .close").click()
+                    $('.modal-backdrop').remove();
+                    location.reload();
+                },
+
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            });
+        }
+    });
+
+
+
+
+</script>

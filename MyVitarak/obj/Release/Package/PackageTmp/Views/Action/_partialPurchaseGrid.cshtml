@@ -1,0 +1,71 @@
+﻿
+@using System.Data
+@model System.Data.DataTable
+
+<style>
+    .Mytable {
+        width: 130%;
+        max-width: 130%;
+        margin-bottom: 20px;
+    }
+
+</style>
+<div class="outer">
+    <div class="inner">
+        <table class="table table-bordered Mytable">
+            <thead>
+                <tr>
+                <tr>
+                    @foreach (System.Data.DataColumn col in Model.Columns)
+                    {
+
+                        <th><b>@col.Caption </b></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow row in Model.Rows)
+                {
+                    <tr>
+
+                        @foreach (System.Data.DataColumn col in Model.Columns)
+                        {
+
+
+                            if (row[col.ColumnName].ToString() == "")
+                            {
+                                <td contenteditable='true'>
+                                    0.00
+                                </td>
+                            }
+
+                            else
+                            {
+                                string temp = row[col.ColumnName].ToString();
+                                decimal Num = 0;
+                                bool isNum = decimal.TryParse(temp, out Num);
+                                if (isNum == false)
+                                {
+
+                                    <td class="fix" style="width:180px;">
+                                        <input class="form-check-input" type="checkbox" id="one">
+                                        <b> @row[col.ColumnName]</b>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td contenteditable='true'>
+                                        <b> @row[col.ColumnName]</b>
+                                    </td>
+                                }
+                            }
+
+                        }
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>

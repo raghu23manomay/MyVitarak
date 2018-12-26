@@ -8,11 +8,11 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 
 @{
-    ViewBag.Title = "IndexForEmployeeMaster";
+    ViewBag.Title = "IndexForVehicalMaster";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="marginTop130">
+<div class="marginTop140 marginBottom40">
     <div class="col-xs-12">
         <div class="btn-toolbar pull-left" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group" role="group" aria-label="First group">
@@ -22,11 +22,11 @@
                         <label class="form-check-label verticalAlignTop" for="selectAll">1</label>
                     </div>
                 </div>
-                <button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
+                @*<button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
                 <button type=button class="btn btn-default"><i class="fa fa-envelope" aria-hidden="true"></i> Send email</button>
                 <button type=button class="btn btn-default"><i class="fa fa-tag" aria-hidden="true"></i> Add tags</button>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More <!--span class="caret"></span--></button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More span class="caret"></span</button>
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -34,14 +34,14 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Separated link</a></li>
                     </ul>
-                </div>
+                </div>*@
             </div>
         </div>
         <form class="navbar-form pull-left marginTop0">
-            <input type="text" class="form-control" placeholder="Search...">
+            <input type="text" id="txtName" class="form-control" placeholder="Search by Vehicle No.">
         </form>
 
-        <div class="btn-group pull-right">
+        @*<div class="btn-group pull-right">
 
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-window-maximize" aria-hidden="true"></i> <span class="caret"></span></button>
             <ul class="dropdown-menu">
@@ -51,109 +51,91 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Separated link</a></li>
             </ul>
-        </div>
-
+        </div>*@
+        <a href="@Url.Action("importexcel", "Master",new {@Mastername = Session["MasterName"]})"><button type="button" class="btn btn-primary pull-right marginRight15px"><i class="fa fa-download" aria-hidden="true"></i> Import</button></a>
         @*<button type="button" class="btn btn-primary dropdown-toggle pull-right marginRight15px" data-toggle="modal" data-target=".bs-example-modal-md"><i class="fa fa-plus" aria-hidden="true"></i> Employees</button>*@
-        <a href="@Url.Action("Add_Vehical", "Master")" data-toggle="modal" data-target="#mdlEditEmployee"><input type="button" value=" + Vehicles" class="btn btn-primary dropdown-toggle pull-right marginRight15px"></a>
-        <nav class="pull-right marginRight15px">
+        <a href="@Url.Action("Add_Vehical", "Master")" data-toggle="modal" data-target="#mdlAddEmployee"><input type="button" value=" + Vehicles" class="btn btn-primary dropdown-toggle pull-right marginRight15px"></a>
+        @*<nav class="pull-right marginRight15px">
             <ul class="pagination margin0">
                 <li><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
                 <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
             </ul>
+        </nav>*@
+        <nav class="pull-right marginRight15px" style="margin-top: -18px;">
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("IndexForVehicalMaster", "Master", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 2, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "mgrid", OnComplete = "PagedOnComplete" }))
+            @if (Model.Count() == 0)
+            {
+                <ul class="pagination margin0"></ul>
+            }
         </nav>
-        <div class="paginationCount pull-right marginTB7px marginRight15px"><b>1-30</b> of <b>250</b> Vehicles</div>
+        @*<div class="paginationCount pull-right marginTB7px marginRight15px"><b>1-30</b> of <b>250</b> Vehicles</div>*@
 
     </div>
-    <div class="col-xs-12">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">VechicleNo <i class="fa fa-angle-down" aria-hidden="true"></i></th>
-                    <th scope="col">Transport<i class="fa fa-angle-down" aria-hidden="true"></i></th>
-                    <th scope="col">Owner<i class="fa fa-angle-down" aria-hidden="true"></i></th>
-                    <th scope="col">Mobile <i class="fa fa-angle-down" aria-hidden="true"></i></th>
-                    <th scope="col">Rate <i class="fa fa-angle-down" aria-hidden="true"></i></th>
-                    <th scope="col">Print Order <i class="fa fa-angle-down" aria-hidden="true"></i></th>
-                    <th>
-
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                <tr>
-
-
-                    <td>
-                        <div class="form-check height20Pixel">
-                            <input class="form-check-input" type="checkbox" id="one">
-                            <label class="form-check-label verticalAlignTop" for="one"> &nbsp;@item.VechicleNo</label>
-                        </div>
-                    </td>
-                    <td>@item.Transport</td>
-                    <td>@item.Owner</td>
-                    <td>@item.Mobile</td>
-                    <td>@item.RatePerTrip</td>
-                    <td>@item.PrintOrder</td>
-                    <td><a href="@Url.Action("EditVehical", "Master", new { @EmployeeID = @item.VechicleID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
-                    <td id="del" onclick="deleteItem()">Delete</td>
-
-                    @*<td><a href="@Url.Action("EditEmployee", "Home", new { @EmployeeID = @item.EmployeeID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
-        <td id="del" onclick="deleteItem()">Delete</td>*@
-                </tr>
-
-                }
-
-                @*<tr>
-                        <td>
-                            <div class="form-check height20Pixel">
-                                <input class="form-check-input" type="checkbox" id="one">
-                                <label class="form-check-label verticalAlignTop" for="one"> &nbsp;Mark</label>
-                            </div>
-                        </td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-
-                        <th>1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check height20Pixel">
-                                <input class="form-check-input" type="checkbox" id="one">
-                                <label class="form-check-label verticalAlignTop" for="one"> &nbsp;Jacob</label>
-                            </div>
-                        </td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-
-                        <th>1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check height20Pixel">
-                                <input class="form-check-input" type="checkbox" id="one">
-                                <label class="form-check-label verticalAlignTop" for="one"> &nbsp;Larry</label>
-                            </div>
-                        </td>
-                        <td>Larry the Bird</td>
-
-                        <th>1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-
-                    </tr>*@
-            </tbody>
-        </table>
+    <div id="grid1" class="col-xs-12">
+        @Html.Partial("Partial_VehicalGridList")
     </div>
+
 </div>
 
 <div id="mdlEditEmployee" class="modal fade" style="margin-left: 20%;padding-top: 50px;width: 60%;" data-backdrop="static" data-keyboard="false" role="dialog">
 </div>
+<div id="mdlAddEmployee" class="modal fade" style="margin-left: 20%;padding-top: 50px;width: 60%;" data-backdrop="static" data-keyboard="false" role="dialog">
+</div>
+<script>
+    var str = window.location.href;
+    var lastLetter = str[str.length], i, temp;
+    var con = "";
+    $("#selectAll").change(function () {
+
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+    for (i = 0; i < str.length; i++) {
+        if (str[i] == '=') {
+            myfun(i);
+            break;
+        }
+    }
+
+    function myfun(temp) {
+
+        temp = temp + 1;
+        for (i = temp; i < [str.length]; i++) {
+
+            con = con + str[i];
+        }
+        parseInt(con);
+
+    }
+
+    $('#txtName').keyup(function () {
+
+                $('#pageLoader').show();
+
+                $.ajax({
+                    url: "@Url.Action("LoadVehicle", "Master")",
+                    contentType: "application/json",
+                    data: JSON.stringify({ page: con, Name: $('#txtName').val() }),
+                    dataType: "text",
+                    type: "POST",
+                    async: true,
+                    success: function (data) {
+                        $('#grid1').html(data);
+
+                    },
+                    error: function (data) {
+                        $('#pageLoader').hide();
+                    },
+                    complete: function () {
+                        $('#pageLoader').hide();
+                    }
+                });
+
+    });
+
+
+
+
+
+
+
+</script>

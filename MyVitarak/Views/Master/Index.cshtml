@@ -20,11 +20,11 @@
                         <label class="form-check-label verticalAlignTop" for="selectAll">1</label>
                     </div>
                 </div>
-                <button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
+                @*<button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
                 <button type=button class="btn btn-default"><i class="fa fa-envelope" aria-hidden="true"></i> Send email</button>
-                <button type=button class="btn btn-default"><i class="fa fa-tag" aria-hidden="true"></i> Add tags</button>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More <!--span class="caret"></span--></button>
+                <button type=button class="btn btn-default"><i class="fa fa-tag" aria-hidden="true"></i> Add tags</button>*@
+                @*<div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More span class="caret"></span</button>
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -32,14 +32,14 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Separated link</a></li>
                     </ul>
-                </div>
+                </div>*@
             </div>
         </div>
         <form class="navbar-form pull-left marginTop0">
             <input type="text" id="txtsearch" class="form-control" placeholder="Search...">
         </form>
 
-        <div class="btn-group pull-right">
+        @*<div class="btn-group pull-right">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-window-maximize" aria-hidden="true"></i> <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li><a href="#">Action</a></li>
@@ -48,7 +48,7 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Separated link</a></li>
             </ul>
-        </div>
+        </div>*@
         <a class="btn btn-primary pull-right marginRight15px" href="@Url.Action("importexcel", "Master",new {@Mastername = "ProductMaster"})"><i class="fa fa-download" aria-hidden="true"> </i> Import</a>
         <button type="button" class="btn btn-primary dropdown-toggle pull-right marginRight15px" href="@Url.Action("Add_Product", "Master")" data-toggle="modal" data-target="#mdlAddProduct"><i class="fa fa-plus" aria-hidden="true"></i> Products</button>
 

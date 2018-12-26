@@ -35,8 +35,8 @@ namespace MyVitarak.Controllers
 
             JobDbContext _db = new JobDbContext();
             var pageIndex = (page ?? 1);
-            const int pageSize = 20;
-            int totalCount = 20;
+            const int pageSize = 11;
+            int totalCount = 11;
             ProductDetails Ulist = new ProductDetails();
 
             IEnumerable<ProductDetails> result = _db.ProductDetails.SqlQuery(@"exec GetProductList
@@ -421,7 +421,7 @@ namespace MyVitarak.Controllers
 
             JobDbContext _db = new JobDbContext();
             var pageIndex = (page ?? 1);
-            const int pageSize = 20;
+            const int pageSize = 11;
             int totalCount = 8;
             EmployeeDetails Ulist = new EmployeeDetails();
             if (Name == null) Name = "";
@@ -541,7 +541,29 @@ namespace MyVitarak.Controllers
                : View("EditEmployee", md);
         }
 
+        [HttpPost]
+        public ActionResult UpdateEmployee(Employee up)
+        {
+            JobDbContext _db = new JobDbContext();
 
+            try
+            {
+                var result = _db.Database.ExecuteSqlCommand(@"exec uspUpdateEmployee @EmployeeID,@EmployeeName,@Address,@AreaID,@Mobile",
+                    new SqlParameter("@EmployeeID", up.EmployeeID),
+                     new SqlParameter("@EmployeeName", up.EmployeeName),
+                    new SqlParameter("@Address", up.Address),
+                    new SqlParameter("@AreaID", up.AreaID),
+                    new SqlParameter("@Mobile", up.Mobile));
+                return Json("Data Updated Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = string.Format("<b>Message:</b> {0}<br /><br />", ex.Message);
+                return Json(up, JsonRequestBehavior.AllowGet);
+
+            }
+
+        }
 
 
 
@@ -811,7 +833,7 @@ namespace MyVitarak.Controllers
 
             JobDbContext _db = new JobDbContext();
             var pageIndex = (page ?? 1);
-            const int pageSize = 20;
+            const int pageSize = 11;
             int totalCount = 5;
             OpeningBalanceDeatils Ulist = new OpeningBalanceDeatils();
 
@@ -849,7 +871,7 @@ namespace MyVitarak.Controllers
 
             JobDbContext _db = new JobDbContext();
             var pageIndex = (page ?? 1);
-            const int pageSize = 20;
+            const int pageSize = 11;
             int totalCount = 8;
             OpeningBalanceDeatils Ulist = new OpeningBalanceDeatils();
             if (Name == null) Name = "";
@@ -982,8 +1004,8 @@ namespace MyVitarak.Controllers
 
             JobDbContext _db = new JobDbContext();
             var pageIndex = (page ?? 1);
-            const int pageSize = 20;
-            int totalCount = 20;
+            const int pageSize = 11;
+            int totalCount = 11;
             SupplierDetails Ulist = new SupplierDetails();
 
             IEnumerable<SupplierDetails> result = _db.SupplierDetails.SqlQuery(@"exec GetSupplierList
@@ -1321,7 +1343,7 @@ namespace MyVitarak.Controllers
         public ActionResult IndexForAreaMaster(int? page, string aname = "")
         {
             StaticPagedList<RouteDetails> itemsAsIPagedList;
-            itemsAsIPagedList = AeraGridList(page,aname);
+            itemsAsIPagedList = AeraGridList(page, aname);
             //Session["MasterName"] = "AreaMaster";
             return Request.IsAjaxRequest()
                     ? (ActionResult)PartialView("IndexForAreaMaster", itemsAsIPagedList)
@@ -1331,7 +1353,7 @@ namespace MyVitarak.Controllers
         public ActionResult LoadDataForArea(int? page, string aname = "")
         {
             StaticPagedList<RouteDetails> itemsAsIPagedList;
-            itemsAsIPagedList = AeraGridList(page,aname);
+            itemsAsIPagedList = AeraGridList(page, aname);
             //  Session["MasterName"] = "AreaMaster";
             return Request.IsAjaxRequest()
                     ? (ActionResult)PartialView("_partialGridAreaMaster", itemsAsIPagedList)
@@ -1365,13 +1387,13 @@ namespace MyVitarak.Controllers
         }
 
 
-        public StaticPagedList<RouteDetails> AeraGridList(int? page,string aname = "")
+        public StaticPagedList<RouteDetails> AeraGridList(int? page, string aname = "")
         {
 
             JobDbContext _db = new JobDbContext();
             var pageIndex = (page ?? 1);
-            const int pageSize = 20;
-            int totalCount = 20;
+            const int pageSize = 10;
+            int totalCount = 10;
             RouteDetails Ulist = new RouteDetails();
 
             IEnumerable<RouteDetails> result = _db.RouteDetails.SqlQuery(@"exec GetAreaList
@@ -1439,7 +1461,7 @@ namespace MyVitarak.Controllers
                 {
                     return Json("Data Updated Sucessfully");
                 }
-                                                          
+
 
             }
             catch (Exception ex)
@@ -1532,9 +1554,8 @@ namespace MyVitarak.Controllers
                : Json(messege);
 
             }
-
-
         }
+
 
         [HttpGet]
         [ActionName("Download")]
@@ -1605,6 +1626,427 @@ namespace MyVitarak.Controllers
             }
 
         }
+
+
+
+        public ActionResult IndexForCustomerMaster(int? page)
+        {
+            StaticPagedList<CustomerDetails> itemsAsIPagedList;
+            itemsAsIPagedList = CustomerGridList(page);
+
+            Session["MasterName"] = "CustomerMaster";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("IndexForCustomerMaster", itemsAsIPagedList)
+                    : View("IndexForCustomerMaster", itemsAsIPagedList);
+        }
+
+        public StaticPagedList<CustomerDetails> CustomerGridList(int? page)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            var pageIndex = (page ?? 1);
+            const int pageSize = 20;
+            int totalCount = 8;
+            CustomerDetails Ulist = new CustomerDetails();
+
+            IEnumerable<CustomerDetails> result = _db.CustomerDetails.SqlQuery(@"exec GetCustomerList
+                   @pPageIndex, @pPageSize",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize)
+
+               ).ToList<CustomerDetails>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
+            {
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
+            }
+            var itemsAsIPagedList = new StaticPagedList<CustomerDetails>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
+
+
+
+        }
+
+        [HttpGet]
+        public ActionResult Add_Customer()
+        {
+            ViewData["Area"] = binddropdown("Area", 0);
+            ViewData["Employee"] = binddropdown("Employee", 0);
+            ViewData["Vehicle"] = binddropdown("Vehicle", 0);
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddCustomer(Customer pm)
+        {
+            JobDbContext _db = new JobDbContext();
+
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_CustomerMast_Insert @CustomerName,@Address,@AreaID,@Mobile,@EmployeeId,@VehicleID,@isActive,@BillRequired,@DeliveryCharges",
+                    new SqlParameter("@CustomerName", pm.CustomerName),
+                    new SqlParameter("@Address", pm.Address),
+                      new SqlParameter("@AreaID", pm.AreaID),
+                    new SqlParameter("@Mobile", pm.Mobile),
+                    new SqlParameter("@EmployeeId", pm.SalesPersonID),
+                    new SqlParameter("@VehicleID", pm.VehicleID),
+                    new SqlParameter("@isActive", 1),
+                    new SqlParameter("@BillRequired", pm.isBillRequired),
+                    new SqlParameter("@DeliveryCharges", pm.DeliveryCharges)
+                    );
+
+                return Json("Data Added Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+            }
+        }
+
+        public ActionResult EditCustomer(int CustomerID)
+        {
+            JobDbContext _db = new JobDbContext();
+            CustomerList md = new CustomerList();
+            var result = _db.CustomerList.SqlQuery(@"exec UC_Select_CustomerMast_By_CustomerID @CustomerID
+                ",
+                new SqlParameter("@CustomerID", CustomerID)).ToList<CustomerList>();
+            md = result.FirstOrDefault();
+            ViewData["Area"] = binddropdown("Area", 0);
+            ViewData["Employee"] = binddropdown("Employee", 0);
+            ViewData["Vehicle"] = binddropdown("Vehicle", 0);
+            return Request.IsAjaxRequest()
+               ? (ActionResult)PartialView("EditCustomer", md)
+               : View("EditCustomer", md);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateCustomer(CustomerList pm)
+        {
+            JobDbContext _db = new JobDbContext();
+
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_UpdateCustomerMast @CustomerID,@CustomerName,@Address,@AreaID,@Mobile,@EmployeeId,@VehicleID,@isActive,@BillRequired,@DeliveryCharges",
+                     new SqlParameter("@CustomerID", pm.CustomerID),
+                    new SqlParameter("@CustomerName", pm.CustomerName),
+                    new SqlParameter("@Address", pm.Address),
+                      new SqlParameter("@AreaID", pm.AreaID),
+                    new SqlParameter("@Mobile", pm.Mobile),
+                    new SqlParameter("@EmployeeId", pm.SalesPersonID),
+                    new SqlParameter("@VehicleID", pm.VechicleID),
+                    new SqlParameter("@isActive", 1),
+                    new SqlParameter("@BillRequired", pm.isBillRequired),
+                    new SqlParameter("@DeliveryCharges", pm.DeliveryCharges)
+                    );
+
+                return Json("Data Updated Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = string.Format("<b>Message:</b> {0}<br /><br />", ex.Message);
+                return Json(pm, JsonRequestBehavior.AllowGet);
+
+            }
+
+
+
+        }
+
+        [HttpPost]
+        public ActionResult DeleteCustomer(int? CustomerID)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_CustomerMast_DeleteByPK @CustomerID",
+                    new SqlParameter("@CustomerID", CustomerID));
+
+                return Json("Data Deleted Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SaveCustomerExcelData(List<Customer> SaveCustomerData)
+        {
+            try
+            {
+                JobDbContext _db = new JobDbContext();
+
+                if (SaveCustomerData.Count > 0)
+                {
+
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("CustomerID", typeof(int));
+                    dt.Columns.Add("CustomerName", typeof(string));
+                    dt.Columns.Add("Address", typeof(string));
+                    dt.Columns.Add("Mobile", typeof(string));
+                    dt.Columns.Add("AreaID", typeof(int));
+                    dt.Columns.Add("SalesPersonID", typeof(int));
+                    dt.Columns.Add("VehicleID", typeof(int));
+                    dt.Columns.Add("CustomerTypeId", typeof(int));
+                    dt.Columns.Add("CustomerNameEnglish", typeof(string));
+                    dt.Columns.Add("LastUpdatedDate", typeof(DateTime));
+                    dt.Columns.Add("isBillRequired", typeof(Boolean));
+                    dt.Columns.Add("isActive", typeof(Boolean));
+                    dt.Columns.Add("DeliveryCharges", typeof(decimal));
+                    foreach (var item in SaveCustomerData)
+                    {
+                        DataRow dr = dt.NewRow();
+                        dr["CustomerID"] = 105;
+                        dr["CustomerName"] = item.CustomerName;
+                        dr["Address"] = item.Address;
+                        dr["Mobile"] = item.Mobile;
+                        dr["AreaID"] = item.AreaID;
+                        dr["SalesPersonID"] = item.SalesPersonID;
+                        dr["VehicleID"] = item.VehicleID;
+                        dr["CustomerTypeId"] = item.CustomerTypeId;
+                        dr["CustomerNameEnglish"] = item.CustomerNameEnglish;
+                        dr["LastUpdatedDate"] = System.DateTime.Now;
+                        dr["isBillRequired"] = item.isBillRequired;
+                        dr["isActive"] = item.isActive;
+                        dr["DeliveryCharges"] = item.DeliveryCharges;
+                        if (item.CustomerName != null)
+                        {
+                            dt.Rows.Add(dr);
+                        }
+                    }
+
+                    SqlParameter tvpParam = new SqlParameter();
+                    tvpParam.ParameterName = "@CustomerParameters";
+                    tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
+                    tvpParam.Value = dt;
+                    tvpParam.TypeName = "UT_CustomerMaster";
+
+                    var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_CustomerMaster @CustomerParameters",
+                     tvpParam);
+
+                }
+                // return Request.IsAjaxRequest() ? (ActionResult)PartialView("ImportLaneRate")
+                //: View();
+                return Request.IsAjaxRequest() ? (ActionResult)Json("Excel Imported Sucessfully")
+                : Json("Excel Imported Sucessfully");
+            }
+            catch (Exception e)
+
+            {
+                var messege = e.Message;
+                return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
+               : Json(messege);
+            }
+
+        }
+
+
+
+        public ActionResult LoadDataCustomer(int? page, String Name)
+        {
+            StaticPagedList<CustomerDetails> itemsAsIPagedList;
+            itemsAsIPagedList = GridListCustomer(page, Name);
+
+            Session["MasterName"] = "CustomerMaster";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("Partial_CustomerGridList", itemsAsIPagedList)
+                    : View("Partial_CustomerGridList", itemsAsIPagedList);
+        }
+
+        public StaticPagedList<CustomerDetails> GridListCustomer(int? page, String Name)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            var pageIndex = (page ?? 1);
+            const int pageSize = 20;
+            int totalCount = 8;
+            CustomerDetails Ulist = new CustomerDetails();
+            if (Name == null) Name = "";
+
+            IEnumerable<CustomerDetails> result = _db.CustomerDetails.SqlQuery(@"exec GetCustomerList
+                   @pPageIndex, @pPageSize,@pName",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize),
+               new SqlParameter("@pName", Name)
+
+               ).ToList<CustomerDetails>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
+            {
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
+            }
+            var itemsAsIPagedList = new StaticPagedList<CustomerDetails>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
+
+
+
+        }
+
+
+        public ActionResult Sales(DateTime? date)
+        {
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+                if(date==null)
+                {
+                    date = System.DateTime.Now;
+                }
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "SalesOrder";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@pDate", date));
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+                //return Redirect("Home/SalesOrder");
+                TempData["Data"] = dt;
+                DownloadSalesExcelSheet();
+
+                return View(dt);
+            }
+
+        }
+
+
+
+        public ActionResult LoadSalesOrder(DateTime? date)
+        {
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "SalesOrder";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@pDate", date));
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+                //return Redirect("Home/SalesOrder");
+                TempData["Data"] = dt;
+                DownloadSalesExcelSheet();
+                return PartialView("Partial_LoadSalesOrder", dt);
+                // return View(dt);
+            }
+        }
+
+        [HttpGet]
+        [ActionName("Download")]
+        public void DownloadSalesExcelSheet()
+        {
+            DataTable emps = TempData["Data"] as DataTable;
+            var grid = new System.Web.UI.WebControls.GridView();
+            grid.DataSource = emps;
+            grid.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            grid.RenderControl(htw);
+            string filePath = Server.MapPath("~/SalesOrderXLSheet/" + 1 + "/generated/");
+
+            bool isExists = System.IO.Directory.Exists(filePath);
+            if (!isExists) { System.IO.Directory.CreateDirectory(filePath); }
+
+            string fileName = "SalesOrder" + ".xls";
+            // Write the rendered content to a file.
+            string renderedGridView = sw.ToString();
+            System.IO.File.WriteAllText(filePath + fileName, renderedGridView);
+
+        }
+
+
+        public ActionResult CustomerCopyRates()
+        {
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "CustomerListCopy";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+                //return Redirect("Home/SalesOrder");
+                TempData["Data"] = dt;
+                DownloadSalesExcelSheet();
+                return PartialView("Partial_CustomerCopyRates", dt);
+                // return View(dt);
+            }
+        }
+
 
     }
 }

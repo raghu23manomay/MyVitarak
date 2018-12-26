@@ -3,6 +3,7 @@
 <head>
     <title>Vitarak</title>
     <meta charset="UTF-8">
+    <link rel="icon" href="~/images/Favicon.png" type="image/gif" sizes="20x20">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/css/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
@@ -23,7 +24,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand pull-left" href="#">
+                    <img src="~/images/logo.png" style="width: initial;height: 41px;margin-top: -8px;" />
+                </a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right marginRight0px">
@@ -50,7 +53,7 @@
         <div class="nav-two navbar-blue-light">
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Customer<br /><br /></a></li>
+                    <li><a href="@Url.Action("IndexForCustomerMaster", "Master")"><div><i class="fa fa-users" aria-hidden="true"></i></div>Customer<br /><br /></a></li>
                     <li><a href="@Url.Action("IndexForAreaMaster", "Master")"><div><i class="fa fa-users" aria-hidden="true"></i></div>Area /<br />Route</a></li>
                     <li><a href="@Url.Action("OpeningBalanceIndex", "Master")"><div><i class="fa fa-users" aria-hidden="true"></i></div>Opening Balances<br /><br /></a></li>
                     <li><a href="@Url.Action("IndexForSupplierMaster", "Master")"><div><i class="fa fa-users" aria-hidden="true"></i></div>Supplier<br /><br /></a></li>
@@ -62,10 +65,10 @@
                     <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Dashboard<br /><br /></a></li>
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Purchase<br />Rates</a></li>
+                    <li><a href="@Url.Action("PurchaseRates", "Action")"><div><i class="fa fa-users" aria-hidden="true"></i></div>Purchase<br />Rates</a></li>
                     <li><a href="@Url.Action("CustomerRates", "Master")"><div><i class="fa fa-users" aria-hidden="true"></i></div>Customer<br />Rates</a></li>
-                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Purchase<br /><br /></a></li>
-                    <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Sales<br /><br /></a></li>
+                    <li><a href="@Url.Action("Purchase", "Action")"><div><i class="fa fa-users" aria-hidden="true"></i></div>Purchase<br /><br /></a></li>
+                    <li><a href="@Url.Action("Sales", "Master")"><div><i class="fa fa-users" aria-hidden="true"></i></div>Sales<br /><br /></a></li>
                 </ul>
                 <ul class="nav navbar-nav">
                     <li><a href="#"><div><i class="fa fa-users" aria-hidden="true"></i></div>Customer<br />Ledger</a></li>
@@ -98,3 +101,5 @@
 
 </body>
 </html>
+
+

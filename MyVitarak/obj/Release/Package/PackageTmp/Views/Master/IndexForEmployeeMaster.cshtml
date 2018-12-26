@@ -19,14 +19,14 @@
                 <div class="btn btn-default">
                     <div class="form-check height20Pixel">
                         <input class="form-check-input" type="checkbox" id="selectAll">
-                        <!--label class="form-check-label verticalAlignTop" for="selectAll">1</label-->
+                        <label class="form-check-label verticalAlignTop" for="selectAll">1</label>
                     </div>
                 </div>
-                <button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
+                @*<button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
                 <button type=button class="btn btn-default"><i class="fa fa-envelope" aria-hidden="true"></i> Send email</button>
                 <button type=button class="btn btn-default"><i class="fa fa-tag" aria-hidden="true"></i> Add tags</button>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More <!--span class="caret"></span--></button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More span class="caret"></span</button>
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -34,14 +34,14 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Separated link</a></li>
                     </ul>
-                </div>
+                </div>*@
             </div>
         </div>
         <form class="navbar-form pull-left marginTop0">
             <input type="text" id="txtName" class="form-control" placeholder="Search by Emp Name">
         </form>
 
-        <div class="btn-group pull-right">
+        @*<div class="btn-group pull-right">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-window-maximize" aria-hidden="true"></i> <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li class="float-right">
@@ -52,13 +52,13 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Separated link</a></li>
             </ul>
-        </div>
+        </div>*@
         <a href="@Url.Action("importexcel", "Master",new {@Mastername = Session["MasterName"]})"><button type="button" class="btn btn-primary pull-right marginRight15px"><i class="fa fa-download" aria-hidden="true"></i> Import</button></a>
         <a href="@Url.Action("Add_Employee", "Master")" data-toggle="modal" data-target="#mdlAddEmployee"><input type="button" value=" + Employees" class="btn btn-primary dropdown-toggle pull-right marginRight15px"></a>
 
 
         <nav class="pull-right marginRight15px" style="margin-top: -18px;">
-            @Html.PagedListPager((IPagedList)Model, page => Url.Action("IndexForEmployeeMaster", "Master", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 4, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "mgrid", OnComplete = "PagedOnComplete" }))
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("IndexForEmployeeMaster", "Master", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 2, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "mgrid", OnComplete = "PagedOnComplete" }))
             @if (Model.Count() == 0)
             {
                 <ul class="pagination margin0"></ul>

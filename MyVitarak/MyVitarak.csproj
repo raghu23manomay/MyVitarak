@@ -126,6 +126,8 @@
     <Content Include="images\CustomerAdd.png" />
     <Content Include="images\DashboardActual.png" />
     <Content Include="images\dashboard_1-1-1_.png" />
+    <Content Include="images\Favicon.png" />
+    <Content Include="images\logo.png" />
     <Content Include="images\Popup.png" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery-ui.min.js" />
@@ -171,6 +173,7 @@
     <Content Include="Excelsheet\Supplier_Master.xlsx" />
     <Content Include="Excelsheet\VehicalMaster.xlsx" />
     <Content Include="Excelsheet\Product_Master.xlsx" />
+    <Content Include="Excelsheet\Customer_Master.xlsx" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -186,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Global.asax.cs">
@@ -207,7 +211,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Master\IndexForEmployeeMaster.cshtml" />
     <Content Include="Views\Master\Partial_EmployeeGridList.cshtml" />
-    <Content Include="Views\Master\AddVehical.cshtml" />
     <Content Include="Views\Master\Add_Employee.cshtml" />
     <Content Include="Views\Master\Add_Vehical.cshtml" />
     <Content Include="Views\Master\CustomerRates.cshtml" />
@@ -226,6 +229,16 @@
     <Content Include="Views\Master\EditArea_Route.cshtml" />
     <Content Include="Views\Master\OpeningBalanceIndex.cshtml" />
     <Content Include="Views\Master\Partial_OpeningBalanceList.cshtml" />
+    <Content Include="Views\Action\Purchase.cshtml" />
+    <Content Include="Views\Action\PurchaseRates.cshtml" />
+    <Content Include="Views\Action\_partialPurchaseGrid.cshtml" />
+    <Content Include="Views\Master\Add_Customer.cshtml" />
+    <Content Include="Views\Master\EditCustomer.cshtml" />
+    <Content Include="Views\Master\IndexForCustomerMaster.cshtml" />
+    <Content Include="Views\Master\Partial_CustomerGridList.cshtml" />
+    <Content Include="Views\Master\Sales.cshtml" />
+    <Content Include="Views\Master\Partial_LoadSalesOrder.cshtml" />
+    <Content Include="Views\Master\Partial_CustomerCopyRates.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -236,6 +249,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomerRateXLSheet\" />
+    <Folder Include="SalesOrderXLSheet\" />
     <Folder Include="uploads\" />
   </ItemGroup>
   <PropertyGroup>

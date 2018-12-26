@@ -1,0 +1,201 @@
+<div>
+	<table cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
+		<tr>
+			<th scope="col">Sr_No</th><th scope="col">CustomerName</th><th scope="col">Area</th>
+		</tr><tr>
+			<td>1</td><td>Ritesh Baldure</td><td>दांडेकर पूल</td>
+		</tr><tr>
+			<td>2</td><td>Shivshakti</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>3</td><td>Jataramji</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>4</td><td>Saraswati Provision</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>5</td><td>Laxmi Tower</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>6</td><td>Ramdev</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>7</td><td>Shinde</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>8</td><td>Maharaj</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>9</td><td>Jai Bhawani</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>10</td><td>Tapari</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>11</td><td>Chunchune</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>12</td><td>Dhanraj Provision</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>13</td><td>Prakash Bhai</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>14</td><td>Sharmaji</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>15</td><td>Vikram Super Market</td><td>दांडेकर पूल</td>
+		</tr><tr>
+			<td>16</td><td>Swapnil</td><td>दांडेकर पूल</td>
+		</tr><tr>
+			<td>17</td><td>Ramdevji</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>18</td><td>Mess</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>19</td><td>Sagar Kadam</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>20</td><td>Pingale Mama</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>21</td><td>Vijay Pro. Stores</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>22</td><td>Bharat Baba</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>23</td><td>Charbhuja Pro.</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>24</td><td>Hanuman</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>25</td><td>Ajay</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>27</td><td>Pthan</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>28</td><td>Anil</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>29</td><td>Vaishnavi</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>30</td><td>Renuse</td><td>पानमळा</td>
+		</tr><tr>
+			<td>32</td><td>Venkatesh</td><td>पानमळा</td>
+		</tr><tr>
+			<td>33</td><td>Hanuman</td><td>पानमळा</td>
+		</tr><tr>
+			<td>34</td><td>Jagdish</td><td>पानमळा</td>
+		</tr><tr>
+			<td>35</td><td>Madina</td><td>पानमळा</td>
+		</tr><tr>
+			<td>36</td><td>Mahendraji</td><td>पानमळा</td>
+		</tr><tr>
+			<td>37</td><td>Shama</td><td>पानमळा</td>
+		</tr><tr>
+			<td>38</td><td>Kakde</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>39</td><td>Nandu Sheth</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>40</td><td>Swami Samarth</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>41</td><td>Dauji</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>42</td><td>Dipali</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>43</td><td>Ganesh Tea</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>44</td><td>Arwind</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>45</td><td>Hole</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>46</td><td>Vitthal</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>47</td><td>Gaju Ranka</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>48</td><td>Yogesh</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>49</td><td>Ajit</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>50</td><td>Sachin Dairy</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>51</td><td>Balaji</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>52</td><td>Kiran</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>53</td><td>Jai Hind</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>54</td><td>Laxmi</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>55</td><td>Anand</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>56</td><td>Rajendra</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>57</td><td>Dilasa</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>58</td><td>Asha Hotel</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>59</td><td>Asha Bekary</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>60</td><td>Dashrath Singh</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>61</td><td>Nilesh</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>62</td><td>Nilofer</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>63</td><td>Sinhgad</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>64</td><td>Leo</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>65</td><td>Amruta</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>66</td><td>Ganesh</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>67</td><td>Satish</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>68</td><td>Santosh</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>69</td><td>Yuvraj</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>70</td><td>Samarth</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>71</td><td>Sheikh</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>72</td><td>Barik New</td><td>दांडेकर पूल</td>
+		</tr><tr>
+			<td>73</td><td>More Aaji</td><td>दांडेकर पूल</td>
+		</tr><tr>
+			<td>74</td><td>Gokul 1</td><td>दांडेकर पूल</td>
+		</tr><tr>
+			<td>75</td><td>Gokul 2</td><td>दांडेकर पूल</td>
+		</tr><tr>
+			<td>76</td><td>Kamthe</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>77</td><td>Ajay Harpude</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>78</td><td>Yuvraj</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>79</td><td>Pateshwari</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>80</td><td>Bekary Pride</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>81</td><td>Balaji -  Mhatre Bridge</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>82</td><td>Bhandari</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>83</td><td>Sirvi Super Market</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>84</td><td>Mataji Prov</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>85</td><td>Madam</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>86</td><td>Bhagyashri</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>87</td><td>Shriram</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>88</td><td>Datta Sheth</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>89</td><td>Bhundaramji</td><td>गणेश मला</td>
+		</tr><tr>
+			<td>90</td><td>Sale</td><td>दांडेकर पूल</td>
+		</tr><tr>
+			<td>91</td><td>Yuvraj</td><td>म्हात्रे पूल</td>
+		</tr><tr>
+			<td>92</td><td>Deepak</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>93</td><td>Kiran Rawde</td><td>दांडेकर पूल</td>
+		</tr><tr>
+			<td>94</td><td>Fale</td><td>दत्तवाडी</td>
+		</tr><tr>
+			<td>95</td><td>Sale - Sarvan</td><td>दांडेकर पूल</td>
+		</tr><tr>
+			<td>96</td><td>Sale - Vikram</td><td>दांडेकर पूल</td>
+		</tr><tr>
+			<td>97</td><td>Pawana</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>98</td><td>Aai</td><td>आंबील ओढा</td>
+		</tr><tr>
+			<td>99</td><td>रिटेल कस्टमर</td><td>कॅश सेल</td>
+		</tr>
+	</table>
+</div>

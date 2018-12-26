@@ -177,7 +177,7 @@ namespace MyVitarak.Models
         public string Area { get; set; }
         public int SalesPersonID { get; set; }
         public string EmployeeName { get; set; }
-        public int VehicleID { get; set; }
+        public int VechicleID { get; set; }
         public string VechicleNo { get; set; }
         public int? CustomerTypeId { get; set; }
         public string CustomerType { get; set; }

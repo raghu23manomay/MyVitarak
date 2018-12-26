@@ -1,0 +1,98 @@
+﻿@using System.Data
+@model System.Data.DataTable
+
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+<div class="marginTop140 marginBottom40">
+    <div class="col-xs-12">
+        <div class="btn-toolbar pull-left" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group" role="group" aria-label="First group">
+                <div class="btn btn-default">
+                    <div class="form-check height20Pixel">
+                        <input class="form-check-input" type="checkbox" id="selectAll">
+                        <label class="form-check-label verticalAlignTop" for="selectAll">1</label>
+                    </div>
+                </div>
+                @*<button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
+                <button type=button class="btn btn-default"><i class="fa fa-envelope" aria-hidden="true"></i> Send email</button>
+                <button type=button class="btn btn-default"><i class="fa fa-tag" aria-hidden="true"></i> Add tags</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More span class="caret"></span</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>*@
+            </div>
+        </div>
+        <form class="navbar-form pull-left" style="margin-top:2px">
+            <input type="text" id="txtsearch" class="form-control" placeholder="Search...">
+        </form>
+        @*<div class="btn-group pull-right">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-window-maximize" aria-hidden="true"></i> <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>*@
+        @*<a class="btn btn-primary pull-right marginRight15px" href="@Url.Action("#", "#",new {})"><i class="fa fa-history" aria-hidden="true"> </i> Lickage</a>*@
+        <a class="btn btn-primary pull-right marginRight15px " href="~/SalesOrderXLSheet/1/generated/SalesOrder.xls"><i class="fa fa-file-excel-o" aria-hidden="true"> </i> Export</a>
+        @*<button type="button" class="btn btn-primary dropdown-toggle pull-right marginRight15px" href="@Url.Action("AddArea_Route", "Master")" data-toggle="modal" data-target="#mdlAddArea"><i class="fa fa-save" aria-hidden="true"></i> Save</button>*@
+        <input type="date" id="txtdate" class="form-control pull-right marginRight15px" style="width:162px">
+
+        @*<button type="button" class="btn btn-primary pull-right marginRight15px marginTB7px marginTop20"  onclick="SaveOpeningBalance();"><i class="fa fa-save" aria-hidden="true"></i> Save</button>*@
+
+
+
+        @*<nav class="paginationCount pull-right marginTB7px marginRight15px" style="margin-top:-20px;">
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("IndexForAreaMaster", "Master", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 2, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "mgrid", OnComplete = "PagedOnComplete" }))
+            @if (Model.Count() == 0)
+            {
+                <ul class="pagination margin0"></ul>
+            }
+        </nav>*@
+
+
+    </div>
+    <div id="grid1" class="col-xs-12"  style="overflow-x:scroll; margin-top:10px">
+        @Html.Partial("Partial_LoadSalesOrder")
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#selectAll").click(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+    });
+    $('#txtdate').on('change', function () {
+
+     $.ajax({
+            url: "@Url.Action("LoadSalesOrder", "Master")",
+         contentType: "application/json",
+         data: JSON.stringify({ date: $('#txtdate').val() }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#grid1').html(data);
+
+            },
+            error: function (data) {
+
+            },
+         complete: function () {
+
+         }
+
+        });
+    });
+
+</script>
+

@@ -1,0 +1,85 @@
+﻿
+@using System.Data
+@model System.Data.DataTable
+
+<style>
+    .Mytable {
+        width: 130%;
+        max-width: 130%;
+        margin-bottom: 20px;
+    }
+</style>
+<div class="modal-dialog" style="overflow-y:scroll">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Copy Customer Rates</h5>
+
+        </div>
+        <div class="modal-body">
+            <div class="outer" >
+                <div class="inner">
+                    <table class="table table-bordered"  >
+                        <thead>
+                            <tr>
+                            <tr>
+                                @foreach (System.Data.DataColumn col in Model.Columns)
+                                {
+
+                                    <th>@col.Caption </th>
+                                }
+                                <th>
+                                    Employee Name
+                                </th>
+                                <th>
+                                    Customer Type
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow row in Model.Rows)
+                            {
+                            <tr>
+
+                                @foreach (System.Data.DataColumn col in Model.Columns)
+                                {
+
+
+                                    var temp = row[col.ColumnName].ToString();
+                                    decimal Num = 0;
+                                    bool isNum = decimal.TryParse(temp, out Num);
+                                    if (isNum == false)
+                                    {
+                                        <td contenteditable='true'>
+                                            @row[col.ColumnName]
+                                        </td>
+                                    }
+                                    else
+                                    {
+
+
+
+                                        <td class="fix" style="width:180px;">
+                                            <input class="form-check-input" type="checkbox" id="one">
+                                            @row[col.ColumnName]
+                                        </td>
+                                    }
+
+
+                                }
+                                <td contenteditable="true"></td>
+                                <td  contenteditable="true"></td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="Close" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" id="btnsave" class="btn btn-primary">Copy</button>
+        </div>
+    </div>
+
+</div>
+

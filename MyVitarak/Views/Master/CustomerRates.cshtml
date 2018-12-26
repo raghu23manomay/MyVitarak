@@ -4,6 +4,13 @@
     ViewBag.Title = "CustomerRates";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .Mytable {
+        width: 130%;
+        max-width: 130%;
+        margin-bottom: 20px;
+    }
+</style>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <div class="marginTop140 marginBottom40">
@@ -16,11 +23,11 @@
                         <label class="form-check-label verticalAlignTop" for="selectAll">1</label>
                     </div>
                 </div>
-                <button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
+                @*<button type=button class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> Disqualify</button>
                 <button type=button class="btn btn-default"><i class="fa fa-envelope" aria-hidden="true"></i> Send email</button>
                 <button type=button class="btn btn-default"><i class="fa fa-tag" aria-hidden="true"></i> Add tags</button>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More <!--span class="caret"></span--></button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> More span class="caret"></span</button>
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -28,14 +35,15 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Separated link</a></li>
                     </ul>
-                </div>
+                </div>*@
             </div>
         </div>
         <form class="navbar-form pull-left marginTop0">
             <input type="text" class="form-control" placeholder="Search...">
         </form>
-
-        <div class="btn-group pull-right">
+       
+        <a href="@Url.Action("CustomerCopyRates", "Master")"  data-toggle="modal" data-target="#mdlEditEmployee"><button type="button" class="btn btn-primary pull-right marginRight15px"><i class="fa fa-copy" aria-hidden="true"></i> Copy CustomerRates</button></a>
+        @*<div class="btn-group pull-right">
 
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-window-maximize" aria-hidden="true"></i> <span class="caret"></span></button>
             <ul class="dropdown-menu">
@@ -45,13 +53,13 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Separated link</a></li>
             </ul>
-        </div>
+        </div>*@
         <a class="btn btn-primary pull-right marginRight15px" href="~/CustomerRateXLSheet/1/generated/CustomerRate.xls"><i class="fa fa-file-excel-o" aria-hidden="true"> </i> Export</a>
 
 
     </div>
     <div class="col-xs-12">
-        <table class="table table-bordered">
+        <table class="table table-bordered Mytable">
             <thead>
 
                 <tr>
@@ -82,8 +90,8 @@
                         {
                             if (col.Caption == "CustomerName")
                             {
-                                <td>
-                                    <div class="form-check height20Pixel" >
+                                <td style="width:180px">
+                                    <div class="form-check height20Pixel">
                                         <input class="form-check-input" type="checkbox" id="one">
                                         <label class="form-check-label verticalAlignTop" for="one"> &nbsp; @row[col.ColumnName]</label>
                                     </div>
@@ -123,6 +131,10 @@
         </table>
     </div>
 </div>
+
+<div id="mdlEditEmployee" class="modal fade" style="margin-left: 20%;padding-top: 50px;width: 60%; height:150%;" data-backdrop="static" data-keyboard="false" role="dialog">
+</div>
+
 <script>
 
     $("#selectAll").change(function () {

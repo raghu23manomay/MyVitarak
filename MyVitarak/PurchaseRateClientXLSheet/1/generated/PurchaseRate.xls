@@ -1,0 +1,23 @@
+<div>
+	<table cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
+		<tr>
+			<th scope="col">vendorname</th><th scope="col">Amul Taja</th><th scope="col">Amul Tond Milk</th><th scope="col">Amul Tond</th><th scope="col">Chitale Dudh</th><th scope="col">Gokul B</th><th scope="col">Gokul Buffelo</th><th scope="col">Gokul C</th><th scope="col">Gokul Cow</th><th scope="col">Hutatma</th><th scope="col">Katraj</th><th scope="col">Krushnai</th><th scope="col">Lassi</th><th scope="col">Ovhal</th><th scope="col">Panir</th><th scope="col">Rajhans</th><th scope="col">Shrikhand</th><th scope="col">Suyog</th><th scope="col">राघवेंद्र </th>
+		</tr><tr>
+			<td>Anand Agency</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>40.00</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>20.00</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>50.00</td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>Basaawaraj Agency</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>20.00</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>Katraj Dudh Deri</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>50.00</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>Mahalaxmi Agency</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>10.00</td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>swapnil vibhute</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>मंजुनाथ पाटिल </td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>मनोज डोमनाल</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>राघवेंद्र पांडुरंग मुदगल</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+	</table>
+</div>
